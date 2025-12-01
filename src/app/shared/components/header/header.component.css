@@ -86,10 +86,42 @@
 .btn-link {
   color: #666;
   text-decoration: none;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-link:hover {
   color: #1976d2;
+}
+
+.social-icons-group {
+  gap: 0.25rem;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background: rgba(25, 118, 210, 0.1);
+  transform: translateY(-2px);
+}
+
+.social-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.dark-mode-btn {
+  margin-left: 1.5rem;
 }
 
 .dropdown-toggle::after {
