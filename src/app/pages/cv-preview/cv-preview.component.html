@@ -1,0 +1,71 @@
+<div class="preview-container">
+  <div class="preview-header mb-4">
+    <h2 class="preview-title">Vista previa</h2>
+    <p class="preview-subtitle">
+      Completa tus datos y verás la información acá.
+    </p>
+  </div>
+
+  <div class="preview-content" *ngIf="hasData(); else emptyState">
+    <!-- Header del CV -->
+    <div class="cv-header">
+      <div class="cv-name">
+        <h1>{{ cvData.personalInfo.nombres }} {{ cvData.personalInfo.apellidos }}</h1>
+        <p class="cv-position" *ngIf="cvData.personalInfo.puesto">
+          {{ cvData.personalInfo.puesto }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Información de Contacto -->
+    <div class="cv-section" *ngIf="cvData.personalInfo.email || cvData.personalInfo.celular || cvData.personalInfo.ubicacion">
+      <div class="cv-contact">
+        <span *ngIf="cvData.personalInfo.email">{{ cvData.personalInfo.email }}</span>
+        <span *ngIf="cvData.personalInfo.celular">{{ cvData.personalInfo.celular }}</span>
+        <span *ngIf="cvData.personalInfo.ubicacion">{{ cvData.personalInfo.ubicacion }}</span>
+      </div>
+    </div>
+
+    <!-- Resumen Profesional -->
+    <div class="cv-section" *ngIf="cvData.personalInfo.resumenProfesional">
+      <h3 class="cv-section-title">Resumen Profesional</h3>
+      <p>{{ cvData.personalInfo.resumenProfesional }}</p>
+    </div>
+
+    <!-- Educación -->
+    <div class="cv-section" *ngIf="cvData.education.length > 0">
+      <h3 class="cv-section-title">Educación</h3>
+      <div *ngFor="let edu of cvData.education" class="cv-item">
+        <h4>{{ edu.titulo }}</h4>
+        <p class="cv-item-meta">
+          {{ edu.institucion }}
+          <span *ngIf="edu.ubicacion"> - {{ edu.ubicacion }}</span>
+          <span *ngIf="edu.fechaInicio"> | {{ edu.fechaInicio }}</span>
+        </p>
+        <p *ngIf="edu.descripcion">{{ edu.descripcion }}</p>
+      </div>
+    </div>
+
+    <!-- Placeholder para más secciones -->
+    <div class="cv-placeholder" *ngIf="cvData.workExperience.length === 0 && cvData.skills.length === 0">
+      <p class="text-muted">Continúa completando el formulario para ver más información aquí.</p>
+    </div>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="empty-preview">
+      <div class="empty-preview-content">
+        <i class="material-icons empty-icon">description</i>
+        <p class="empty-text">Completa el formulario para ver la vista previa de tu CV</p>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Botón de descarga -->
+  <div class="preview-actions mt-4" *ngIf="hasData()">
+    <button class="btn btn-primary btn-download" (click)="downloadCV()">
+      <i class="material-icons">download</i>
+      Descargar CV
+    </button>
+  </div>
+</div>

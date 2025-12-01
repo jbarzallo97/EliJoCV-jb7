@@ -1,0 +1,54 @@
+<header class="header-container">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <!-- Logo -->
+      <div class="col-auto">
+        <h1 class="logo mb-0">IdealResume</h1>
+      </div>
+
+      <!-- Tabs Navigation -->
+      <div class="col">
+        <nav class="tabs-nav">
+          <ul class="nav nav-tabs border-0">
+            <li class="nav-item" *ngFor="let tab of tabs">
+              <button 
+                class="nav-link"
+                [class.active]="activeTab === tab.id"
+                (click)="selectTab(tab.id)"
+                type="button">
+                <i class="material-icons">{{ tab.icon }}</i>
+                <span>{{ tab.label }}</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="col-auto d-flex align-items-center gap-3">
+        <!-- Language Selector -->
+        <div class="dropdown">
+          <button 
+            class="btn btn-link dropdown-toggle text-decoration-none"
+            type="button"
+            id="languageDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            {{ currentLanguage }} {{ currentLanguage === 'ES' ? 'Español' : 'English' }}
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+            <li *ngFor="let lang of languages">
+              <a class="dropdown-item" (click)="changeLanguage(lang.code)">{{ lang.name }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Dark Mode Toggle -->
+        <button class="btn btn-link" type="button" title="Modo oscuro">
+          <i class="material-icons">dark_mode</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+

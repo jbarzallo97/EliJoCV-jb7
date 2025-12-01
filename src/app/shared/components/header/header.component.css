@@ -1,0 +1,98 @@
+.header-container {
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1976d2;
+  margin: 0;
+}
+
+.tabs-nav {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-tabs {
+  border: none;
+  gap: 0.5rem;
+}
+
+.nav-tabs .nav-item {
+  margin: 0;
+}
+
+.nav-tabs .nav-link {
+  border: none;
+  background: transparent;
+  color: #666;
+  padding: 0.5rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  border-radius: 0;
+  position: relative;
+}
+
+.nav-tabs .nav-link:hover {
+  color: #1976d2;
+  background: rgba(25, 118, 210, 0.05);
+}
+
+.nav-tabs .nav-link.active {
+  color: #1976d2;
+  background: transparent;
+  font-weight: 500;
+}
+
+.nav-tabs .nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #1976d2;
+}
+
+.nav-tabs .nav-link i {
+  font-size: 1.2rem;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn-link {
+  color: #666;
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  color: #1976d2;
+}
+
+.dropdown-toggle::after {
+  margin-left: 0.5rem;
+}
+
