@@ -10,6 +10,7 @@ import { CvDataService } from 'src/app/core/services/cv-data.service';
 })
 export class PersonalInfoComponent implements OnInit {
   form!: FormGroup;
+  photoPreview: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -27,12 +28,52 @@ export class PersonalInfoComponent implements OnInit {
       email: [personalInfo.email || ''],
       celular: [personalInfo.celular || ''],
       ubicacion: [personalInfo.ubicacion || ''],
-      resumenProfesional: [personalInfo.resumenProfesional || '']
+      resumenProfesional: [personalInfo.resumenProfesional || ''],
+      foto: [personalInfo.foto || '']
     });
+
+    if (personalInfo.foto) {
+      this.photoPreview = personalInfo.foto;
+    }
 
     this.form.valueChanges.subscribe(values => {
       this.cvDataService.updatePersonalInfo(values);
     });
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+
+      // Validar que sea imagen
+      if (!file.type.startsWith('image/')) {
+        alert('Por favor, selecciona una imagen válida (JPG o PNG).');
+        return;
+      }
+
+      // Máximo 5MB
+      if (file.size > 5 * 1024 * 1024) {
+        alert('La imagen es demasiado grande. Máximo 5MB.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        if (e.target?.result) {
+          this.photoPreview = e.target.result as string;
+          this.form.patchValue({ foto: this.photoPreview });
+          this.cvDataService.updatePersonalInfo({ foto: this.photoPreview });
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  removePhoto(): void {
+    this.photoPreview = null;
+    this.form.patchValue({ foto: '' });
+    this.cvDataService.updatePersonalInfo({ foto: '' });
   }
 }
 

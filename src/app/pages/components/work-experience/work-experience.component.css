@@ -12,3 +12,13 @@
   margin-bottom: 1.5rem;
 }
 
+.experience-item {
+  background: #f9f9f9;
+  border-color: #e0e0e0 !important;
+}
+
+.experience-item:hover {
+  border-color: #1976d2 !important;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
+}
+

@@ -7,7 +7,7 @@ import { CvData, PersonalInfo, WorkExperience, Education, Skill, Language, Proje
 })
 export class CvDataService {
   private readonly STORAGE_KEY = 'cv_data';
-  
+
   private cvDataSubject = new BehaviorSubject<CvData>(this.getInitialData());
   public cvData$: Observable<CvData> = this.cvDataSubject.asObservable();
 
@@ -26,7 +26,8 @@ export class CvDataService {
         email: '',
         celular: '',
         ubicacion: '',
-        resumenProfesional: ''
+        resumenProfesional: '',
+        foto: ''
       },
       workExperience: [],
       education: [],
@@ -60,6 +61,15 @@ export class CvDataService {
     this.cvDataSubject.next({
       ...current,
       workExperience: [...current.workExperience, newExperience]
+    });
+    this.saveToStorage();
+  }
+
+  setWorkExperience(experiences: WorkExperience[]): void {
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
+      workExperience: experiences
     });
     this.saveToStorage();
   }
@@ -98,6 +108,15 @@ export class CvDataService {
     this.saveToStorage();
   }
 
+  setEducation(education: Education[]): void {
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
+      education
+    });
+    this.saveToStorage();
+  }
+
   updateEducation(id: string, education: Partial<Education>): void {
     const current = this.cvDataSubject.value;
     this.cvDataSubject.next({
@@ -132,6 +151,17 @@ export class CvDataService {
     this.saveToStorage();
   }
 
+  updateSkill(id: string, skill: Partial<Skill>): void {
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
+      skills: current.skills.map(s =>
+        s.id === id ? { ...s, ...skill } : s
+      )
+    });
+    this.saveToStorage();
+  }
+
   removeSkill(id: string): void {
     const current = this.cvDataSubject.value;
     this.cvDataSubject.next({
@@ -155,6 +185,17 @@ export class CvDataService {
     this.saveToStorage();
   }
 
+  updateLanguage(id: string, language: Partial<Language>): void {
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
+      languages: current.languages.map(l =>
+        l.id === id ? { ...l, ...language } : l
+      )
+    });
+    this.saveToStorage();
+  }
+
   removeLanguage(id: string): void {
     const current = this.cvDataSubject.value;
     this.cvDataSubject.next({
@@ -174,6 +215,17 @@ export class CvDataService {
     this.cvDataSubject.next({
       ...current,
       projects: [...current.projects, newProject]
+    });
+    this.saveToStorage();
+  }
+
+  updateProject(id: string, project: Partial<Project>): void {
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
+      projects: current.projects.map(p =>
+        p.id === id ? { ...p, ...project } : p
+      )
     });
     this.saveToStorage();
   }

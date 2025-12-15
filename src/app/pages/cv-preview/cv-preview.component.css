@@ -32,11 +32,11 @@
 
 .cv-header {
   border-bottom: 3px solid #1976d2;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
-.cv-name h1 {
+.cv-name {
   font-size: 2rem;
   font-weight: 600;
   color: #212121;
@@ -47,6 +47,45 @@
   font-size: 1.1rem;
   color: #666;
   margin: 0.5rem 0 0 0;
+}
+
+.cv-photo-wrapper {
+  text-align: right;
+}
+
+.cv-photo-circle {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 4px solid #e9ecef;
+  overflow: hidden;
+}
+
+.cv-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cv-contact-bar {
+  background: #f8f9fa;
+  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #e0e0e0;
+}
+
+.cv-contact-label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #1976d2;
+  font-weight: 600;
+}
+
+.cv-contact-value {
+  display: block;
+  font-size: 0.9rem;
+  color: #424242;
 }
 
 .cv-contact {
@@ -86,6 +125,46 @@
   color: #666;
   font-size: 0.9rem;
   margin: 0 0 0.5rem 0;
+}
+
+.cv-bullet-list {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.cv-bullet-list li {
+  margin-bottom: 0.25rem;
+}
+
+.cv-sidebar-section {
+  margin-bottom: 2rem;
+  padding: 1rem 1.25rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.cv-sidebar-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1976d2;
+  margin-bottom: 0.75rem;
+}
+
+.cv-sidebar-item {
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.cv-sidebar-item-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+}
+
+.cv-link {
+  font-size: 0.8rem;
+  word-break: break-all;
 }
 
 .cv-placeholder {

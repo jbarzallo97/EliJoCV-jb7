@@ -29,13 +29,24 @@ export class CvPreviewComponent implements OnInit {
   hasData(): boolean {
     const { personalInfo, workExperience, education, skills, languages, projects } = this.cvData;
     return !!(
-      personalInfo.nombres || 
-      personalInfo.apellidos || 
-      workExperience.length > 0 || 
+      personalInfo.nombres ||
+      personalInfo.apellidos ||
+      workExperience.length > 0 ||
       education.length > 0 ||
       skills.length > 0 ||
       languages.length > 0 ||
       projects.length > 0
     );
+  }
+
+  formatBulletLines(text?: string | null): string[] {
+    if (!text) {
+      return [];
+    }
+    return text
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => !!line)
+      .map(line => line.replace(/^-+\s*/, ''));
   }
 }

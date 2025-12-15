@@ -46,8 +46,6 @@ export class EducationComponent implements OnInit {
       id: [education?.id || this.generateId()],
       institucion: [education?.institucion || '', Validators.required],
       titulo: [education?.titulo || '', Validators.required],
-      fechaInicio: [education?.fechaInicio || '', Validators.required],
-      fechaFin: [education?.fechaFin || ''],
       enCurso: [education?.enCurso || false],
       ubicacion: [education?.ubicacion || ''],
       promedio: [education?.promedio || ''],
@@ -71,32 +69,8 @@ export class EducationComponent implements OnInit {
   }
 
   private saveEducations(): void {
-    const educations = this.educationItems.value;
-    educations.forEach((edu: any) => {
-      if (edu.id) {
-        this.cvDataService.updateEducation(edu.id, {
-          institucion: edu.institucion,
-          titulo: edu.titulo,
-          fechaInicio: edu.fechaInicio,
-          fechaFin: edu.fechaFin,
-          enCurso: edu.enCurso,
-          ubicacion: edu.ubicacion,
-          promedio: edu.promedio,
-          descripcion: edu.descripcion
-        });
-      } else {
-        this.cvDataService.addEducation({
-          institucion: edu.institucion,
-          titulo: edu.titulo,
-          fechaInicio: edu.fechaInicio,
-          fechaFin: edu.fechaFin,
-          enCurso: edu.enCurso,
-          ubicacion: edu.ubicacion,
-          promedio: edu.promedio,
-          descripcion: edu.descripcion
-        });
-      }
-    });
+    const educations = this.educationItems.value as Education[];
+    this.cvDataService.setEducation(educations);
   }
 
   private generateId(): string {

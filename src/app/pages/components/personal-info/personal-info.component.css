@@ -54,3 +54,53 @@ textarea.form-control {
   min-height: 100px;
 }
 
+/* Foto de perfil */
+.profile-photo-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-photo-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 4px solid #e9ecef;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.profile-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  color: #adb5bd;
+}
+
+.profile-photo-placeholder i {
+  font-size: 3rem;
+}
+
+.profile-photo-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  padding: 0;
+  border: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
