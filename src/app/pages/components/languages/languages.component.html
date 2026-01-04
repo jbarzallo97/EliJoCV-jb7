@@ -1,5 +1,54 @@
 <div class="form-section">
   <h3 class="form-section-title">Idiomas</h3>
-  <p class="text-muted">Próximamente...</p>
+
+  <form [formGroup]="form">
+    <div formArrayName="languages">
+      <div
+        *ngFor="let lang of languagesArray.controls; let i = index"
+        [formGroupName]="i"
+        class="language-item mb-3">
+
+        <div class="row g-2 align-items-center">
+          <div class="col-md-8">
+            <label class="form-label mb-1">Idioma *</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="idioma"
+              placeholder="Ej: Español, Inglés">
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label mb-1">Nivel</label>
+            <select class="form-select" formControlName="nivel">
+              <option *ngFor="let nivel of niveles" [value]="nivel.value">
+                {{ nivel.label }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="text-end mt-2">
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-danger"
+            (click)="removeLanguage(i)"
+            *ngIf="languagesArray.length > 1">
+            Eliminar idioma
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-end mt-3">
+      <button
+        type="button"
+        class="btn btn-primary d-inline-flex align-items-center gap-2 px-4"
+        (click)="addLanguage()">
+        <i class="material-icons" style="font-size: 20px;">add</i>
+        <!-- Agregar idioma -->
+      </button>
+    </div>
+  </form>
 </div>
 

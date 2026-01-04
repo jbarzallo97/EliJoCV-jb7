@@ -151,6 +151,15 @@ export class CvDataService {
     this.saveToStorage();
   }
 
+  setSkills(skills: Skill[]): void {
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
+      skills
+    });
+    this.saveToStorage();
+  }
+
   updateSkill(id: string, skill: Partial<Skill>): void {
     const current = this.cvDataSubject.value;
     this.cvDataSubject.next({
@@ -181,6 +190,15 @@ export class CvDataService {
     this.cvDataSubject.next({
       ...current,
       languages: [...current.languages, newLanguage]
+    });
+    this.saveToStorage();
+  }
+
+  setLanguages(languages: Language[]): void {
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
+      languages
     });
     this.saveToStorage();
   }

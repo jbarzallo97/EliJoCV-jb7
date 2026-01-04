@@ -1,5 +1,63 @@
 <div class="form-section">
   <h3 class="form-section-title">Habilidades</h3>
-  <p class="text-muted">Próximamente...</p>
+
+  <form [formGroup]="form">
+    <div formArrayName="skills">
+      <div
+        *ngFor="let skill of skillsArray.controls; let i = index"
+        [formGroupName]="i"
+        class="skill-item mb-3">
+
+        <div class="row g-2 align-items-center">
+          <div class="col-md-6">
+            <label class="form-label mb-1">Habilidad *</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="nombre"
+              placeholder="Ej: Angular, Nest.js, Comunicación">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label mb-1">Nivel</label>
+            <select class="form-select" formControlName="nivel">
+              <option *ngFor="let nivel of niveles" [value]="nivel.value">
+                {{ nivel.label }}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label mb-1">Categoría</label>
+            <select class="form-select" formControlName="categoria">
+              <option *ngFor="let cat of categorias" [value]="cat.value">
+                {{ cat.label }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="text-end mt-2">
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-danger"
+            (click)="removeSkill(i)"
+            *ngIf="skillsArray.length > 1">
+            Eliminar habilidad
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-end mt-3">
+      <button
+        type="button"
+        class="btn btn-primary d-inline-flex align-items-center gap-2 px-4"
+        (click)="addSkill()">
+        <i class="material-icons" style="font-size: 20px;">add</i>
+        <!-- Agregar habilidad -->
+      </button>
+    </div>
+  </form>
 </div>
 
