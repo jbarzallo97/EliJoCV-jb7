@@ -237,6 +237,15 @@ export class CvDataService {
     this.saveToStorage();
   }
 
+  setProjects(projects: Project[]): void {
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
+      projects
+    });
+    this.saveToStorage();
+  }
+
   updateProject(id: string, project: Partial<Project>): void {
     const current = this.cvDataSubject.value;
     this.cvDataSubject.next({
