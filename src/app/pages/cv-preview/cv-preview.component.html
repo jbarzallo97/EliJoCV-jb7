@@ -7,64 +7,65 @@
   </div>
 
   <div class="preview-content" *ngIf="hasData(); else emptyState">
-    <!-- Páginas A4 apiladas (como Word). El scroll es del panel, no de la hoja. -->
-    <div class="cv-pages">
-      <div class="a4-page" *ngFor="let p of pages; let pageIndex = index">
-        <div class="a4-inner">
-          <!-- Header SOLO en la primera página -->
-          <ng-container *ngIf="pageIndex === 0">
-            <div class="cv-first-page-header" #firstPageHeader>
-              <!-- Header: Nombre, puesto y foto -->
-              <div class="cv-header row align-items-center">
-                <div class="col-md-8">
-                  <h1 class="cv-name">
-                    {{ cvData.personalInfo.nombres }} {{ cvData.personalInfo.apellidos }}
-                  </h1>
-                  <p class="cv-position" *ngIf="cvData.personalInfo.puesto">
-                    {{ cvData.personalInfo.puesto }}
-                  </p>
+    <ng-container *ngIf="previewReady">
+      <!-- Páginas A4 apiladas (como Word). El scroll es del panel, no de la hoja. -->
+      <div class="cv-pages">
+        <div class="a4-page" *ngFor="let p of pages; let pageIndex = index">
+          <div class="a4-inner">
+            <!-- Header SOLO en la primera página -->
+            <ng-container *ngIf="pageIndex === 0">
+              <div class="cv-first-page-header" #firstPageHeader>
+                <!-- Header: Nombre, puesto y foto -->
+                <div class="cv-header row align-items-center">
+                  <div class="col-md-8">
+                    <h1 class="cv-name">
+                      {{ cvData.personalInfo.nombres }} {{ cvData.personalInfo.apellidos }}
+                    </h1>
+                    <p class="cv-position" *ngIf="cvData.personalInfo.puesto">
+                      {{ cvData.personalInfo.puesto }}
+                    </p>
+                  </div>
+                  <div class="col-md-4 text-md-end" *ngIf="cvData.personalInfo.foto">
+                    <div class="cv-photo-wrapper d-inline-block">
+                      <div class="cv-photo-circle">
+                        <img [src]="cvData.personalInfo.foto" alt="Foto de perfil" class="cv-photo-img">
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-md-4 text-md-end" *ngIf="cvData.personalInfo.foto">
-                  <div class="cv-photo-wrapper d-inline-block">
-                    <div class="cv-photo-circle">
-                      <img [src]="cvData.personalInfo.foto" alt="Foto de perfil" class="cv-photo-img">
+
+                <!-- Barra de contacto -->
+                <div
+                  class="cv-contact-bar mt-3"
+                  *ngIf="cvData.personalInfo.email || cvData.personalInfo.celular || cvData.personalInfo.ubicacion">
+                  <div class="row text-center text-md-start gy-2">
+                    <div class="col-md-4" *ngIf="cvData.personalInfo.email">
+                      <span class="cv-contact-label">Email</span>
+                      <span class="cv-contact-value">{{ cvData.personalInfo.email }}</span>
+                    </div>
+                    <div class="col-md-4" *ngIf="cvData.personalInfo.celular">
+                      <span class="cv-contact-label">Celular</span>
+                      <span class="cv-contact-value">{{ cvData.personalInfo.celular }}</span>
+                    </div>
+                    <div class="col-md-4" *ngIf="cvData.personalInfo.ubicacion">
+                      <span class="cv-contact-label">Ubicación</span>
+                      <span class="cv-contact-value">{{ cvData.personalInfo.ubicacion }}</span>
                     </div>
                   </div>
                 </div>
               </div>
+            </ng-container>
 
-              <!-- Barra de contacto -->
-              <div
-                class="cv-contact-bar mt-3"
-                *ngIf="cvData.personalInfo.email || cvData.personalInfo.celular || cvData.personalInfo.ubicacion">
-                <div class="row text-center text-md-start gy-2">
-                  <div class="col-md-4" *ngIf="cvData.personalInfo.email">
-                    <span class="cv-contact-label">Email</span>
-                    <span class="cv-contact-value">{{ cvData.personalInfo.email }}</span>
-                  </div>
-                  <div class="col-md-4" *ngIf="cvData.personalInfo.celular">
-                    <span class="cv-contact-label">Celular</span>
-                    <span class="cv-contact-value">{{ cvData.personalInfo.celular }}</span>
-                  </div>
-                  <div class="col-md-4" *ngIf="cvData.personalInfo.ubicacion">
-                    <span class="cv-contact-label">Ubicación</span>
-                    <span class="cv-contact-value">{{ cvData.personalInfo.ubicacion }}</span>
-                  </div>
-                </div>
-              </div>
+            <div class="row mt-4">
+              <div class="col-lg-8 cv-page-left" #pageLeft></div>
+              <div class="col-lg-4 cv-page-right" #pageRight></div>
             </div>
-          </ng-container>
-
-          <div class="row mt-4">
-            <div class="col-lg-8 cv-page-left" #pageLeft></div>
-            <div class="col-lg-4 cv-page-right" #pageRight></div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Flujo oculto (fuente) para paginar: se reubican bloques, no se hacen scrolls internos. -->
-    <div class="cv-flow" aria-hidden="true">
+      <!-- Flujo oculto (fuente) para paginar: se reubican bloques, no se hacen scrolls internos. -->
+      <div class="cv-flow" aria-hidden="true">
       <div class="a4-page cv-flow-page">
         <div class="a4-inner">
           <div class="row mt-4">
@@ -178,7 +179,8 @@
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </ng-container>
   </div>
 
   <ng-template #emptyState>

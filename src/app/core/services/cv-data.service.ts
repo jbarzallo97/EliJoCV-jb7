@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CvData, PersonalInfo, WorkExperience, Education, Skill, Language, Project } from '../models/cv-data.model';
 
@@ -11,7 +11,7 @@ export class CvDataService {
   private cvDataSubject = new BehaviorSubject<CvData>(this.getInitialData());
   public cvData$: Observable<CvData> = this.cvDataSubject.asObservable();
 
-  constructor() {
+  constructor(private ngZone: NgZone) {
     this.loadFromStorage();
   }
 
@@ -66,12 +66,16 @@ export class CvDataService {
   }
 
   setWorkExperience(experiences: WorkExperience[]): void {
-    const current = this.cvDataSubject.value;
-    this.cvDataSubject.next({
-      ...current,
-      workExperience: experiences
+    // Drag&drop puede disparar fuera de NgZone: garantizamos emisión dentro de Angular
+    // y clonamos el array para forzar nueva referencia.
+    this.ngZone.run(() => {
+      const current = this.cvDataSubject.value;
+      this.cvDataSubject.next({
+        ...current,
+        workExperience: [...experiences]
+      });
+      this.saveToStorage();
     });
-    this.saveToStorage();
   }
 
   updateWorkExperience(id: string, experience: Partial<WorkExperience>): void {

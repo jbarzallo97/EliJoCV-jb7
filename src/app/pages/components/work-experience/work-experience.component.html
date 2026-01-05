@@ -73,6 +73,7 @@
       <button
         type="button"
         class="btn btn-primary d-inline-flex align-items-center gap-2 px-4"
+        [disabled]="form.invalid"
         (click)="addExperience()">
         <i class="material-icons" style="font-size: 20px;">
           {{ editingIndex !== null ? 'save' : 'add' }}

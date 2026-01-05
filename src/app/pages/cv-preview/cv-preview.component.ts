@@ -11,6 +11,7 @@ import { WordGeneratorService } from '../../core/services/word-generator.service
 export class CvPreviewComponent implements OnInit {
   cvData!: CvData;
   pages: number[] = [0];
+  previewReady = true;
 
   @ViewChild('flowLeft') flowLeftRef!: ElementRef<HTMLElement>;
   @ViewChild('flowRight') flowRightRef!: ElementRef<HTMLElement>;
@@ -30,7 +31,7 @@ export class CvPreviewComponent implements OnInit {
   ngOnInit(): void {
     this.cvDataService.cvData$.subscribe(data => {
       this.cvData = data;
-      this.schedulePaginate();
+      this.rebuildPreviewThenPaginate();
     });
   }
 
@@ -88,6 +89,25 @@ export class CvPreviewComponent implements OnInit {
           this.paginateRaf = null;
           if (this.destroyed) return;
           this.ngZone.run(() => this.paginate());
+        });
+      });
+    });
+  }
+
+  private rebuildPreviewThenPaginate(): void {
+    if (this.destroyed) return;
+    // Fuerza a Angular a reconstruir el DOM del preview antes de paginar,
+    // evitando que "desaparezcan" items al reordenar/editar.
+    this.previewReady = false;
+    this.cdr.detectChanges();
+
+    this.ngZone.runOutsideAngular(() => {
+      requestAnimationFrame(() => {
+        if (this.destroyed) return;
+        this.ngZone.run(() => {
+          this.previewReady = true;
+          this.cdr.detectChanges();
+          this.schedulePaginate();
         });
       });
     });
