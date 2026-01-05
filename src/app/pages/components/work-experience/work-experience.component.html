@@ -74,7 +74,9 @@
         type="button"
         class="btn btn-primary d-inline-flex align-items-center gap-2 px-4"
         (click)="addExperience()">
-        <i class="material-icons" style="font-size: 20px;">add</i>
+        <i class="material-icons" style="font-size: 20px;">
+          {{ editingIndex !== null ? 'save' : 'add' }}
+        </i>
         {{ editingIndex !== null ? 'Guardar experiencia' : 'Agregar experiencia' }}
       </button>
     </div>
@@ -95,10 +97,10 @@
           </div>
 
           <div class="d-flex gap-2">
-            <button type="button" class="btn btn-sm btn-outline-primary" (click)="editExperience(i)">
+            <button type="button" class="btn btn-sm btn-outline-primary icon-btn" (click)="editExperience(i)">
               <i class="material-icons">edit</i>
             </button>
-            <button type="button" class="btn btn-sm btn-outline-danger" (click)="deleteExperience(i)">
+            <button type="button" class="btn btn-sm btn-outline-danger icon-btn" (click)="deleteExperience(i)">
               <i class="material-icons">delete</i>
             </button>
           </div>

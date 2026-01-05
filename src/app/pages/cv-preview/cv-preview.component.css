@@ -157,6 +157,12 @@
   border: 1px solid #e0e0e0;
 }
 
+.cv-contact-bar .row > [class*="col-"] {
+  /* Bootstrap row/cols son flex: esto permite que el contenido largo pueda encogerse y envolver,
+     evitando solapamientos entre columnas. */
+  min-width: 0;
+}
+
 .cv-contact-label {
   display: block;
   font-size: 0.75rem;
@@ -169,6 +175,8 @@
   display: block;
   font-size: 0.9rem;
   color: #424242;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .cv-contact {
