@@ -55,6 +55,9 @@
             <label class="form-check-label" for="trabajandoDraft">
               Actualmente trabajando aquí
             </label>
+            <div class="text-danger small mt-1" *ngIf="currentJobError">
+              {{ currentJobError }}
+            </div>
           </div>
         </div>
 
