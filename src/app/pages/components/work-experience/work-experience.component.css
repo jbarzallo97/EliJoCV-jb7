@@ -34,6 +34,7 @@
   border: 1px solid #e0e0e0;
   background: #fff;
   margin-bottom: 0.75rem;
+  position: relative;
 }
 
 .experience-card:hover {
@@ -53,5 +54,31 @@
   width: 34px;
   height: 34px;
   padding: 0;
+}
+
+.drag-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 0.25rem;
+  color: #8a8a8a;
+  cursor: grab;
+  user-select: none;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.2;
 }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CvDataService } from 'src/app/core/services/cv-data.service';
 import { WorkExperience } from 'src/app/core/models/cv-data.model';
 
@@ -111,6 +112,30 @@ export class WorkExperienceComponent implements OnInit {
     } else {
       this.cvDataService.setWorkExperience(this.experiences);
     }
+  }
+
+  dropExperience(event: CdkDragDrop<WorkExperience[]>): void {
+    if (event.previousIndex === event.currentIndex) return;
+    moveItemInArray(this.experiences, event.previousIndex, event.currentIndex);
+
+    // Mantener coherente el índice de edición
+    if (this.editingIndex != null) {
+      if (this.editingIndex === event.previousIndex) {
+        this.editingIndex = event.currentIndex;
+      } else if (
+        event.previousIndex < this.editingIndex &&
+        this.editingIndex <= event.currentIndex
+      ) {
+        this.editingIndex -= 1;
+      } else if (
+        event.currentIndex <= this.editingIndex &&
+        this.editingIndex < event.previousIndex
+      ) {
+        this.editingIndex += 1;
+      }
+    }
+
+    this.cvDataService.setWorkExperience(this.experiences);
   }
 
   private generateId(): string {

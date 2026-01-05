@@ -84,10 +84,17 @@
 
   <div class="mt-4" *ngIf="experiences.length > 0">
     <h4 class="list-title">Agregadas</h4>
-    <div class="experience-list">
-      <div class="experience-card" *ngFor="let exp of experiences; let i = index">
+    <div
+      class="experience-list"
+      cdkDropList
+      [cdkDropListData]="experiences"
+      (cdkDropListDropped)="dropExperience($event)">
+      <div class="experience-card" *ngFor="let exp of experiences; let i = index" cdkDrag>
         <div class="d-flex justify-content-between align-items-start">
           <div>
+            <div class="drag-handle" cdkDragHandle title="Arrastra para reordenar">
+              <i class="material-icons">drag_indicator</i>
+            </div>
             <div class="fw-semibold">
               {{ exp.empresa }} <span class="text-muted">·</span> {{ exp.puesto }}
             </div>
