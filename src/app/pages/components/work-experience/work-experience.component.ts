@@ -14,6 +14,8 @@ export class WorkExperienceComponent implements OnInit {
   experiences: WorkExperience[] = [];
   editingIndex: number | null = null;
   currentJobError: string | null = null;
+  autoSortByDate = false;
+  private manualOrderBackup: WorkExperience[] | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -82,7 +84,8 @@ export class WorkExperienceComponent implements OnInit {
       this.experiences.push(exp);
     }
 
-    this.cvDataService.setWorkExperience(this.experiences);
+    this.applyAutoSortIfEnabled();
+    this.cvDataService.setWorkExperience([...this.experiences]);
     this.form.reset({
       empresa: '',
       puesto: '',
@@ -127,9 +130,15 @@ export class WorkExperienceComponent implements OnInit {
     } else {
       this.cvDataService.setWorkExperience(this.experiences);
     }
+    // Mantener orden si está activado
+    if (this.autoSortByDate) {
+      this.applyAutoSortIfEnabled();
+      this.cvDataService.setWorkExperience([...this.experiences]);
+    }
   }
 
   dropExperience(event: CdkDragDrop<WorkExperience[]>): void {
+    if (this.autoSortByDate) return;
     if (event.previousIndex === event.currentIndex) return;
     moveItemInArray(this.experiences, event.previousIndex, event.currentIndex);
 
@@ -151,6 +160,44 @@ export class WorkExperienceComponent implements OnInit {
     }
 
     this.cvDataService.setWorkExperience(this.experiences);
+  }
+
+  toggleAutoSortByDate(enabled: boolean): void {
+    this.autoSortByDate = enabled;
+    if (enabled) {
+      // Guardar orden manual actual para poder restaurarlo
+      this.manualOrderBackup = [...this.experiences];
+      this.applyAutoSortIfEnabled();
+      this.cvDataService.setWorkExperience([...this.experiences]);
+    } else {
+      // Restaurar orden manual (si existe)
+      if (this.manualOrderBackup) {
+        this.experiences = [...this.manualOrderBackup];
+        this.manualOrderBackup = null;
+        this.cvDataService.setWorkExperience([...this.experiences]);
+      }
+    }
+  }
+
+  private applyAutoSortIfEnabled(): void {
+    if (!this.autoSortByDate) return;
+    this.experiences.sort((a, b) => {
+      // Primero los actuales
+      const aCur = !!a.actualmenteTrabajando;
+      const bCur = !!b.actualmenteTrabajando;
+      if (aCur !== bCur) return aCur ? -1 : 1;
+
+      // Luego por fecha "más reciente" (fechaFin si existe, si no fechaInicio)
+      const aDate = this.toTime(a.fechaFin || a.fechaInicio);
+      const bDate = this.toTime(b.fechaFin || b.fechaInicio);
+      return bDate - aDate;
+    });
+  }
+
+  private toTime(dateStr?: string | null): number {
+    if (!dateStr) return 0;
+    const t = Date.parse(dateStr);
+    return Number.isFinite(t) ? t : 0;
   }
 
   private generateId(): string {
