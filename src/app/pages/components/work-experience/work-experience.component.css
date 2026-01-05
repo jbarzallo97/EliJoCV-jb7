@@ -22,3 +22,27 @@
   box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
 }
 
+.list-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.experience-card {
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.experience-card:hover {
+  border-color: #1976d2;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.08);
+}
+
+.experience-card .material-icons {
+  font-size: 18px;
+  line-height: 1;
+}
+

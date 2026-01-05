@@ -23,11 +23,94 @@
 }
 
 .preview-content {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.cv-pages {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.a4-page {
+  width: 100%;
+  max-width: 210mm;
+  height: 297mm;
+  margin: 0 auto;
   background: #fff;
-  padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  min-height: 500px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.a4-inner {
+  height: 100%;
+  padding: 16mm;
+  box-sizing: border-box;
+}
+
+.a4-inner .row {
+  /* Evita que Bootstrap estire las columnas a la altura de la fila (rompe la medición) */
+  align-items: flex-start;
+}
+
+.cv-page-left,
+.cv-page-right {
+  min-height: 1px;
+}
+
+.cv-flow {
+  position: absolute;
+  left: -99999px;
+  top: 0;
+  width: 210mm;
+  height: auto;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.cv-flow-page {
+  height: auto;
+  box-shadow: none;
+  border-radius: 0;
+  overflow: visible;
+}
+
+@media print {
+  .preview-container {
+    padding: 0;
+    overflow: visible;
+    background: #fff;
+  }
+
+  .preview-header,
+  .preview-actions,
+  .cv-flow {
+    display: none !important;
+  }
+
+  .cv-pages {
+    gap: 0;
+  }
+
+  .a4-page {
+    max-width: none;
+    width: auto;
+    height: auto;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .a4-inner {
+    padding: 0;
+  }
 }
 
 .cv-header {

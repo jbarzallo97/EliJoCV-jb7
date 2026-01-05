@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CvDataService } from 'src/app/core/services/cv-data.service';
 import { WorkExperience } from 'src/app/core/models/cv-data.model';
 
@@ -10,7 +10,8 @@ import { WorkExperience } from 'src/app/core/models/cv-data.model';
 })
 export class WorkExperienceComponent implements OnInit {
   form!: FormGroup;
-  experienceItems!: FormArray;
+  experiences: WorkExperience[] = [];
+  editingIndex: number | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -18,59 +19,98 @@ export class WorkExperienceComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const experiences = this.cvDataService.getCvData().workExperience;
+    this.experiences = [...this.cvDataService.getCvData().workExperience];
 
     this.form = this.fb.group({
-      experiences: this.fb.array([])
+      empresa: ['', Validators.required],
+      puesto: ['', Validators.required],
+      fechaInicio: ['', Validators.required],
+      fechaFin: [''],
+      actualmenteTrabajando: [false],
+      descripcion: ['']
     });
 
-    this.experienceItems = this.form.get('experiences') as FormArray;
+    // Toggle fecha fin
+    this.form.get('actualmenteTrabajando')?.valueChanges.subscribe((checked: boolean) => {
+      const fechaFin = this.form.get('fechaFin');
+      if (!fechaFin) return;
+      if (checked) {
+        fechaFin.disable({ emitEvent: false });
+        fechaFin.setValue('', { emitEvent: false });
+      } else {
+        fechaFin.enable({ emitEvent: false });
+      }
+    });
+  }
 
-    if (experiences.length === 0) {
-      this.addExperience();
+  addExperience(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const value = this.form.getRawValue();
+
+    const exp: WorkExperience = {
+      id: this.editingIndex != null ? this.experiences[this.editingIndex].id : this.generateId(),
+      empresa: (value.empresa || '').trim(),
+      puesto: (value.puesto || '').trim(),
+      fechaInicio: value.fechaInicio,
+      fechaFin: value.fechaFin || '',
+      actualmenteTrabajando: !!value.actualmenteTrabajando,
+      descripcion: (value.descripcion || '').trim()
+    };
+
+    if (this.editingIndex != null) {
+      this.experiences[this.editingIndex] = exp;
+      this.editingIndex = null;
     } else {
-      experiences.forEach(exp => this.addExperience(exp));
+      this.experiences.push(exp);
     }
 
-    this.form.valueChanges.subscribe(() => {
-      this.saveExperiences();
+    this.cvDataService.setWorkExperience(this.experiences);
+    this.form.reset({
+      empresa: '',
+      puesto: '',
+      fechaInicio: '',
+      fechaFin: '',
+      actualmenteTrabajando: false,
+      descripcion: ''
     });
   }
 
-  get experiencesArray(): FormArray {
-    return this.experienceItems;
-  }
-
-  createExperienceForm(exp?: WorkExperience): FormGroup {
-    return this.fb.group({
-      id: [exp?.id || this.generateId()],
-      empresa: [exp?.empresa || '', Validators.required],
-      puesto: [exp?.puesto || '', Validators.required],
-      fechaInicio: [exp?.fechaInicio || '', Validators.required],
-      fechaFin: [exp?.fechaFin || ''],
-      actualmenteTrabajando: [exp?.actualmenteTrabajando || false],
-      descripcion: [exp?.descripcion || '']
+  editExperience(index: number): void {
+    const exp = this.experiences[index];
+    this.editingIndex = index;
+    this.form.reset({
+      empresa: exp.empresa || '',
+      puesto: exp.puesto || '',
+      fechaInicio: exp.fechaInicio || '',
+      fechaFin: exp.fechaFin || '',
+      actualmenteTrabajando: !!exp.actualmenteTrabajando,
+      descripcion: exp.descripcion || ''
     });
   }
 
-  addExperience(exp?: WorkExperience): void {
-    this.experienceItems.push(this.createExperienceForm(exp));
-  }
-
-  removeExperience(index: number): void {
-    const exp = this.experienceItems.at(index).value;
-    if (exp.id) {
+  deleteExperience(index: number): void {
+    const exp = this.experiences[index];
+    this.experiences.splice(index, 1);
+    if (this.editingIndex === index) {
+      this.editingIndex = null;
+      this.form.reset({
+        empresa: '',
+        puesto: '',
+        fechaInicio: '',
+        fechaFin: '',
+        actualmenteTrabajando: false,
+        descripcion: ''
+      });
+    }
+    if (exp?.id) {
       this.cvDataService.removeWorkExperience(exp.id);
+    } else {
+      this.cvDataService.setWorkExperience(this.experiences);
     }
-    this.experienceItems.removeAt(index);
-    if (this.experienceItems.length === 0) {
-      this.addExperience();
-    }
-  }
-
-  private saveExperiences(): void {
-    const experiences = this.experienceItems.value as WorkExperience[];
-    this.cvDataService.setWorkExperience(experiences);
   }
 
   private generateId(): string {
