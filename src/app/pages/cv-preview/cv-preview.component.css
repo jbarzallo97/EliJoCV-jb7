@@ -46,6 +46,12 @@
   overflow: hidden;
 }
 
+/* Export PDF: sin sombras ni bordes redondeados para que el recorte quede perfecto */
+:host-context(body.pdf-export) .a4-page {
+  border-radius: 0;
+  box-shadow: none;
+}
+
 .a4-inner {
   height: 100%;
   padding: 16mm;

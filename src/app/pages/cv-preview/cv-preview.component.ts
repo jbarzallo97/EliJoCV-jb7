@@ -1,7 +1,8 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { CvDataService } from '../../core/services/cv-data.service';
 import { CvData } from '../../core/models/cv-data.model';
-import { WordGeneratorService } from '../../core/services/word-generator.service';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-cv-preview',
@@ -23,7 +24,6 @@ export class CvPreviewComponent implements OnInit {
 
   constructor(
     private cvDataService: CvDataService,
-    private wordGeneratorService: WordGeneratorService,
     private cdr: ChangeDetectorRef,
     private ngZone: NgZone
   ) {}
@@ -47,8 +47,43 @@ export class CvPreviewComponent implements OnInit {
     }
   }
 
-  downloadCV(): void {
-    this.wordGeneratorService.generateWordDocument(this.cvData);
+  async downloadCV(): Promise<void> {
+    // Asegura que la paginación esté lista antes de capturar
+    this.paginate();
+    await new Promise(resolve => requestAnimationFrame(() => resolve(true)));
+
+    const pageEls = Array.from(document.querySelectorAll('.cv-pages .a4-page')) as HTMLElement[];
+    if (!pageEls.length) return;
+
+    const body = document.body;
+    body.classList.add('pdf-export');
+
+    try {
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pageWidthMm = 210;
+      const pageHeightMm = 297;
+
+      for (let i = 0; i < pageEls.length; i++) {
+        const pageEl = pageEls[i];
+
+        // Aumentar scale mejora nitidez del PDF
+        const canvas = await html2canvas(pageEl, {
+          scale: 2,
+          backgroundColor: '#ffffff'
+        });
+
+        const imgData = canvas.toDataURL('image/jpeg', 1.0);
+
+        if (i > 0) pdf.addPage();
+        pdf.addImage(imgData, 'JPEG', 0, 0, pageWidthMm, pageHeightMm);
+      }
+
+      const pi = this.cvData?.personalInfo;
+      const name = [pi?.nombres, pi?.apellidos].filter(Boolean).join(' ').trim();
+      pdf.save(name ? `CV - ${name}.pdf` : 'CV.pdf');
+    } finally {
+      body.classList.remove('pdf-export');
+    }
   }
 
   hasData(): boolean {
