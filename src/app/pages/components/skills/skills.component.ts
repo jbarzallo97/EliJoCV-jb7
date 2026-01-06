@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CvDataService } from 'src/app/core/services/cv-data.service';
 import { Skill } from 'src/app/core/models/cv-data.model';
 
@@ -10,7 +11,8 @@ import { Skill } from 'src/app/core/models/cv-data.model';
 })
 export class SkillsComponent implements OnInit {
   form!: FormGroup;
-  skillsArray!: FormArray;
+  skills: Skill[] = [];
+  editingIndex: number | null = null;
 
   niveles = [
     { value: 'basico', label: 'Básico' },
@@ -30,50 +32,72 @@ export class SkillsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const skills = this.cvDataService.getCvData().skills;
+    this.skills = [...this.cvDataService.getCvData().skills];
 
     this.form = this.fb.group({
-      skills: this.fb.array([])
+      nombre: ['', Validators.required],
+      nivel: ['intermedio', Validators.required],
+      categoria: ['tecnica', Validators.required]
     });
+  }
 
-    this.skillsArray = this.form.get('skills') as FormArray;
+  addSkill(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
-    if (skills.length === 0) {
-      this.addSkill();
+    const value = this.form.getRawValue();
+    const skill: Skill = {
+      id: this.editingIndex != null ? this.skills[this.editingIndex].id : this.generateId(),
+      nombre: (value.nombre || '').trim(),
+      nivel: value.nivel,
+      categoria: value.categoria
+    };
+
+    if (this.editingIndex != null) {
+      this.skills[this.editingIndex] = skill;
+      this.editingIndex = null;
     } else {
-      skills.forEach(skill => this.addSkill(skill));
+      this.skills.push(skill);
     }
 
-    this.form.valueChanges.subscribe(() => {
-      this.saveSkills();
+    this.cvDataService.setSkills([...this.skills]);
+
+    this.form.reset({
+      nombre: '',
+      nivel: 'intermedio',
+      categoria: 'tecnica'
     });
   }
 
-  createSkillForm(skill?: Skill): FormGroup {
-    return this.fb.group({
-      id: [skill?.id || this.generateId()],
-      nombre: [skill?.nombre || '', Validators.required],
-      nivel: [skill?.nivel || 'intermedio', Validators.required],
-      categoria: [skill?.categoria || 'tecnica', Validators.required]
+  editSkill(index: number): void {
+    const s = this.skills[index];
+    this.editingIndex = index;
+    this.form.reset({
+      nombre: s.nombre || '',
+      nivel: s.nivel || 'intermedio',
+      categoria: s.categoria || 'tecnica'
     });
   }
 
-  addSkill(skill?: Skill): void {
-    this.skillsArray.push(this.createSkillForm(skill));
-  }
-
-  removeSkill(index: number): void {
-    this.skillsArray.removeAt(index);
-    if (this.skillsArray.length === 0) {
-      this.addSkill();
+  deleteSkill(index: number): void {
+    this.skills.splice(index, 1);
+    if (this.editingIndex === index) {
+      this.editingIndex = null;
+      this.form.reset({
+        nombre: '',
+        nivel: 'intermedio',
+        categoria: 'tecnica'
+      });
     }
-    this.saveSkills();
+    this.cvDataService.setSkills([...this.skills]);
   }
 
-  private saveSkills(): void {
-    const skills = (this.skillsArray.value as Skill[])
-      .filter(skill => (skill.nombre || '').trim().length > 0);
-    this.cvDataService.setSkills(skills);
+  dropSkill(event: CdkDragDrop<Skill[]>): void {
+    if (event.previousIndex === event.currentIndex) return;
+    moveItemInArray(this.skills, event.previousIndex, event.currentIndex);
+    this.cvDataService.setSkills([...this.skills]);
   }
 
   private generateId(): string {

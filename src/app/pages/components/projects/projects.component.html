@@ -2,67 +2,51 @@
   <h3 class="form-section-title">Proyectos</h3>
 
   <form [formGroup]="form">
-    <div formArrayName="projects">
-      <div
-        *ngFor="let project of projectsArray.controls; let i = index"
-        [formGroupName]="i"
-        class="project-item mb-3">
-
-        <div class="row g-2">
-          <div class="col-md-7">
-            <label class="form-label mb-1">Nombre del proyecto <span class="required-asterisk">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="nombre"
-              placeholder="Ej: Generador de CV, CRM, API de pagos">
-          </div>
-
-          <div class="col-md-5">
-            <label class="form-label mb-1">Fecha</label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="fecha"
-              placeholder="Ej: 2025 / Ene 2026">
-          </div>
-
-          <div class="col-12">
-            <label class="form-label mb-1">URL</label>
-            <input
-              type="url"
-              class="form-control"
-              formControlName="url"
-              placeholder="https://...">
-          </div>
-
-          <div class="col-12">
-            <label class="form-label mb-1">Tecnologías (separadas por comas)</label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="tecnologiasText"
-              placeholder="Angular, Nest.js, PostgreSQL, AWS">
-          </div>
-
-          <div class="col-12">
-            <label class="form-label mb-1">Descripción</label>
-            <textarea
-              class="form-control"
-              formControlName="descripcion"
-              rows="4"
-              placeholder="- Qué hiciste\n- Qué lograste\n- Impacto/resultado"></textarea>
-          </div>
+    <div class="project-item mb-3">
+      <div class="row g-2">
+        <div class="col-md-7">
+          <label class="form-label mb-1">Nombre del proyecto <span class="required-asterisk">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="nombre"
+            placeholder="Ej: Generador de CV, CRM, API de pagos">
         </div>
 
-        <div class="text-end mt-2">
-          <button
-            type="button"
-            class="btn btn-sm btn-outline-danger"
-            (click)="removeProject(i)"
-            *ngIf="projectsArray.length > 1">
-            Eliminar proyecto
-          </button>
+        <div class="col-md-5">
+          <label class="form-label mb-1">Fecha</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="fecha"
+            placeholder="Ej: 2025 / Ene 2026">
+        </div>
+
+        <div class="col-12">
+          <label class="form-label mb-1">URL</label>
+          <input
+            type="url"
+            class="form-control"
+            formControlName="url"
+            placeholder="https://...">
+        </div>
+
+        <div class="col-12">
+          <label class="form-label mb-1">Tecnologías (separadas por comas)</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="tecnologiasText"
+            placeholder="Angular, Nest.js, PostgreSQL, AWS">
+        </div>
+
+        <div class="col-12">
+          <label class="form-label mb-1">Descripción</label>
+          <textarea
+            class="form-control"
+            formControlName="descripcion"
+            rows="4"
+            placeholder="- Qué hiciste\n- Qué lograste\n- Impacto/resultado"></textarea>
         </div>
       </div>
     </div>
@@ -71,11 +55,51 @@
       <button
         type="button"
         class="btn btn-primary d-inline-flex align-items-center gap-2 px-4"
+        [disabled]="form.invalid"
         (click)="addProject()">
-        <i class="material-icons" style="font-size: 20px;">add</i>
-        <!-- Agregar proyecto -->
+        <i class="material-icons" style="font-size: 20px;">
+          {{ editingIndex !== null ? 'save' : 'add' }}
+        </i>
+        {{ editingIndex !== null ? 'Guardar proyecto' : 'Agregar proyecto' }}
       </button>
     </div>
   </form>
+
+  <div class="mt-4" *ngIf="projects.length > 0">
+    <div class="list-header">
+      <h4 class="list-title mb-0">Agregados</h4>
+    </div>
+
+    <div
+      class="project-list"
+      cdkDropList
+      [cdkDropListData]="projects"
+      (cdkDropListDropped)="dropProject($event)">
+      <div class="project-card" *ngFor="let p of projects; let i = index" cdkDrag>
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="drag-handle" cdkDragHandle title="Arrastra para reordenar">
+              <i class="material-icons">drag_indicator</i>
+            </div>
+            <div class="fw-semibold">{{ p.nombre }}</div>
+            <div class="text-muted small">
+              <span *ngIf="p.fecha">{{ p.fecha }}</span>
+              <span *ngIf="p.url"> · {{ p.url }}</span>
+              <span *ngIf="p.tecnologias?.length"> · {{ p.tecnologias?.join(', ') }}</span>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-sm btn-outline-primary icon-btn" (click)="editProject(i)">
+              <i class="material-icons">edit</i>
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-danger icon-btn" (click)="deleteProject(i)">
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CvDataService } from 'src/app/core/services/cv-data.service';
 import { Project } from 'src/app/core/models/cv-data.model';
 
@@ -10,7 +11,8 @@ import { Project } from 'src/app/core/models/cv-data.model';
 })
 export class ProjectsComponent implements OnInit {
   form!: FormGroup;
-  projectsArray!: FormArray;
+  projects: Project[] = [];
+  editingIndex: number | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -18,70 +20,94 @@ export class ProjectsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const projects = this.cvDataService.getCvData().projects;
+    this.projects = [...this.cvDataService.getCvData().projects];
 
     this.form = this.fb.group({
-      projects: this.fb.array([])
+      nombre: ['', Validators.required],
+      fecha: [''],
+      url: [''],
+      tecnologiasText: [''],
+      descripcion: ['']
     });
+  }
 
-    this.projectsArray = this.form.get('projects') as FormArray;
+  addProject(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
-    if (projects.length === 0) {
-      this.addProject();
+    const value = this.form.getRawValue() as {
+      nombre: string;
+      fecha: string;
+      url: string;
+      tecnologiasText: string;
+      descripcion: string;
+    };
+
+    const tecnologias = (value.tecnologiasText || '')
+      .split(',')
+      .map(t => t.trim())
+      .filter(Boolean);
+
+    const project: Project = {
+      id: this.editingIndex != null ? this.projects[this.editingIndex].id : this.generateId(),
+      nombre: (value.nombre || '').trim(),
+      fecha: (value.fecha || '').trim() || undefined,
+      url: (value.url || '').trim() || undefined,
+      descripcion: (value.descripcion || '').trim() || undefined,
+      tecnologias: tecnologias.length ? tecnologias : undefined
+    };
+
+    if (this.editingIndex != null) {
+      this.projects[this.editingIndex] = project;
+      this.editingIndex = null;
     } else {
-      projects.forEach(project => this.addProject(project));
+      this.projects.push(project);
     }
 
-    this.form.valueChanges.subscribe(() => {
-      this.saveProjects();
+    this.cvDataService.setProjects([...this.projects]);
+
+    this.form.reset({
+      nombre: '',
+      fecha: '',
+      url: '',
+      tecnologiasText: '',
+      descripcion: ''
     });
   }
 
-  createProjectForm(project?: Project): FormGroup {
-    return this.fb.group({
-      id: [project?.id || this.generateId()],
-      nombre: [project?.nombre || '', Validators.required],
-      fecha: [project?.fecha || ''],
-      url: [project?.url || ''],
-      tecnologiasText: [(project?.tecnologias || []).join(', ')],
-      descripcion: [project?.descripcion || '']
+  editProject(index: number): void {
+    const p = this.projects[index];
+    this.editingIndex = index;
+    this.form.reset({
+      nombre: p.nombre || '',
+      fecha: p.fecha || '',
+      url: p.url || '',
+      tecnologiasText: (p.tecnologias || []).join(', '),
+      descripcion: p.descripcion || ''
     });
   }
 
-  addProject(project?: Project): void {
-    this.projectsArray.push(this.createProjectForm(project));
-  }
-
-  removeProject(index: number): void {
-    this.projectsArray.removeAt(index);
-    if (this.projectsArray.length === 0) {
-      this.addProject();
+  deleteProject(index: number): void {
+    this.projects.splice(index, 1);
+    if (this.editingIndex === index) {
+      this.editingIndex = null;
+      this.form.reset({
+        nombre: '',
+        fecha: '',
+        url: '',
+        tecnologiasText: '',
+        descripcion: ''
+      });
     }
-    this.saveProjects();
+    this.cvDataService.setProjects([...this.projects]);
   }
 
-  private saveProjects(): void {
-    const projects = (this.projectsArray.value as Array<Project & { tecnologiasText?: string }>)
-      .map(p => {
-        const tecnologias = (p.tecnologiasText || '')
-          .split(',')
-          .map(t => t.trim())
-          .filter(Boolean);
-
-        const cleaned: Project = {
-          id: p.id,
-          nombre: (p.nombre || '').trim(),
-          fecha: (p.fecha || '').trim() || undefined,
-          url: (p.url || '').trim() || undefined,
-          descripcion: (p.descripcion || '').trim() || undefined,
-          tecnologias: tecnologias.length ? tecnologias : undefined
-        };
-
-        return cleaned;
-      })
-      .filter(p => (p.nombre || '').trim().length > 0);
-
-    this.cvDataService.setProjects(projects);
+  dropProject(event: CdkDragDrop<Project[]>): void {
+    if (event.previousIndex === event.currentIndex) return;
+    moveItemInArray(this.projects, event.previousIndex, event.currentIndex);
+    this.cvDataService.setProjects([...this.projects]);
   }
 
   private generateId(): string {

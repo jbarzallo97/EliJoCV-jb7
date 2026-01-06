@@ -2,40 +2,24 @@
   <h3 class="form-section-title">Idiomas</h3>
 
   <form [formGroup]="form">
-    <div formArrayName="languages">
-      <div
-        *ngFor="let lang of languagesArray.controls; let i = index"
-        [formGroupName]="i"
-        class="language-item mb-3">
-
-        <div class="row g-2 align-items-center">
-          <div class="col-md-8">
-            <label class="form-label mb-1">Idioma <span class="required-asterisk">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="idioma"
-              placeholder="Ej: Español, Inglés">
-          </div>
-
-          <div class="col-md-4">
-            <label class="form-label mb-1">Nivel</label>
-            <select class="form-select" formControlName="nivel">
-              <option *ngFor="let nivel of niveles" [value]="nivel.value">
-                {{ nivel.label }}
-              </option>
-            </select>
-          </div>
+    <div class="language-item mb-3">
+      <div class="row g-2 align-items-center">
+        <div class="col-md-8">
+          <label class="form-label mb-1">Idioma <span class="required-asterisk">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="idioma"
+            placeholder="Ej: Español, Inglés">
         </div>
 
-        <div class="text-end mt-2">
-          <button
-            type="button"
-            class="btn btn-sm btn-outline-danger"
-            (click)="removeLanguage(i)"
-            *ngIf="languagesArray.length > 1">
-            Eliminar idioma
-          </button>
+        <div class="col-md-4">
+          <label class="form-label mb-1">Nivel</label>
+          <select class="form-select" formControlName="nivel">
+            <option *ngFor="let nivel of niveles" [value]="nivel.value">
+              {{ nivel.label }}
+            </option>
+          </select>
         </div>
       </div>
     </div>
@@ -44,11 +28,47 @@
       <button
         type="button"
         class="btn btn-primary d-inline-flex align-items-center gap-2 px-4"
+        [disabled]="form.invalid"
         (click)="addLanguage()">
-        <i class="material-icons" style="font-size: 20px;">add</i>
-        <!-- Agregar idioma -->
+        <i class="material-icons" style="font-size: 20px;">
+          {{ editingIndex !== null ? 'save' : 'add' }}
+        </i>
+        {{ editingIndex !== null ? 'Guardar idioma' : 'Agregar idioma' }}
       </button>
     </div>
   </form>
+
+  <div class="mt-4" *ngIf="languages.length > 0">
+    <div class="list-header">
+      <h4 class="list-title mb-0">Agregados</h4>
+    </div>
+
+    <div
+      class="language-list"
+      cdkDropList
+      [cdkDropListData]="languages"
+      (cdkDropListDropped)="dropLanguage($event)">
+      <div class="language-card" *ngFor="let l of languages; let i = index" cdkDrag>
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="drag-handle" cdkDragHandle title="Arrastra para reordenar">
+              <i class="material-icons">drag_indicator</i>
+            </div>
+            <div class="fw-semibold">{{ l.idioma }}</div>
+            <div class="text-muted small text-capitalize">{{ l.nivel }}</div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-sm btn-outline-primary icon-btn" (click)="editLanguage(i)">
+              <i class="material-icons">edit</i>
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-danger icon-btn" (click)="deleteLanguage(i)">
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 

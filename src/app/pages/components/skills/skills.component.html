@@ -2,49 +2,33 @@
   <h3 class="form-section-title">Habilidades</h3>
 
   <form [formGroup]="form">
-    <div formArrayName="skills">
-      <div
-        *ngFor="let skill of skillsArray.controls; let i = index"
-        [formGroupName]="i"
-        class="skill-item mb-3">
-
-        <div class="row g-2 align-items-center">
-          <div class="col-md-6">
-            <label class="form-label mb-1">Habilidad <span class="required-asterisk">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="nombre"
-              placeholder="Ej: Angular, Nest.js, Comunicación">
-          </div>
-
-          <div class="col-md-3">
-            <label class="form-label mb-1">Nivel</label>
-            <select class="form-select" formControlName="nivel">
-              <option *ngFor="let nivel of niveles" [value]="nivel.value">
-                {{ nivel.label }}
-              </option>
-            </select>
-          </div>
-
-          <div class="col-md-3">
-            <label class="form-label mb-1">Categoría</label>
-            <select class="form-select" formControlName="categoria">
-              <option *ngFor="let cat of categorias" [value]="cat.value">
-                {{ cat.label }}
-              </option>
-            </select>
-          </div>
+    <div class="skill-item mb-3">
+      <div class="row g-2 align-items-center">
+        <div class="col-md-6">
+          <label class="form-label mb-1">Habilidad <span class="required-asterisk">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="nombre"
+            placeholder="Ej: Angular, Nest.js, Comunicación">
         </div>
 
-        <div class="text-end mt-2">
-          <button
-            type="button"
-            class="btn btn-sm btn-outline-danger"
-            (click)="removeSkill(i)"
-            *ngIf="skillsArray.length > 1">
-            Eliminar habilidad
-          </button>
+        <div class="col-md-3">
+          <label class="form-label mb-1">Nivel</label>
+          <select class="form-select" formControlName="nivel">
+            <option *ngFor="let nivel of niveles" [value]="nivel.value">
+              {{ nivel.label }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label mb-1">Categoría</label>
+          <select class="form-select" formControlName="categoria">
+            <option *ngFor="let cat of categorias" [value]="cat.value">
+              {{ cat.label }}
+            </option>
+          </select>
         </div>
       </div>
     </div>
@@ -53,11 +37,47 @@
       <button
         type="button"
         class="btn btn-primary d-inline-flex align-items-center gap-2 px-4"
+        [disabled]="form.invalid"
         (click)="addSkill()">
-        <i class="material-icons" style="font-size: 20px;">add</i>
-        <!-- Agregar habilidad -->
+        <i class="material-icons" style="font-size: 20px;">
+          {{ editingIndex !== null ? 'save' : 'add' }}
+        </i>
+        {{ editingIndex !== null ? 'Guardar habilidad' : 'Agregar habilidad' }}
       </button>
     </div>
   </form>
+
+  <div class="mt-4" *ngIf="skills.length > 0">
+    <div class="list-header">
+      <h4 class="list-title mb-0">Agregadas</h4>
+    </div>
+
+    <div
+      class="skill-list"
+      cdkDropList
+      [cdkDropListData]="skills"
+      (cdkDropListDropped)="dropSkill($event)">
+      <div class="skill-card" *ngFor="let s of skills; let i = index" cdkDrag>
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="drag-handle" cdkDragHandle title="Arrastra para reordenar">
+              <i class="material-icons">drag_indicator</i>
+            </div>
+            <div class="fw-semibold">{{ s.nombre }}</div>
+            <div class="text-muted small text-capitalize">{{ s.nivel }} · {{ s.categoria }}</div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-sm btn-outline-primary icon-btn" (click)="editSkill(i)">
+              <i class="material-icons">edit</i>
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-danger icon-btn" (click)="deleteSkill(i)">
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 

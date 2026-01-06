@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CvDataService } from 'src/app/core/services/cv-data.service';
 import { Language } from 'src/app/core/models/cv-data.model';
 
@@ -10,7 +11,8 @@ import { Language } from 'src/app/core/models/cv-data.model';
 })
 export class LanguagesComponent implements OnInit {
   form!: FormGroup;
-  languagesArray!: FormArray;
+  languages: Language[] = [];
+  editingIndex: number | null = null;
 
   niveles = [
     { value: 'basico', label: 'Básico' },
@@ -25,49 +27,67 @@ export class LanguagesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const languages = this.cvDataService.getCvData().languages;
+    this.languages = [...this.cvDataService.getCvData().languages];
 
     this.form = this.fb.group({
-      languages: this.fb.array([])
+      idioma: ['', Validators.required],
+      nivel: ['intermedio', Validators.required]
     });
+  }
 
-    this.languagesArray = this.form.get('languages') as FormArray;
+  addLanguage(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
-    if (languages.length === 0) {
-      this.addLanguage();
+    const value = this.form.getRawValue();
+    const lang: Language = {
+      id: this.editingIndex != null ? this.languages[this.editingIndex].id : this.generateId(),
+      idioma: (value.idioma || '').trim(),
+      nivel: value.nivel
+    };
+
+    if (this.editingIndex != null) {
+      this.languages[this.editingIndex] = lang;
+      this.editingIndex = null;
     } else {
-      languages.forEach(lang => this.addLanguage(lang));
+      this.languages.push(lang);
     }
 
-    this.form.valueChanges.subscribe(() => {
-      this.saveLanguages();
+    this.cvDataService.setLanguages([...this.languages]);
+
+    this.form.reset({
+      idioma: '',
+      nivel: 'intermedio'
     });
   }
 
-  createLanguageForm(lang?: Language): FormGroup {
-    return this.fb.group({
-      id: [lang?.id || this.generateId()],
-      idioma: [lang?.idioma || '', Validators.required],
-      nivel: [lang?.nivel || 'intermedio', Validators.required]
+  editLanguage(index: number): void {
+    const l = this.languages[index];
+    this.editingIndex = index;
+    this.form.reset({
+      idioma: l.idioma || '',
+      nivel: l.nivel || 'intermedio'
     });
   }
 
-  addLanguage(lang?: Language): void {
-    this.languagesArray.push(this.createLanguageForm(lang));
-  }
-
-  removeLanguage(index: number): void {
-    this.languagesArray.removeAt(index);
-    if (this.languagesArray.length === 0) {
-      this.addLanguage();
+  deleteLanguage(index: number): void {
+    this.languages.splice(index, 1);
+    if (this.editingIndex === index) {
+      this.editingIndex = null;
+      this.form.reset({
+        idioma: '',
+        nivel: 'intermedio'
+      });
     }
-    this.saveLanguages();
+    this.cvDataService.setLanguages([...this.languages]);
   }
 
-  private saveLanguages(): void {
-    const languages = (this.languagesArray.value as Language[])
-      .filter(lang => (lang.idioma || '').trim().length > 0);
-    this.cvDataService.setLanguages(languages);
+  dropLanguage(event: CdkDragDrop<Language[]>): void {
+    if (event.previousIndex === event.currentIndex) return;
+    moveItemInArray(this.languages, event.previousIndex, event.currentIndex);
+    this.cvDataService.setLanguages([...this.languages]);
   }
 
   private generateId(): string {

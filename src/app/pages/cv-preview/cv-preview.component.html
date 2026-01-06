@@ -171,10 +171,22 @@
               <div class="cv-sidebar-section" *ngIf="cvData.projects.length > 0">
                 <h3 class="cv-sidebar-title">Proyectos</h3>
                 <div *ngFor="let project of cvData.projects" class="cv-sidebar-item">
-                  <h4 class="cv-sidebar-item-title">{{ project.nombre }}</h4>
-                  <p class="cv-item-meta" *ngIf="project.fecha">{{ project.fecha }}</p>
-                  <p *ngIf="project.descripcion">{{ project.descripcion }}</p>
-                  <a *ngIf="project.url" [href]="project.url" target="_blank" rel="noopener" class="cv-link">
+                  <h4 class="cv-sidebar-item-title d-flex justify-content-between gap-2">
+                    <span>{{ project.nombre }}</span>
+                    <span class="text-muted" *ngIf="project.fecha">{{ project.fecha }}</span>
+                  </h4>
+                  <div class="cv-item-meta" *ngIf="project.tecnologias?.length">
+                    <!-- <span class="me-1">Tecnologías:</span> -->
+                    <span class="d-inline-flex flex-wrap gap-1 align-items-center">
+                      <span
+                        *ngFor="let tech of project.tecnologias"
+                        class="badge bg-secondary">
+                        {{ tech }}
+                      </span>
+                    </span>
+                  </div>
+                  <p class="mb-1" *ngIf="project.descripcion">{{ project.descripcion }}</p>
+                  <a *ngIf="project.url" [href]="project.url" target="_blank" rel="noopener" class="cv-link d-inline-block">
                     {{ project.url }}
                   </a>
                 </div>
