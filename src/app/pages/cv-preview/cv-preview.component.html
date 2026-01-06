@@ -37,7 +37,13 @@
                 <!-- Barra de contacto -->
                 <div
                   class="cv-contact-bar mt-3"
-                  *ngIf="cvData.personalInfo.email || cvData.personalInfo.celular || cvData.personalInfo.ubicacion">
+                  *ngIf="
+                    cvData.personalInfo.email ||
+                    cvData.personalInfo.celular ||
+                    cvData.personalInfo.ubicacion ||
+                    cvData.personalInfo.nacionalidad ||
+                    cvData.personalInfo.fechaNacimiento
+                  ">
                   <div class="row text-center text-md-start gy-2">
                     <div class="col-md-4" *ngIf="cvData.personalInfo.email">
                       <span class="cv-contact-label">Email</span>
@@ -50,6 +56,20 @@
                     <div class="col-md-4" *ngIf="cvData.personalInfo.ubicacion">
                       <span class="cv-contact-label">Dirección</span>
                       <span class="cv-contact-value">{{ cvData.personalInfo.ubicacion }}</span>
+                    </div>
+                    <div class="col-md-4" *ngIf="cvData.personalInfo.nacionalidad">
+                      <span class="cv-contact-label">Nacionalidad</span>
+                      <span class="cv-contact-value">{{ cvData.personalInfo.nacionalidad }}</span>
+                    </div>
+                    <div class="col-md-4" *ngIf="cvData.personalInfo.fechaNacimiento">
+                      <span class="cv-contact-label">Fecha de nacimiento</span>
+                      <span class="cv-contact-value">{{ cvData.personalInfo.fechaNacimiento }}</span>
+                    </div>
+                    <div class="col-md-4" *ngIf="getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) !== null">
+                      <span class="cv-contact-label">Edad</span>
+                      <span class="cv-contact-value">
+                        {{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} años
+                      </span>
                     </div>
                   </div>
                 </div>

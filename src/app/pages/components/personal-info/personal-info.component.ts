@@ -11,6 +11,7 @@ import { CvDataService } from 'src/app/core/services/cv-data.service';
 export class PersonalInfoComponent implements OnInit {
   form!: FormGroup;
   photoPreview: string | null = null;
+  age: number | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -36,9 +37,28 @@ export class PersonalInfoComponent implements OnInit {
       this.photoPreview = personalInfo.foto;
     }
 
+    this.age = this.getAgeFromBirthDate(this.form.get('fechaNacimiento')?.value);
+    this.form.get('fechaNacimiento')?.valueChanges.subscribe((v) => {
+      this.age = this.getAgeFromBirthDate(v);
+    });
+
     this.form.valueChanges.subscribe(values => {
       this.cvDataService.updatePersonalInfo(values);
     });
+  }
+
+  private getAgeFromBirthDate(dateStr?: string | null): number | null {
+    if (!dateStr) return null;
+    const d = new Date(dateStr);
+    if (Number.isNaN(d.getTime())) return null;
+
+    const now = new Date();
+    let age = now.getFullYear() - d.getFullYear();
+    const m = now.getMonth() - d.getMonth();
+    if (m < 0 || (m === 0 && now.getDate() < d.getDate())) {
+      age--;
+    }
+    return age >= 0 && age <= 120 ? age : null;
   }
 
   onFileSelected(event: Event): void {
