@@ -122,6 +122,10 @@
                   <p class="cv-item-meta">
                     <span class="fw-semibold">{{ edu.titulo }}</span>
                     <span *ngIf="edu.ubicacion"> · {{ edu.ubicacion }}</span>
+                  </p>
+                  <p class="cv-item-meta">
+                    <span *ngIf="edu.fechaInicio"> {{ edu.fechaInicio }}</span>
+                    <span *ngIf="edu.fechaFin && !edu.enCurso"> - {{ edu.fechaFin }}</span>
                     <span *ngIf="edu.enCurso"> · Actualmente estudiando</span>
                   </p>
                   <p class="cv-item-meta" *ngIf="edu.promedio">
