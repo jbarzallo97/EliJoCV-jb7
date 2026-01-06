@@ -1,7 +1,7 @@
 <div class="section-tabs-container">
   <div class="section-header mb-4">
     <h2 class="section-title">
-      <i class="material-icons">menu</i>
+      <!-- <i class="material-icons">menu</i> -->
       Tu información
     </h2>
     <p class="section-subtitle">
@@ -27,19 +27,19 @@
     <ng-container [ngSwitch]="activeSection">
       <!-- Personal Info -->
       <app-personal-info *ngSwitchCase="'personal'"></app-personal-info>
-      
+
       <!-- Work Experience -->
       <app-work-experience *ngSwitchCase="'trabajo'"></app-work-experience>
-      
+
       <!-- Education -->
       <app-education *ngSwitchCase="'educacion'"></app-education>
-      
+
       <!-- Skills -->
       <app-skills *ngSwitchCase="'habilidades'"></app-skills>
-      
+
       <!-- Languages -->
       <app-languages *ngSwitchCase="'idiomas'"></app-languages>
-      
+
       <!-- Projects -->
       <app-projects *ngSwitchCase="'proyectos'"></app-projects>
     </ng-container>

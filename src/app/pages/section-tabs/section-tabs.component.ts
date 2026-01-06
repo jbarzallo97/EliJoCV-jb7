@@ -8,15 +8,15 @@ import { FormSection } from '../../core/models/cv-data.model';
 })
 export class SectionTabsComponent {
   @Output() sectionChange = new EventEmitter<FormSection>();
-  
+
   activeSection: FormSection = 'personal';
 
   sections = [
     { id: 'personal' as FormSection, label: 'Información Personal', icon: 'person' },
     { id: 'trabajo' as FormSection, label: 'Experiencia Laboral', icon: 'work' },
     { id: 'educacion' as FormSection, label: 'Educación', icon: 'school' },
-    { id: 'habilidades' as FormSection, label: 'Habilidades', icon: 'bar_chart' },
-    { id: 'idiomas' as FormSection, label: 'Idiomas', icon: 'language' },
+    { id: 'habilidades' as FormSection, label: 'Habilidades', icon: 'psychology' },
+    { id: 'idiomas' as FormSection, label: 'Idiomas', icon: 'translate' },
     { id: 'proyectos' as FormSection, label: 'Proyectos', icon: 'folder' }
   ];
 
