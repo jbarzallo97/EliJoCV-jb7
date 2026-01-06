@@ -17,6 +17,8 @@ import { PersonalInfoComponent } from './pages/components/personal-info/personal
 import { EducationComponent } from './pages/components/education/education.component';
 import { CoursesComponent } from './pages/components/courses/courses.component';
 import { ReferencesComponent } from './pages/components/references/references.component';
+import { TemplatesComponent } from './pages/templates/templates.component';
+import { CustomizeComponent } from './pages/customize/customize.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { ReferencesComponent } from './pages/components/references/references.co
     ProjectsComponent,
     EducationComponent,
     CoursesComponent,
-    ReferencesComponent
+    ReferencesComponent,
+    TemplatesComponent,
+    CustomizeComponent
   ],
   imports: [
     BrowserModule,
