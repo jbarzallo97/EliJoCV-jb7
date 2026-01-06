@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CvData, PersonalInfo, WorkExperience, Education, Skill, Language, Project } from '../models/cv-data.model';
+import { CvData, PersonalInfo, WorkExperience, Education, Course, Skill, Language, Project } from '../models/cv-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +31,7 @@ export class CvDataService {
       },
       workExperience: [],
       education: [],
+      courses: [],
       skills: [],
       languages: [],
       projects: []
@@ -137,6 +138,16 @@ export class CvDataService {
     this.cvDataSubject.next({
       ...current,
       education: current.education.filter(edu => edu.id !== id)
+    });
+    this.saveToStorage();
+  }
+
+  // Courses
+  setCourses(courses: Course[]): void {
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
+      courses
     });
     this.saveToStorage();
   }
@@ -292,7 +303,22 @@ export class CvDataService {
       const stored = localStorage.getItem(this.STORAGE_KEY);
       if (stored) {
         const data = JSON.parse(stored);
-        this.cvDataSubject.next(data);
+        const initial = this.getInitialData();
+        const merged: CvData = {
+          ...initial,
+          ...data,
+          personalInfo: {
+            ...initial.personalInfo,
+            ...(data?.personalInfo || {})
+          },
+          workExperience: Array.isArray(data?.workExperience) ? data.workExperience : [],
+          education: Array.isArray(data?.education) ? data.education : [],
+          courses: Array.isArray(data?.courses) ? data.courses : [],
+          skills: Array.isArray(data?.skills) ? data.skills : [],
+          languages: Array.isArray(data?.languages) ? data.languages : [],
+          projects: Array.isArray(data?.projects) ? data.projects : []
+        };
+        this.cvDataSubject.next(merged);
       }
     } catch (error) {
       console.error('Error cargando datos:', error);

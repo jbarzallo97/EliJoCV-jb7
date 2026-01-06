@@ -1,1 +1,108 @@
-<p>courses works!</p>
+<div class="form-section">
+  <h3 class="form-section-title">Cursos</h3>
+
+  <form [formGroup]="form">
+    <div class="course-item mb-3 p-3 border rounded">
+      <div class="row g-2">
+        <div class="col-md-7">
+          <label class="form-label mb-1">Nombre del curso <span class="required-asterisk">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="nombre"
+            placeholder="Ej: Angular Avanzado, AWS Practitioner">
+        </div>
+
+        <div class="col-md-5">
+          <label class="form-label mb-1">Fecha</label>
+          <div class="input-group">
+            <input
+              type="date"
+              class="form-control"
+              formControlName="fecha">
+            <span class="input-group-text">
+              <i class="material-icons">calendar_today</i>
+            </span>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label mb-1">Institución / Plataforma</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="institucion"
+            placeholder="Ej: Coursera, Udemy, Platzi, Universidad...">
+        </div>
+
+        <div class="col-12">
+          <label class="form-label mb-1">URL</label>
+          <input
+            type="url"
+            class="form-control"
+            formControlName="url"
+            placeholder="https://...">
+        </div>
+
+        <div class="col-12">
+          <label class="form-label mb-1">Descripción</label>
+          <textarea
+            class="form-control"
+            formControlName="descripcion"
+            rows="3"
+            placeholder="- Qué aprendiste\n- Proyecto final\n- Certificación"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-end mt-3">
+      <button
+        type="button"
+        class="btn btn-primary d-inline-flex align-items-center gap-2 px-4"
+        [disabled]="form.invalid"
+        (click)="addCourse()">
+        <i class="material-icons" style="font-size: 20px;">
+          {{ editingIndex !== null ? 'save' : 'add' }}
+        </i>
+        {{ editingIndex !== null ? 'Guardar curso' : 'Agregar curso' }}
+      </button>
+    </div>
+  </form>
+
+  <div class="mt-4" *ngIf="courses.length > 0">
+    <div class="list-header">
+      <h4 class="list-title mb-0">Agregados</h4>
+    </div>
+
+    <div
+      class="course-list"
+      cdkDropList
+      [cdkDropListData]="courses"
+      (cdkDropListDropped)="dropCourse($event)">
+      <div class="course-card" *ngFor="let c of courses; let i = index" cdkDrag>
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="drag-handle" cdkDragHandle title="Arrastra para reordenar">
+              <i class="material-icons">drag_indicator</i>
+            </div>
+            <div class="fw-semibold">{{ c.nombre }}</div>
+            <div class="text-muted small">
+              <span *ngIf="c.institucion">{{ c.institucion }}</span>
+              <span *ngIf="c.fecha"> · {{ c.fecha }}</span>
+              <span *ngIf="c.url"> · {{ c.url }}</span>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-sm btn-outline-primary icon-btn" (click)="editCourse(i)">
+              <i class="material-icons">edit</i>
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-danger icon-btn" (click)="deleteCourse(i)">
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

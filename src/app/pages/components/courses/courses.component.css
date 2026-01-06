@@ -1,0 +1,117 @@
+/* Matches the style of other editor sections */
+.form-section {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.form-section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #212121;
+  margin-bottom: 1.5rem;
+}
+
+.course-item {
+  background: #f9f9f9;
+  border-color: #e0e0e0 !important;
+}
+
+.course-item:hover {
+  border-color: #1976d2 !important;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.list-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.course-card {
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+.course-card:hover {
+  border-color: #1976d2;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.08);
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+}
+
+.drag-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 0.25rem;
+  color: #8a8a8a;
+  cursor: grab;
+  user-select: none;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.2;
+}
+
+/* Dark mode (solo editor, NO preview) */
+:host-context(body.dark-mode) .course-item {
+  background: #2a2a2a;
+  border-color: #444 !important;
+}
+
+:host-context(body.dark-mode) .course-item:hover {
+  border-color: #64b5f6 !important;
+}
+
+:host-context(body.dark-mode) .list-title {
+  color: #e0e0e0;
+}
+
+:host-context(body.dark-mode) .course-card {
+  background: #2a2a2a;
+  border-color: #444;
+}
+
+:host-context(body.dark-mode) .course-card:hover {
+  border-color: #64b5f6;
+}
+
+:host-context(body.dark-mode) .drag-handle {
+  color: #b0b0b0;
+}
+
+

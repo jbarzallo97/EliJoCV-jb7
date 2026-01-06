@@ -36,6 +36,15 @@ export interface Education {
   descripcion?: string;
 }
 
+export interface Course {
+  id: string;
+  nombre: string;
+  institucion?: string;
+  fecha?: string; // YYYY-MM-DD (input type="date")
+  url?: string;
+  descripcion?: string;
+}
+
 export interface Skill {
   id: string;
   nombre: string;
@@ -62,6 +71,7 @@ export interface CvData {
   personalInfo: PersonalInfo;
   workExperience: WorkExperience[];
   education: Education[];
+  courses: Course[];
   skills: Skill[];
   languages: Language[];
   projects: Project[];

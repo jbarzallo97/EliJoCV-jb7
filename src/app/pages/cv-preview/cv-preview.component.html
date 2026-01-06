@@ -163,6 +163,7 @@
                   </ng-container>
                 </div>
               </div>
+
             </div>
 
             <div class="col-lg-4 cv-flow-right" #flowRight>
@@ -184,6 +185,22 @@
                     <small class="text-muted text-capitalize">{{ skill.nivel }}</small>
                   </div>
                   <small class="text-muted text-capitalize">{{ skill.categoria }}</small>
+                </div>
+              </div>
+
+              <!-- Cursos -->
+              <div class="cv-sidebar-section" *ngIf="cvData.courses.length > 0">
+                <h3 class="cv-sidebar-title">Cursos</h3>
+                <div *ngFor="let c of cvData.courses; trackBy: trackById" class="cv-sidebar-item">
+                  <h4 class="cv-sidebar-item-title d-flex justify-content-between gap-2">
+                    <span>{{ c.nombre }}</span>
+                    <span class="text-muted" *ngIf="c.fecha">{{ c.fecha }}</span>
+                  </h4>
+                  <p class="cv-item-meta mb-1" *ngIf="c.institucion">{{ c.institucion }}</p>
+                  <p class="mb-1" *ngIf="c.descripcion">{{ c.descripcion }}</p>
+                  <a *ngIf="c.url" [href]="c.url" target="_blank" rel="noopener" class="cv-link d-inline-block">
+                    {{ c.url }}
+                  </a>
                 </div>
               </div>
 
