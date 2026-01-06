@@ -22,7 +22,7 @@ export class PersonalInfoComponent implements OnInit {
     this.form = this.fb.group({
       nombres: [personalInfo.nombres || ''],
       apellidos: [personalInfo.apellidos || ''],
-      cedula: [personalInfo.cedula || ''],
+      nacionalidad: [personalInfo.nacionalidad || ''],
       fechaNacimiento: [personalInfo.fechaNacimiento || ''],
       puesto: [personalInfo.puesto || ''],
       email: [personalInfo.email || ''],

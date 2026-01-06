@@ -3,7 +3,7 @@
 export interface PersonalInfo {
   nombres: string;
   apellidos: string;
-  cedula?: string;
+  nacionalidad?: string;
   fechaNacimiento?: string;
   puesto?: string;
   email?: string;

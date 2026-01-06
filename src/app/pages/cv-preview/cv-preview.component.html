@@ -44,11 +44,11 @@
                       <span class="cv-contact-value">{{ cvData.personalInfo.email }}</span>
                     </div>
                     <div class="col-md-4" *ngIf="cvData.personalInfo.celular">
-                      <span class="cv-contact-label">Celular</span>
+                      <span class="cv-contact-label">Número de teléfono</span>
                       <span class="cv-contact-value">{{ cvData.personalInfo.celular }}</span>
                     </div>
                     <div class="col-md-4" *ngIf="cvData.personalInfo.ubicacion">
-                      <span class="cv-contact-label">Ubicación</span>
+                      <span class="cv-contact-label">Dirección</span>
                       <span class="cv-contact-value">{{ cvData.personalInfo.ubicacion }}</span>
                     </div>
                   </div>
@@ -72,7 +72,7 @@
             <div class="col-lg-8 cv-flow-left" #flowLeft>
               <!-- Resumen Profesional -->
               <div class="cv-section" *ngIf="cvData.personalInfo.resumenProfesional" data-key="100">
-                <h3 class="cv-section-title">Resumen profesional</h3>
+                <h3 class="cv-section-title">Perfil</h3>
                 <p>{{ cvData.personalInfo.resumenProfesional }}</p>
               </div>
 

@@ -20,7 +20,7 @@ export class CvDataService {
       personalInfo: {
         nombres: '',
         apellidos: '',
-        cedula: '',
+        nacionalidad: '',
         fechaNacimiento: '',
         puesto: '',
         email: '',
