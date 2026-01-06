@@ -308,3 +308,54 @@
   background: #1565c0;
 }
 
+/* Mantener la hoja A4 (preview) igual en modo oscuro */
+:host-context(body.dark-mode) .a4-page {
+  background: #fff;
+  color: #212121;
+}
+
+:host-context(body.dark-mode) .cv-header {
+  border-bottom-color: #1976d2;
+}
+
+:host-context(body.dark-mode) .cv-name h1,
+:host-context(body.dark-mode) .cv-item h4,
+:host-context(body.dark-mode) .cv-sidebar-item-title {
+  color: #212121;
+}
+
+:host-context(body.dark-mode) .cv-position,
+:host-context(body.dark-mode) .cv-contact,
+:host-context(body.dark-mode) .cv-item-meta {
+  color: #666;
+}
+
+:host-context(body.dark-mode) .cv-contact-value {
+  color: #424242;
+}
+
+:host-context(body.dark-mode) .cv-section-title {
+  color: #1976d2;
+  border-bottom-color: #e0e0e0;
+}
+
+:host-context(body.dark-mode) .cv-contact-bar,
+:host-context(body.dark-mode) .cv-sidebar-section {
+  background: #f8f9fa;
+  border-color: #e0e0e0;
+}
+
+:host-context(body.dark-mode) .cv-contact-label,
+:host-context(body.dark-mode) .cv-sidebar-title {
+  color: #1976d2;
+}
+
+/* Dark mode para el header del preview (fuera de la hoja A4) */
+:host-context(body.dark-mode) .preview-title {
+  color: #e0e0e0;
+}
+
+:host-context(body.dark-mode) .preview-subtitle {
+  color: #b0b0b0;
+}
+

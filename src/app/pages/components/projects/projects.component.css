@@ -88,3 +88,30 @@
   opacity: 0.2;
 }
 
+/* Dark mode (solo editor, NO preview) */
+:host-context(body.dark-mode) .project-item {
+  background: #2a2a2a;
+  border-color: #444;
+}
+
+:host-context(body.dark-mode) .project-item:hover {
+  border-color: #64b5f6;
+}
+
+:host-context(body.dark-mode) .list-title {
+  color: #e0e0e0;
+}
+
+:host-context(body.dark-mode) .project-card {
+  background: #2a2a2a;
+  border-color: #444;
+}
+
+:host-context(body.dark-mode) .project-card:hover {
+  border-color: #64b5f6;
+}
+
+:host-context(body.dark-mode) .drag-handle {
+  color: #b0b0b0;
+}
+
