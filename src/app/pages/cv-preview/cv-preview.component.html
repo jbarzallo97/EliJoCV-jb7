@@ -164,6 +164,23 @@
                 </div>
               </div>
 
+              <!-- Referencias -->
+              <div class="cv-section" *ngIf="cvData.references.length > 0" data-key="360">
+                <h3 class="cv-section-title">Referencias</h3>
+                <div *ngFor="let r of cvData.references; trackBy: trackById" class="cv-item">
+                  <h4>{{ r.nombre }}</h4>
+                  <p class="cv-item-meta" *ngIf="r.cargo || r.empresa || r.relacion">
+                    <span *ngIf="r.cargo">{{ r.cargo }}</span>
+                    <span *ngIf="r.empresa"> · {{ r.empresa }}</span>
+                    <span *ngIf="r.relacion"> · {{ r.relacion }}</span>
+                  </p>
+                  <p class="cv-item-meta" *ngIf="r.telefono || r.email">
+                    <span *ngIf="r.telefono">{{ r.telefono }}</span>
+                    <span *ngIf="r.email"> · {{ r.email }}</span>
+                  </p>
+                </div>
+              </div>
+
             </div>
 
             <div class="col-lg-4 cv-flow-right" #flowRight>
@@ -228,6 +245,8 @@
                   </a>
                 </div>
               </div>
+
+              <!-- Referencias -->
             </div>
           </div>
         </div>

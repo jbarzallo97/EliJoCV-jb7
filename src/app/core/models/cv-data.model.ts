@@ -67,6 +67,16 @@ export interface Project {
   fecha?: string;
 }
 
+export interface Reference {
+  id: string;
+  nombre: string;
+  cargo?: string;
+  empresa?: string;
+  telefono?: string;
+  email?: string;
+  relacion?: string;
+}
+
 export interface CvData {
   personalInfo: PersonalInfo;
   workExperience: WorkExperience[];
@@ -75,6 +85,7 @@ export interface CvData {
   skills: Skill[];
   languages: Language[];
   projects: Project[];
+  references: Reference[];
 }
 
 export interface Template {

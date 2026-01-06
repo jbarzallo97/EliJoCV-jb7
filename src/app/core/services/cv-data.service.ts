@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CvData, PersonalInfo, WorkExperience, Education, Course, Skill, Language, Project } from '../models/cv-data.model';
+import { CvData, PersonalInfo, WorkExperience, Education, Course, Skill, Language, Project, Reference } from '../models/cv-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +34,8 @@ export class CvDataService {
       courses: [],
       skills: [],
       languages: [],
-      projects: []
+      projects: [],
+      references: []
     };
   }
 
@@ -261,6 +262,16 @@ export class CvDataService {
     this.saveToStorage();
   }
 
+  // References
+  setReferences(references: Reference[]): void {
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
+      references
+    });
+    this.saveToStorage();
+  }
+
   updateProject(id: string, project: Partial<Project>): void {
     const current = this.cvDataSubject.value;
     this.cvDataSubject.next({
@@ -316,7 +327,8 @@ export class CvDataService {
           courses: Array.isArray(data?.courses) ? data.courses : [],
           skills: Array.isArray(data?.skills) ? data.skills : [],
           languages: Array.isArray(data?.languages) ? data.languages : [],
-          projects: Array.isArray(data?.projects) ? data.projects : []
+          projects: Array.isArray(data?.projects) ? data.projects : [],
+          references: Array.isArray(data?.references) ? data.references : []
         };
         this.cvDataSubject.next(merged);
       }

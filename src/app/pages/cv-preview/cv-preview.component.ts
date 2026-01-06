@@ -87,7 +87,7 @@ export class CvPreviewComponent implements OnInit {
   }
 
   hasData(): boolean {
-    const { personalInfo, workExperience, education, courses, skills, languages, projects } = this.cvData;
+    const { personalInfo, workExperience, education, courses, skills, languages, projects, references } = this.cvData;
     return !!(
       personalInfo.nombres ||
       personalInfo.apellidos ||
@@ -96,7 +96,8 @@ export class CvPreviewComponent implements OnInit {
       courses.length > 0 ||
       skills.length > 0 ||
       languages.length > 0 ||
-      projects.length > 0
+      projects.length > 0 ||
+      references.length > 0
     );
   }
 
