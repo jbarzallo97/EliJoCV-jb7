@@ -83,6 +83,6 @@ export interface TemplateStyles {
   espaciado: 'compacto' | 'normal' | 'amplio';
 }
 
-export type FormSection = 'personal' | 'trabajo' | 'educacion' | 'habilidades' | 'idiomas' | 'proyectos';
+export type FormSection = 'personal' | 'trabajo' | 'educacion' | 'cursos' | 'habilidades' | 'idiomas' | 'proyectos' | 'referencias';
 export type MainTab = 'datos' | 'plantillas' | 'personalizar';
 

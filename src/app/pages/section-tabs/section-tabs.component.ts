@@ -15,9 +15,11 @@ export class SectionTabsComponent {
     { id: 'personal' as FormSection, label: 'Información Personal', icon: 'person' },
     { id: 'trabajo' as FormSection, label: 'Experiencia Laboral', icon: 'work' },
     { id: 'educacion' as FormSection, label: 'Educación', icon: 'school' },
+    { id: 'cursos' as FormSection, label: 'Cursos', icon: 'library_books' },
     { id: 'habilidades' as FormSection, label: 'Habilidades', icon: 'psychology' },
     { id: 'idiomas' as FormSection, label: 'Idiomas', icon: 'translate' },
-    { id: 'proyectos' as FormSection, label: 'Proyectos', icon: 'folder' }
+    { id: 'proyectos' as FormSection, label: 'Proyectos', icon: 'folder' },
+    { id: 'referencias' as FormSection, label: 'Referencias', icon: 'groups' }
   ];
 
   selectSection(section: FormSection): void {

@@ -15,6 +15,8 @@ import { LanguagesComponent } from './pages/components/languages/languages.compo
 import { ProjectsComponent } from './pages/components/projects/projects.component';
 import { PersonalInfoComponent } from './pages/components/personal-info/personal-info.component';
 import { EducationComponent } from './pages/components/education/education.component';
+import { CoursesComponent } from './pages/components/courses/courses.component';
+import { ReferencesComponent } from './pages/components/references/references.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { EducationComponent } from './pages/components/education/education.compo
     SkillsComponent,
     LanguagesComponent,
     ProjectsComponent,
-    EducationComponent
+    EducationComponent,
+    CoursesComponent,
+    ReferencesComponent
   ],
   imports: [
     BrowserModule,
