@@ -102,8 +102,16 @@
       <textarea
         class="form-control"
         formControlName="resumenProfesional"
+        (keydown)="onResumenKeyDown($event)"
+        (paste)="onResumenPaste($event)"
         rows="4"
         placeholder="Escribe un breve resumen de tu experiencia y objetivos profesionales..."></textarea>
+      <div class="d-flex justify-content-between mt-1">
+        <small class="text-muted">Máx. {{ resumenWordLimit }} palabras</small>
+        <small class="text-muted" [class.text-danger]="resumenWordCount >= resumenWordLimit">
+          {{ resumenWordCount }}/{{ resumenWordLimit }}
+        </small>
+      </div>
     </div>
 
     <!-- Foto de perfil -->

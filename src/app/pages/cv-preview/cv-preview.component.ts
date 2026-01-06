@@ -261,9 +261,9 @@ export class CvPreviewComponent implements OnInit {
         // Si el item que no cupo dejó el título solo al final de la página, movemos el título junto al item (sin repetirlo).
         const section = node.dataset?.['section'] || '';
         const role = node.dataset?.['role'] || '';
-        if (section === 'workExperience' && role === 'item') {
+        if ((section === 'workExperience' || section === 'education' || section === 'references') && role === 'item') {
           const last = pageEl.lastElementChild as HTMLElement | null;
-          if (last?.dataset?.['section'] === 'workExperience' && last?.dataset?.['role'] === 'title') {
+          if (last?.dataset?.['section'] === section && last?.dataset?.['role'] === 'title') {
             pageEl.removeChild(last);
             pageIndex += 1;
             ensurePage(pageIndex);

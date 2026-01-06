@@ -12,6 +12,8 @@ export class PersonalInfoComponent implements OnInit {
   form!: FormGroup;
   photoPreview: string | null = null;
   age: number | null = null;
+  readonly resumenWordLimit = 80;
+  resumenWordCount = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -42,9 +44,97 @@ export class PersonalInfoComponent implements OnInit {
       this.age = this.getAgeFromBirthDate(v);
     });
 
+    const resumenCtrl = this.form.get('resumenProfesional');
+    this.resumenWordCount = this.countWords(resumenCtrl?.value);
+    resumenCtrl?.valueChanges.subscribe((v) => {
+      const text = (v || '').toString();
+      const words = this.extractWords(text);
+      this.resumenWordCount = words.length;
+
+      if (words.length > this.resumenWordLimit) {
+        const truncated = words.slice(0, this.resumenWordLimit).join(' ');
+        resumenCtrl.setValue(truncated, { emitEvent: false });
+        this.resumenWordCount = this.resumenWordLimit;
+        this.cvDataService.updatePersonalInfo({ resumenProfesional: truncated });
+      }
+    });
+
     this.form.valueChanges.subscribe(values => {
       this.cvDataService.updatePersonalInfo(values);
     });
+  }
+
+  private extractWords(text: string): string[] {
+    return (text || '')
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean);
+  }
+
+  private countWords(text?: string | null): number {
+    return this.extractWords((text || '').toString()).length;
+  }
+
+  onResumenKeyDown(event: KeyboardEvent): void {
+    const el = event.target as HTMLTextAreaElement | null;
+    if (!el) return;
+
+    // Permitir teclas de control/navegación/edición
+    const allowedKeys = new Set([
+      'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
+      'Home', 'End', 'Tab', 'Enter', 'Escape'
+    ]);
+    if (allowedKeys.has(event.key)) return;
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+
+    // Si no es un caracter imprimible, no bloqueamos
+    if (!event.key || event.key.length !== 1) return;
+
+    const current = el.value ?? '';
+    const next = this.applyInsertion(current, event.key, el.selectionStart ?? current.length, el.selectionEnd ?? current.length);
+
+    if (this.extractWords(next).length > this.resumenWordLimit) {
+      event.preventDefault();
+    }
+  }
+
+  onResumenPaste(event: ClipboardEvent): void {
+    const el = event.target as HTMLTextAreaElement | null;
+    if (!el) return;
+
+    const pasteText = event.clipboardData?.getData('text') ?? '';
+    if (!pasteText) return;
+
+    const current = el.value ?? '';
+    const start = el.selectionStart ?? current.length;
+    const end = el.selectionEnd ?? current.length;
+    const next = this.applyInsertion(current, pasteText, start, end);
+
+    const words = this.extractWords(next);
+    if (words.length <= this.resumenWordLimit) return; // pega normal
+
+    // Si excede el límite, pegamos solo lo necesario hasta completar 80 palabras.
+    event.preventDefault();
+
+    const before = current.slice(0, start);
+    const after = current.slice(end);
+
+    const beforeWords = this.extractWords(before);
+    const afterWords = this.extractWords(after);
+    const remaining = Math.max(0, this.resumenWordLimit - beforeWords.length - afterWords.length);
+
+    if (remaining <= 0) return;
+
+    const pasteWords = this.extractWords(pasteText).slice(0, remaining);
+    const insert = pasteWords.length ? (before.endsWith(' ') || before.length === 0 ? '' : ' ') + pasteWords.join(' ') : '';
+
+    const finalText = (before + insert + (insert && after && !insert.endsWith(' ') ? ' ' : '') + after).replace(/\s+/g, ' ').trim();
+    el.value = finalText;
+    this.form.get('resumenProfesional')?.setValue(finalText);
+  }
+
+  private applyInsertion(current: string, inserted: string, start: number, end: number): string {
+    return current.slice(0, start) + inserted + current.slice(end);
   }
 
   private getAgeFromBirthDate(dateStr?: string | null): number | null {

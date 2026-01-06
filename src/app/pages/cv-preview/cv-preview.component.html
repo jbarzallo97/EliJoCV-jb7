@@ -134,10 +134,22 @@
                 <div class="cv-section-spacer" data-key="299"></div>
               </ng-container>
 
-              <!-- Educación -->
-              <div class="cv-section" *ngIf="cvData.education.length > 0" data-key="300">
-                <h3 class="cv-section-title">Educación</h3>
-                <div *ngFor="let edu of cvData.education; trackBy: trackById" class="cv-item">
+              <!-- Educación (paginable por item) -->
+              <ng-container *ngIf="cvData.education.length > 0">
+                <h3
+                  class="cv-section-title"
+                  data-key="300"
+                  data-section="education"
+                  data-role="title">
+                  Educación
+                </h3>
+
+                <div
+                  *ngFor="let edu of cvData.education; let i = index; trackBy: trackById"
+                  class="cv-item"
+                  data-section="education"
+                  data-role="item"
+                  [attr.data-key]="301 + i">
                   <h4>{{ edu.institucion }}</h4>
                   <p class="cv-item-meta">
                     <span class="fw-semibold">{{ edu.titulo }}</span>
@@ -162,12 +174,26 @@
                     </ng-template>
                   </ng-container>
                 </div>
-              </div>
 
-              <!-- Referencias -->
-              <div class="cv-section" *ngIf="cvData.references.length > 0" data-key="360">
-                <h3 class="cv-section-title">Referencias</h3>
-                <div *ngFor="let r of cvData.references; trackBy: trackById" class="cv-item">
+                <div class="cv-section-spacer" data-key="359"></div>
+              </ng-container>
+
+              <!-- Referencias (paginable por item) -->
+              <ng-container *ngIf="cvData.references.length > 0">
+                <h3
+                  class="cv-section-title"
+                  data-key="360"
+                  data-section="references"
+                  data-role="title">
+                  Referencias
+                </h3>
+
+                <div
+                  *ngFor="let r of cvData.references; let i = index; trackBy: trackById"
+                  class="cv-item"
+                  data-section="references"
+                  data-role="item"
+                  [attr.data-key]="361 + i">
                   <h4>{{ r.nombre }}</h4>
                   <p class="cv-item-meta" *ngIf="r.cargo || r.empresa || r.relacion">
                     <span *ngIf="r.cargo">{{ r.cargo }}</span>
@@ -179,7 +205,9 @@
                     <span *ngIf="r.email"> · {{ r.email }}</span>
                   </p>
                 </div>
-              </div>
+
+                <div class="cv-section-spacer" data-key="399"></div>
+              </ng-container>
 
             </div>
 
