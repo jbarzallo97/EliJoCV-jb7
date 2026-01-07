@@ -1,8 +1,52 @@
 <div class="form-section">
-  <h3 class="form-section-title">Plantillas</h3>
-  <p class="text-muted mb-0">
-    Aquí podrás elegir una plantilla para tu CV. (Próximamente)
-  </p>
+  <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+    <div>
+      <h3 class="form-section-title d-flex align-items-center gap-2 mb-1">
+        <i class="material-icons">palette</i>
+        Plantillas
+      </h3>
+      <p class="text-muted mb-0">
+        Elige el <strong>color principal</strong> del CV. Por defecto está el estilo actual.
+      </p>
+    </div>
+  </div>
+
+  <div class="template-card">
+    <div class="template-card-header">
+      <div class="d-flex align-items-center gap-2">
+        <i class="material-icons">format_paint</i>
+        <h4 class="group-title mb-0">Color principal</h4>
+      </div>
+      <span class="badge text-bg-light">Acento</span>
+    </div>
+
+    <div class="template-card-body">
+      <div class="color-grid">
+        <button
+          type="button"
+          class="color-option"
+          *ngFor="let c of colors"
+          (click)="selectColor(c.value)"
+          [class.selected]="selectedColor === c.value"
+          [attr.aria-pressed]="selectedColor === c.value">
+          <span class="swatch" [style.background]="c.value"></span>
+          <span class="meta">
+            <span class="name">{{ c.name }}</span>
+            <span class="hint text-muted">{{ c.hint }}</span>
+          </span>
+          <i class="material-icons check" *ngIf="selectedColor === c.value">check_circle</i>
+        </button>
+      </div>
+
+      <div class="selected-row mt-3">
+        <span class="text-muted">Seleccionado:</span>
+        <span class="selected-chip">
+          <span class="chip-swatch" [style.background]="selectedColor"></span>
+          <span class="chip-text">{{ selectedColor }}</span>
+        </span>
+      </div>
+    </div>
+  </div>
 </div>
 
 

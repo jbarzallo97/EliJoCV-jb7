@@ -8,6 +8,11 @@
   box-sizing: border-box;
 }
 
+:root {
+  /* Color principal del CV (accent). Se puede cambiar desde "Plantillas" */
+  --cv-primary: #1976d2;
+}
+
 body {
   margin: 0;
   padding: 0;

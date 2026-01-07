@@ -7,6 +7,8 @@ import { Template } from '../models/cv-data.model';
 })
 export class TemplateService {
   private readonly STORAGE_KEY = 'selected_template';
+  private readonly PRIMARY_COLOR_KEY = 'cv_primary_color';
+  private readonly DEFAULT_PRIMARY_COLOR = '#1976d2';
   
   private templates: Template[] = [
     {
@@ -53,8 +55,13 @@ export class TemplateService {
   private selectedTemplateSubject = new BehaviorSubject<Template>(this.templates[0]);
   public selectedTemplate$: Observable<Template> = this.selectedTemplateSubject.asObservable();
 
+  private selectedPrimaryColorSubject = new BehaviorSubject<string>(this.DEFAULT_PRIMARY_COLOR);
+  public selectedPrimaryColor$: Observable<string> = this.selectedPrimaryColorSubject.asObservable();
+
   constructor() {
     this.loadSelectedTemplate();
+    this.loadPrimaryColor();
+    this.applyPrimaryColorToDom(this.selectedPrimaryColorSubject.value);
   }
 
   getTemplates(): Template[] {
@@ -77,6 +84,21 @@ export class TemplateService {
     return this.selectedTemplateSubject.value;
   }
 
+  getPrimaryColor(): string {
+    return this.selectedPrimaryColorSubject.value;
+  }
+
+  setPrimaryColor(color: string): void {
+    if (!color) return;
+    this.selectedPrimaryColorSubject.next(color);
+    try {
+      localStorage.setItem(this.PRIMARY_COLOR_KEY, color);
+    } catch {
+      // ignore
+    }
+    this.applyPrimaryColorToDom(color);
+  }
+
   private loadSelectedTemplate(): void {
     const stored = localStorage.getItem(this.STORAGE_KEY);
     if (stored) {
@@ -84,6 +106,26 @@ export class TemplateService {
       if (template) {
         this.selectedTemplateSubject.next(template);
       }
+    }
+  }
+
+  private loadPrimaryColor(): void {
+    try {
+      const stored = localStorage.getItem(this.PRIMARY_COLOR_KEY);
+      if (stored) {
+        this.selectedPrimaryColorSubject.next(stored);
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  private applyPrimaryColorToDom(color: string): void {
+    // Aplicamos en :root para que impacte el preview (y cualquier componente que use la variable)
+    try {
+      document.documentElement.style.setProperty('--cv-primary', color);
+    } catch {
+      // En entornos sin DOM (tests) no hacemos nada
     }
   }
 }
