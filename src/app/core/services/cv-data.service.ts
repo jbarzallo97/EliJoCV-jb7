@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CvData, PersonalInfo, WorkExperience, Education, Course, Skill, Language, Project, Reference } from '../models/cv-data.model';
+import { CvData, CvLabels, PersonalInfo, WorkExperience, Education, Course, Skill, Language, Project, Reference } from '../models/cv-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,27 @@ export class CvDataService {
       skills: [],
       languages: [],
       projects: [],
-      references: []
+      references: [],
+      labels: this.getDefaultLabels()
+    };
+  }
+
+  private getDefaultLabels(): CvLabels {
+    return {
+      sectionProfile: 'Perfil',
+      sectionWorkExperience: 'Experiencia profesional',
+      sectionEducation: 'Educación',
+      sectionReferences: 'Referencias',
+      sectionLanguages: 'Idiomas',
+      sectionSkills: 'Habilidades',
+      sectionCourses: 'Cursos',
+      sectionProjects: 'Proyectos',
+      labelEmail: 'Email',
+      labelPhone: 'Número de teléfono',
+      labelAddress: 'Dirección',
+      labelNationality: 'Nacionalidad',
+      labelBirthDate: 'Fecha de nacimiento',
+      labelAge: 'Edad'
     };
   }
 
@@ -272,6 +292,25 @@ export class CvDataService {
     this.saveToStorage();
   }
 
+  // Labels (Customize)
+  setLabels(labels: CvLabels): void {
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
+      labels: { ...labels }
+    });
+    this.saveToStorage();
+  }
+
+  resetLabels(): void {
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
+      labels: this.getDefaultLabels()
+    });
+    this.saveToStorage();
+  }
+
   updateProject(id: string, project: Partial<Project>): void {
     const current = this.cvDataSubject.value;
     this.cvDataSubject.next({
@@ -328,7 +367,11 @@ export class CvDataService {
           skills: Array.isArray(data?.skills) ? data.skills : [],
           languages: Array.isArray(data?.languages) ? data.languages : [],
           projects: Array.isArray(data?.projects) ? data.projects : [],
-          references: Array.isArray(data?.references) ? data.references : []
+          references: Array.isArray(data?.references) ? data.references : [],
+          labels: {
+            ...initial.labels,
+            ...(data?.labels || {})
+          }
         };
         this.cvDataSubject.next(merged);
       }

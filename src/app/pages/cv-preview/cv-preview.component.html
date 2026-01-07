@@ -46,27 +46,27 @@
                   ">
                   <div class="row text-center text-md-start gy-2">
                     <div class="col-md-4" *ngIf="cvData.personalInfo.email">
-                      <span class="cv-contact-label">Email</span>
+                      <span class="cv-contact-label">{{ cvData.labels.labelEmail }}</span>
                       <span class="cv-contact-value">{{ cvData.personalInfo.email }}</span>
                     </div>
                     <div class="col-md-4" *ngIf="cvData.personalInfo.celular">
-                      <span class="cv-contact-label">Número de teléfono</span>
+                      <span class="cv-contact-label">{{ cvData.labels.labelPhone }}</span>
                       <span class="cv-contact-value">{{ cvData.personalInfo.celular }}</span>
                     </div>
                     <div class="col-md-4" *ngIf="cvData.personalInfo.ubicacion">
-                      <span class="cv-contact-label">Dirección</span>
+                      <span class="cv-contact-label">{{ cvData.labels.labelAddress }}</span>
                       <span class="cv-contact-value">{{ cvData.personalInfo.ubicacion }}</span>
                     </div>
                     <div class="col-md-4" *ngIf="cvData.personalInfo.nacionalidad">
-                      <span class="cv-contact-label">Nacionalidad</span>
+                      <span class="cv-contact-label">{{ cvData.labels.labelNationality }}</span>
                       <span class="cv-contact-value">{{ cvData.personalInfo.nacionalidad }}</span>
                     </div>
                     <div class="col-md-4" *ngIf="cvData.personalInfo.fechaNacimiento">
-                      <span class="cv-contact-label">Fecha de nacimiento</span>
+                      <span class="cv-contact-label">{{ cvData.labels.labelBirthDate }}</span>
                       <span class="cv-contact-value">{{ cvData.personalInfo.fechaNacimiento }}</span>
                     </div>
                     <div class="col-md-4" *ngIf="getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) !== null">
-                      <span class="cv-contact-label">Edad</span>
+                      <span class="cv-contact-label">{{ cvData.labels.labelAge }}</span>
                       <span class="cv-contact-value">
                         {{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} años
                       </span>
@@ -92,7 +92,7 @@
             <div class="col-lg-8 cv-flow-left" #flowLeft>
               <!-- Resumen Profesional -->
               <div class="cv-section" *ngIf="cvData.personalInfo.resumenProfesional" data-key="100">
-                <h3 class="cv-section-title">Perfil</h3>
+                <h3 class="cv-section-title">{{ cvData.labels.sectionProfile }}</h3>
                 <p>{{ cvData.personalInfo.resumenProfesional }}</p>
               </div>
 
@@ -103,7 +103,7 @@
                   data-key="200"
                   data-section="workExperience"
                   data-role="title">
-                  Experiencia profesional
+                  {{ cvData.labels.sectionWorkExperience }}
                 </h3>
 
                 <div
@@ -141,7 +141,7 @@
                   data-key="300"
                   data-section="education"
                   data-role="title">
-                  Educación
+                  {{ cvData.labels.sectionEducation }}
                 </h3>
 
                 <div
@@ -185,7 +185,7 @@
                   data-key="360"
                   data-section="references"
                   data-role="title">
-                  Referencias
+                  {{ cvData.labels.sectionReferences }}
                 </h3>
 
                 <div
@@ -214,7 +214,7 @@
             <div class="col-lg-4 cv-flow-right" #flowRight>
               <!-- Idiomas -->
               <div class="cv-sidebar-section" *ngIf="cvData.languages.length > 0">
-                <h3 class="cv-sidebar-title">Idiomas</h3>
+                <h3 class="cv-sidebar-title">{{ cvData.labels.sectionLanguages }}</h3>
                 <div *ngFor="let lang of cvData.languages" class="cv-sidebar-item d-flex justify-content-between">
                   <span>{{ lang.idioma }}</span>
                   <span class="text-muted text-end text-capitalize">{{ lang.nivel }}</span>
@@ -223,7 +223,7 @@
 
               <!-- Habilidades -->
               <div class="cv-sidebar-section" *ngIf="cvData.skills.length > 0">
-                <h3 class="cv-sidebar-title">Habilidades</h3>
+                <h3 class="cv-sidebar-title">{{ cvData.labels.sectionSkills }}</h3>
                 <div *ngFor="let skill of cvData.skills" class="cv-sidebar-item">
                   <div class="d-flex justify-content-between">
                     <span>{{ skill.nombre }}</span>
@@ -235,7 +235,7 @@
 
               <!-- Cursos -->
               <div class="cv-sidebar-section" *ngIf="cvData.courses.length > 0">
-                <h3 class="cv-sidebar-title">Cursos</h3>
+                <h3 class="cv-sidebar-title">{{ cvData.labels.sectionCourses }}</h3>
                 <div *ngFor="let c of cvData.courses; trackBy: trackById" class="cv-sidebar-item">
                   <h4 class="cv-sidebar-item-title d-flex justify-content-between gap-2">
                     <span>{{ c.nombre }}</span>
@@ -251,7 +251,7 @@
 
               <!-- Proyectos -->
               <div class="cv-sidebar-section" *ngIf="cvData.projects.length > 0">
-                <h3 class="cv-sidebar-title">Proyectos</h3>
+                <h3 class="cv-sidebar-title">{{ cvData.labels.sectionProjects }}</h3>
                 <div *ngFor="let project of cvData.projects" class="cv-sidebar-item">
                   <h4 class="cv-sidebar-item-title d-flex justify-content-between gap-2">
                     <span>{{ project.nombre }}</span>

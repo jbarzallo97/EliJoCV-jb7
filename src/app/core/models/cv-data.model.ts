@@ -86,6 +86,7 @@ export interface CvData {
   languages: Language[];
   projects: Project[];
   references: Reference[];
+  labels: CvLabels;
 }
 
 export interface Template {
@@ -94,6 +95,28 @@ export interface Template {
   descripcion: string;
   preview: string;
   estilos: TemplateStyles;
+}
+
+export interface CvLabels {
+  // Section titles (main column)
+  sectionProfile: string;
+  sectionWorkExperience: string;
+  sectionEducation: string;
+  sectionReferences: string;
+
+  // Sidebar titles
+  sectionLanguages: string;
+  sectionSkills: string;
+  sectionCourses: string;
+  sectionProjects: string;
+
+  // Contact labels
+  labelEmail: string;
+  labelPhone: string;
+  labelAddress: string;
+  labelNationality: string;
+  labelBirthDate: string;
+  labelAge: string;
 }
 
 export interface TemplateStyles {
