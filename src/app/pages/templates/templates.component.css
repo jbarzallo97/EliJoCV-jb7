@@ -55,6 +55,18 @@
   border: 1px solid rgba(51, 65, 85, 0.12);
 }
 
+.maintenance-panel {
+  border: 1px dashed rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 0.9rem;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+:host-context(body.dark-mode) .maintenance-panel {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+}
+
 .color-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
