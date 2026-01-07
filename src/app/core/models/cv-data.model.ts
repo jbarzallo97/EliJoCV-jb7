@@ -31,6 +31,11 @@ export interface Education {
   fechaInicio: string;
   fechaFin?: string;
   enCurso: boolean;
+  /**
+   * Controla si el item se muestra en el preview.
+   * Undefined se interpreta como visible (compatibilidad con datos guardados viejos).
+   */
+  visible?: boolean;
   ubicacion?: string;
   promedio?: string;
   descripcion?: string;

@@ -92,7 +92,7 @@ export class CvPreviewComponent implements OnInit {
       personalInfo.nombres ||
       personalInfo.apellidos ||
       workExperience.length > 0 ||
-      education.length > 0 ||
+      this.getVisibleEducation().length > 0 ||
       courses.length > 0 ||
       skills.length > 0 ||
       languages.length > 0 ||
@@ -114,6 +114,11 @@ export class CvPreviewComponent implements OnInit {
 
   trackById(_index: number, item: { id: string }): string {
     return item.id;
+  }
+
+  getVisibleEducation(): CvData['education'] {
+    const list = this.cvData?.education || [];
+    return list.filter(e => (e as any).visible !== false);
   }
 
   getAgeFromBirthDate(dateStr?: string | null): number | null {

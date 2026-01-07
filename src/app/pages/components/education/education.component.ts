@@ -58,13 +58,15 @@ export class EducationComponent implements OnInit {
     }
 
     const value = this.form.getRawValue();
+    const existing = this.editingIndex != null ? this.educations[this.editingIndex] : null;
     const edu: Education = {
-      id: this.editingIndex != null ? this.educations[this.editingIndex].id : this.generateId(),
+      id: existing ? existing.id : this.generateId(),
       institucion: (value.institucion || '').trim(),
       titulo: (value.titulo || '').trim(),
       fechaInicio: value.fechaInicio,
       fechaFin: value.fechaFin || '',
       enCurso: !!value.enCurso,
+      visible: existing?.visible ?? true,
       ubicacion: (value.ubicacion || '').trim(),
       promedio: (value.promedio || '').trim(),
       descripcion: (value.descripcion || '').trim()
@@ -82,9 +84,11 @@ export class EducationComponent implements OnInit {
 
     if (this.editingIndex != null) {
       this.educations[this.editingIndex] = edu;
+      this.upsertBackup(edu);
       this.editingIndex = null;
     } else {
       this.educations.push(edu);
+      this.upsertBackup(edu);
     }
 
     this.applyAutoSortIfEnabled();
@@ -121,6 +125,9 @@ export class EducationComponent implements OnInit {
   deleteEducation(index: number): void {
     const edu = this.educations[index];
     this.educations.splice(index, 1);
+    if (edu?.id) {
+      this.removeFromBackup(edu.id);
+    }
     if (this.editingIndex === index) {
       this.editingIndex = null;
       this.currentStudyError = null;
@@ -152,6 +159,15 @@ export class EducationComponent implements OnInit {
     if (this.autoSortByDate) return;
     if (event.previousIndex === event.currentIndex) return;
     moveItemInArray(this.educations, event.previousIndex, event.currentIndex);
+    this.ngZone.run(() => this.cvDataService.setEducation([...this.educations]));
+  }
+
+  toggleEducationVisibility(index: number): void {
+    const edu = this.educations[index];
+    if (!edu) return;
+    const updated: Education = { ...edu, visible: edu.visible === false ? true : false };
+    this.educations[index] = updated;
+    this.upsertBackup(updated);
     this.ngZone.run(() => this.cvDataService.setEducation([...this.educations]));
   }
 
@@ -191,6 +207,21 @@ export class EducationComponent implements OnInit {
 
   private generateId(): string {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  }
+
+  private upsertBackup(edu: Education): void {
+    if (!this.manualOrderBackup) return;
+    const idx = this.manualOrderBackup.findIndex(e => e.id === edu.id);
+    if (idx >= 0) {
+      this.manualOrderBackup[idx] = { ...this.manualOrderBackup[idx], ...edu };
+    } else {
+      this.manualOrderBackup.push(edu);
+    }
+  }
+
+  private removeFromBackup(id: string): void {
+    if (!this.manualOrderBackup) return;
+    this.manualOrderBackup = this.manualOrderBackup.filter(e => e.id !== id);
   }
 }
 

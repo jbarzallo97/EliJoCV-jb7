@@ -135,7 +135,7 @@
               </ng-container>
 
               <!-- Educación (paginable por item) -->
-              <ng-container *ngIf="cvData.education.length > 0">
+              <ng-container *ngIf="getVisibleEducation().length > 0">
                 <h3
                   class="cv-section-title"
                   data-key="300"
@@ -145,7 +145,7 @@
                 </h3>
 
                 <div
-                  *ngFor="let edu of cvData.education; let i = index; trackBy: trackById"
+                  *ngFor="let edu of getVisibleEducation(); let i = index; trackBy: trackById"
                   class="cv-item"
                   data-section="education"
                   data-role="item"
