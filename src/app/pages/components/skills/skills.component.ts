@@ -48,11 +48,13 @@ export class SkillsComponent implements OnInit {
     }
 
     const value = this.form.getRawValue();
+    const existing = this.editingIndex != null ? this.skills[this.editingIndex] : null;
     const skill: Skill = {
-      id: this.editingIndex != null ? this.skills[this.editingIndex].id : this.generateId(),
+      id: existing ? existing.id : this.generateId(),
       nombre: (value.nombre || '').trim(),
       nivel: value.nivel,
-      categoria: value.categoria
+      categoria: value.categoria,
+      visible: existing?.visible ?? true
     };
 
     if (this.editingIndex != null) {
@@ -97,6 +99,13 @@ export class SkillsComponent implements OnInit {
   dropSkill(event: CdkDragDrop<Skill[]>): void {
     if (event.previousIndex === event.currentIndex) return;
     moveItemInArray(this.skills, event.previousIndex, event.currentIndex);
+    this.cvDataService.setSkills([...this.skills]);
+  }
+
+  toggleSkillVisibility(index: number): void {
+    const s = this.skills[index];
+    if (!s) return;
+    this.skills[index] = { ...s, visible: s.visible === false ? true : false };
     this.cvDataService.setSkills([...this.skills]);
   }
 

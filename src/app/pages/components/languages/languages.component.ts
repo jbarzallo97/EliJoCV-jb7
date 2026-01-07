@@ -42,10 +42,12 @@ export class LanguagesComponent implements OnInit {
     }
 
     const value = this.form.getRawValue();
+    const existing = this.editingIndex != null ? this.languages[this.editingIndex] : null;
     const lang: Language = {
-      id: this.editingIndex != null ? this.languages[this.editingIndex].id : this.generateId(),
+      id: existing ? existing.id : this.generateId(),
       idioma: (value.idioma || '').trim(),
-      nivel: value.nivel
+      nivel: value.nivel,
+      visible: existing?.visible ?? true
     };
 
     if (this.editingIndex != null) {
@@ -87,6 +89,13 @@ export class LanguagesComponent implements OnInit {
   dropLanguage(event: CdkDragDrop<Language[]>): void {
     if (event.previousIndex === event.currentIndex) return;
     moveItemInArray(this.languages, event.previousIndex, event.currentIndex);
+    this.cvDataService.setLanguages([...this.languages]);
+  }
+
+  toggleLanguageVisibility(index: number): void {
+    const l = this.languages[index];
+    if (!l) return;
+    this.languages[index] = { ...l, visible: l.visible === false ? true : false };
     this.cvDataService.setLanguages([...this.languages]);
   }
 

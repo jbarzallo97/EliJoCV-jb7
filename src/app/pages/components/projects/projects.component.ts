@@ -45,18 +45,20 @@ export class ProjectsComponent implements OnInit {
       descripcion: string;
     };
 
+    const existing = this.editingIndex != null ? this.projects[this.editingIndex] : null;
     const tecnologias = (value.tecnologiasText || '')
       .split(',')
       .map(t => t.trim())
       .filter(Boolean);
 
     const project: Project = {
-      id: this.editingIndex != null ? this.projects[this.editingIndex].id : this.generateId(),
+      id: existing ? existing.id : this.generateId(),
       nombre: (value.nombre || '').trim(),
       fecha: (value.fecha || '').trim() || undefined,
       url: (value.url || '').trim() || undefined,
       descripcion: (value.descripcion || '').trim() || undefined,
-      tecnologias: tecnologias.length ? tecnologias : undefined
+      tecnologias: tecnologias.length ? tecnologias : undefined,
+      visible: existing?.visible ?? true
     };
 
     if (this.editingIndex != null) {
@@ -107,6 +109,13 @@ export class ProjectsComponent implements OnInit {
   dropProject(event: CdkDragDrop<Project[]>): void {
     if (event.previousIndex === event.currentIndex) return;
     moveItemInArray(this.projects, event.previousIndex, event.currentIndex);
+    this.cvDataService.setProjects([...this.projects]);
+  }
+
+  toggleProjectVisibility(index: number): void {
+    const p = this.projects[index];
+    if (!p) return;
+    this.projects[index] = { ...p, visible: p.visible === false ? true : false };
     this.cvDataService.setProjects([...this.projects]);
   }
 

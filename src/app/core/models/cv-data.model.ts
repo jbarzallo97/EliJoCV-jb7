@@ -20,6 +20,11 @@ export interface WorkExperience {
   fechaInicio: string;
   fechaFin?: string;
   actualmenteTrabajando: boolean;
+  /**
+   * Controla si el item se muestra en el preview.
+   * Undefined se interpreta como visible (compatibilidad con datos guardados viejos).
+   */
+  visible?: boolean;
   descripcion?: string;
   logros?: string[];
 }
@@ -48,6 +53,11 @@ export interface Course {
   fecha?: string; // YYYY-MM-DD (input type="date")
   url?: string;
   descripcion?: string;
+  /**
+   * Controla si el item se muestra en el preview.
+   * Undefined se interpreta como visible (compatibilidad con datos guardados viejos).
+   */
+  visible?: boolean;
 }
 
 export interface Skill {
@@ -55,12 +65,22 @@ export interface Skill {
   nombre: string;
   nivel: 'basico' | 'intermedio' | 'avanzado' | 'experto';
   categoria: 'tecnica' | 'blanda';
+  /**
+   * Controla si el item se muestra en el preview.
+   * Undefined se interpreta como visible (compatibilidad con datos guardados viejos).
+   */
+  visible?: boolean;
 }
 
 export interface Language {
   id: string;
   idioma: string;
   nivel: 'basico' | 'intermedio' | 'avanzado' | 'nativo';
+  /**
+   * Controla si el item se muestra en el preview.
+   * Undefined se interpreta como visible (compatibilidad con datos guardados viejos).
+   */
+  visible?: boolean;
 }
 
 export interface Project {
@@ -70,6 +90,11 @@ export interface Project {
   tecnologias?: string[];
   url?: string;
   fecha?: string;
+  /**
+   * Controla si el item se muestra en el preview.
+   * Undefined se interpreta como visible (compatibilidad con datos guardados viejos).
+   */
+  visible?: boolean;
 }
 
 export interface Reference {
@@ -80,6 +105,11 @@ export interface Reference {
   telefono?: string;
   email?: string;
   relacion?: string;
+  /**
+   * Controla si el item se muestra en el preview.
+   * Undefined se interpreta como visible (compatibilidad con datos guardados viejos).
+   */
+  visible?: boolean;
 }
 
 export interface CvData {

@@ -87,17 +87,17 @@ export class CvPreviewComponent implements OnInit {
   }
 
   hasData(): boolean {
-    const { personalInfo, workExperience, education, courses, skills, languages, projects, references } = this.cvData;
+    const { personalInfo, references } = this.cvData;
     return !!(
       personalInfo.nombres ||
       personalInfo.apellidos ||
-      workExperience.length > 0 ||
+      this.getVisibleWorkExperience().length > 0 ||
       this.getVisibleEducation().length > 0 ||
-      courses.length > 0 ||
-      skills.length > 0 ||
-      languages.length > 0 ||
-      projects.length > 0 ||
-      references.length > 0
+      this.getVisibleCourses().length > 0 ||
+      this.getVisibleSkills().length > 0 ||
+      this.getVisibleLanguages().length > 0 ||
+      this.getVisibleProjects().length > 0 ||
+      this.getVisibleReferences().length > 0
     );
   }
 
@@ -116,9 +116,39 @@ export class CvPreviewComponent implements OnInit {
     return item.id;
   }
 
+  getVisibleWorkExperience(): CvData['workExperience'] {
+    const list = this.cvData?.workExperience || [];
+    return list.filter(e => (e as any).visible !== false);
+  }
+
   getVisibleEducation(): CvData['education'] {
     const list = this.cvData?.education || [];
     return list.filter(e => (e as any).visible !== false);
+  }
+
+  getVisibleCourses(): CvData['courses'] {
+    const list = this.cvData?.courses || [];
+    return list.filter(c => (c as any).visible !== false);
+  }
+
+  getVisibleSkills(): CvData['skills'] {
+    const list = this.cvData?.skills || [];
+    return list.filter(s => (s as any).visible !== false);
+  }
+
+  getVisibleLanguages(): CvData['languages'] {
+    const list = this.cvData?.languages || [];
+    return list.filter(l => (l as any).visible !== false);
+  }
+
+  getVisibleProjects(): CvData['projects'] {
+    const list = this.cvData?.projects || [];
+    return list.filter(p => (p as any).visible !== false);
+  }
+
+  getVisibleReferences(): CvData['references'] {
+    const list = this.cvData?.references || [];
+    return list.filter(r => (r as any).visible !== false);
   }
 
   getAgeFromBirthDate(dateStr?: string | null): number | null {

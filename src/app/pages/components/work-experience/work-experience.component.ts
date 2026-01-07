@@ -56,14 +56,16 @@ export class WorkExperienceComponent implements OnInit {
     }
 
     const value = this.form.getRawValue();
+    const existing = this.editingIndex != null ? this.experiences[this.editingIndex] : null;
 
     const exp: WorkExperience = {
-      id: this.editingIndex != null ? this.experiences[this.editingIndex].id : this.generateId(),
+      id: existing ? existing.id : this.generateId(),
       empresa: (value.empresa || '').trim(),
       puesto: (value.puesto || '').trim(),
       fechaInicio: value.fechaInicio,
       fechaFin: value.fechaFin || '',
       actualmenteTrabajando: !!value.actualmenteTrabajando,
+      visible: existing?.visible ?? true,
       descripcion: (value.descripcion || '').trim()
     };
 
@@ -79,9 +81,11 @@ export class WorkExperienceComponent implements OnInit {
 
     if (this.editingIndex != null) {
       this.experiences[this.editingIndex] = exp;
+      this.upsertBackup(exp);
       this.editingIndex = null;
     } else {
       this.experiences.push(exp);
+      this.upsertBackup(exp);
     }
 
     this.applyAutoSortIfEnabled();
@@ -113,6 +117,9 @@ export class WorkExperienceComponent implements OnInit {
   deleteExperience(index: number): void {
     const exp = this.experiences[index];
     this.experiences.splice(index, 1);
+    if (exp?.id) {
+      this.removeFromBackup(exp.id);
+    }
     if (this.editingIndex === index) {
       this.editingIndex = null;
       this.currentJobError = null;
@@ -162,6 +169,15 @@ export class WorkExperienceComponent implements OnInit {
     this.cvDataService.setWorkExperience(this.experiences);
   }
 
+  toggleExperienceVisibility(index: number): void {
+    const exp = this.experiences[index];
+    if (!exp) return;
+    const updated: WorkExperience = { ...exp, visible: exp.visible === false ? true : false };
+    this.experiences[index] = updated;
+    this.upsertBackup(updated);
+    this.cvDataService.setWorkExperience([...this.experiences]);
+  }
+
   toggleAutoSortByDate(enabled: boolean): void {
     this.autoSortByDate = enabled;
     if (enabled) {
@@ -202,6 +218,21 @@ export class WorkExperienceComponent implements OnInit {
 
   private generateId(): string {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  }
+
+  private upsertBackup(exp: WorkExperience): void {
+    if (!this.manualOrderBackup) return;
+    const idx = this.manualOrderBackup.findIndex(e => e.id === exp.id);
+    if (idx >= 0) {
+      this.manualOrderBackup[idx] = { ...this.manualOrderBackup[idx], ...exp };
+    } else {
+      this.manualOrderBackup.push(exp);
+    }
+  }
+
+  private removeFromBackup(id: string): void {
+    if (!this.manualOrderBackup) return;
+    this.manualOrderBackup = this.manualOrderBackup.filter(e => e.id !== id);
   }
 }
 

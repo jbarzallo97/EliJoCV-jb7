@@ -79,6 +79,15 @@
           </div>
 
           <div class="d-flex gap-2">
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary icon-btn"
+              (click)="toggleReferenceVisibility(i)"
+              [title]="r.visible === false ? 'Mostrar en el preview' : 'Ocultar del preview'">
+              <i class="material-icons">
+                {{ r.visible === false ? 'visibility_off' : 'visibility' }}
+              </i>
+            </button>
             <button type="button" class="btn btn-sm btn-outline-primary icon-btn" (click)="editReference(i)">
               <i class="material-icons">edit</i>
             </button>

@@ -37,15 +37,17 @@ export class ReferencesComponent implements OnInit {
       return;
     }
 
+    const existing = this.editingIndex != null ? this.references[this.editingIndex] : null;
     const v = this.form.getRawValue() as Omit<Reference, 'id'>;
     const ref: Reference = {
-      id: this.editingIndex != null ? this.references[this.editingIndex].id : this.generateId(),
+      id: existing ? existing.id : this.generateId(),
       nombre: (v.nombre || '').trim(),
       cargo: (v.cargo || '').trim() || undefined,
       empresa: (v.empresa || '').trim() || undefined,
       telefono: (v.telefono || '').trim() || undefined,
       email: (v.email || '').trim() || undefined,
-      relacion: (v.relacion || '').trim() || undefined
+      relacion: (v.relacion || '').trim() || undefined,
+      visible: existing?.visible ?? true
     };
 
     if (this.editingIndex != null) {
@@ -99,6 +101,13 @@ export class ReferencesComponent implements OnInit {
   dropReference(event: CdkDragDrop<Reference[]>): void {
     if (event.previousIndex === event.currentIndex) return;
     moveItemInArray(this.references, event.previousIndex, event.currentIndex);
+    this.cvDataService.setReferences([...this.references]);
+  }
+
+  toggleReferenceVisibility(index: number): void {
+    const r = this.references[index];
+    if (!r) return;
+    this.references[index] = { ...r, visible: r.visible === false ? true : false };
     this.cvDataService.setReferences([...this.references]);
   }
 

@@ -122,6 +122,15 @@
           </div>
 
           <div class="d-flex gap-2">
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary icon-btn"
+              (click)="toggleExperienceVisibility(i)"
+              [title]="exp.visible === false ? 'Mostrar en el preview' : 'Ocultar del preview'">
+              <i class="material-icons">
+                {{ exp.visible === false ? 'visibility_off' : 'visibility' }}
+              </i>
+            </button>
             <button type="button" class="btn btn-sm btn-outline-primary icon-btn" (click)="editExperience(i)">
               <i class="material-icons">edit</i>
             </button>

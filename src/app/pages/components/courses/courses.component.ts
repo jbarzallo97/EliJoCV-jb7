@@ -36,6 +36,7 @@ export class CoursesComponent implements OnInit {
       return;
     }
 
+    const existing = this.editingIndex != null ? this.courses[this.editingIndex] : null;
     const v = this.form.getRawValue() as {
       nombre: string;
       institucion: string;
@@ -45,12 +46,13 @@ export class CoursesComponent implements OnInit {
     };
 
     const course: Course = {
-      id: this.editingIndex != null ? this.courses[this.editingIndex].id : this.generateId(),
+      id: existing ? existing.id : this.generateId(),
       nombre: (v.nombre || '').trim(),
       institucion: (v.institucion || '').trim() || undefined,
       fecha: (v.fecha || '').trim() || undefined,
       url: (v.url || '').trim() || undefined,
-      descripcion: (v.descripcion || '').trim() || undefined
+      descripcion: (v.descripcion || '').trim() || undefined,
+      visible: existing?.visible ?? true
     };
 
     if (this.editingIndex != null) {
@@ -101,6 +103,13 @@ export class CoursesComponent implements OnInit {
   dropCourse(event: CdkDragDrop<Course[]>): void {
     if (event.previousIndex === event.currentIndex) return;
     moveItemInArray(this.courses, event.previousIndex, event.currentIndex);
+    this.cvDataService.setCourses([...this.courses]);
+  }
+
+  toggleCourseVisibility(index: number): void {
+    const c = this.courses[index];
+    if (!c) return;
+    this.courses[index] = { ...c, visible: c.visible === false ? true : false };
     this.cvDataService.setCourses([...this.courses]);
   }
 

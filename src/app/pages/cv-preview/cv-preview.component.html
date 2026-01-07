@@ -97,7 +97,7 @@
               </div>
 
               <!-- Experiencia profesional (paginable por trabajo) -->
-              <ng-container *ngIf="cvData.workExperience.length > 0">
+              <ng-container *ngIf="getVisibleWorkExperience().length > 0">
                 <h3
                   class="cv-section-title"
                   data-key="200"
@@ -107,7 +107,7 @@
                 </h3>
 
                 <div
-                  *ngFor="let exp of cvData.workExperience; let i = index; trackBy: trackById"
+                  *ngFor="let exp of getVisibleWorkExperience(); let i = index; trackBy: trackById"
                   class="cv-item"
                   data-section="workExperience"
                   data-role="item"
@@ -179,7 +179,7 @@
               </ng-container>
 
               <!-- Referencias (paginable por item) -->
-              <ng-container *ngIf="cvData.references.length > 0">
+              <ng-container *ngIf="getVisibleReferences().length > 0">
                 <h3
                   class="cv-section-title"
                   data-key="360"
@@ -189,7 +189,7 @@
                 </h3>
 
                 <div
-                  *ngFor="let r of cvData.references; let i = index; trackBy: trackById"
+                  *ngFor="let r of getVisibleReferences(); let i = index; trackBy: trackById"
                   class="cv-item"
                   data-section="references"
                   data-role="item"
@@ -213,18 +213,18 @@
 
             <div class="col-lg-4 cv-flow-right" #flowRight>
               <!-- Idiomas -->
-              <div class="cv-sidebar-section" *ngIf="cvData.languages.length > 0">
+              <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0">
                 <h3 class="cv-sidebar-title">{{ cvData.labels.sectionLanguages }}</h3>
-                <div *ngFor="let lang of cvData.languages" class="cv-sidebar-item d-flex justify-content-between">
+                <div *ngFor="let lang of getVisibleLanguages(); trackBy: trackById" class="cv-sidebar-item d-flex justify-content-between">
                   <span>{{ lang.idioma }}</span>
                   <span class="text-muted text-end text-capitalize">{{ lang.nivel }}</span>
                 </div>
               </div>
 
               <!-- Habilidades -->
-              <div class="cv-sidebar-section" *ngIf="cvData.skills.length > 0">
+              <div class="cv-sidebar-section" *ngIf="getVisibleSkills().length > 0">
                 <h3 class="cv-sidebar-title">{{ cvData.labels.sectionSkills }}</h3>
-                <div *ngFor="let skill of cvData.skills" class="cv-sidebar-item">
+                <div *ngFor="let skill of getVisibleSkills(); trackBy: trackById" class="cv-sidebar-item">
                   <div class="d-flex justify-content-between">
                     <span>{{ skill.nombre }}</span>
                     <span class="text-muted text-capitalize">{{ skill.nivel }}</span>
@@ -234,9 +234,9 @@
               </div>
 
               <!-- Cursos -->
-              <div class="cv-sidebar-section" *ngIf="cvData.courses.length > 0">
+              <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0">
                 <h3 class="cv-sidebar-title">{{ cvData.labels.sectionCourses }}</h3>
-                <div *ngFor="let c of cvData.courses; trackBy: trackById" class="cv-sidebar-item">
+                <div *ngFor="let c of getVisibleCourses(); trackBy: trackById" class="cv-sidebar-item">
                   <h4 class="cv-sidebar-item-title d-flex justify-content-between gap-2">
                     <span>{{ c.nombre }}</span>
                     <span class="text-muted" *ngIf="c.fecha">{{ c.fecha }}</span>
@@ -250,9 +250,9 @@
               </div>
 
               <!-- Proyectos -->
-              <div class="cv-sidebar-section" *ngIf="cvData.projects.length > 0">
+              <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0">
                 <h3 class="cv-sidebar-title">{{ cvData.labels.sectionProjects }}</h3>
-                <div *ngFor="let project of cvData.projects" class="cv-sidebar-item">
+                <div *ngFor="let project of getVisibleProjects(); trackBy: trackById" class="cv-sidebar-item">
                   <h4 class="cv-sidebar-item-title d-flex justify-content-between gap-2">
                     <span>{{ project.nombre }}</span>
                     <span class="text-muted" *ngIf="project.fecha">{{ project.fecha }}</span>
