@@ -293,9 +293,20 @@
 
   <!-- Botón de descarga -->
   <div class="preview-actions mt-4" *ngIf="hasData()">
-    <button class="btn btn-primary btn-download" (click)="downloadCV()">
-      <i class="material-icons">download</i>
-      Descargar PDF
+    <button
+      class="btn btn-primary btn-download"
+      type="button"
+      (click)="downloadCV()"
+      [disabled]="isDownloading"
+      [attr.aria-busy]="isDownloading">
+      <ng-container *ngIf="!isDownloading; else downloadingTpl">
+        <i class="material-icons">download</i>
+        Descargar PDF
+      </ng-container>
+      <ng-template #downloadingTpl>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Generando PDF...
+      </ng-template>
     </button>
   </div>
 </div>

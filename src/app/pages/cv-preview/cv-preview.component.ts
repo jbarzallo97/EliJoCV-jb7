@@ -13,6 +13,7 @@ export class CvPreviewComponent implements OnInit {
   cvData!: CvData;
   pages: number[] = [0];
   previewReady = true;
+  isDownloading = false;
 
   @ViewChild('flowLeft') flowLeftRef!: ElementRef<HTMLElement>;
   @ViewChild('flowRight') flowRightRef!: ElementRef<HTMLElement>;
@@ -48,34 +49,58 @@ export class CvPreviewComponent implements OnInit {
   }
 
   async downloadCV(): Promise<void> {
+    if (this.isDownloading) return;
+    this.isDownloading = true;
+
     // Asegura que la paginación esté lista antes de capturar
     this.paginate();
     await new Promise(resolve => requestAnimationFrame(() => resolve(true)));
 
     const pageEls = Array.from(document.querySelectorAll('.cv-pages .a4-page')) as HTMLElement[];
-    if (!pageEls.length) return;
+    if (!pageEls.length) {
+      this.isDownloading = false;
+      return;
+    }
 
     const body = document.body;
     body.classList.add('pdf-export');
 
     try {
+      // Esperar a que las fuentes estén listas (mejora nitidez en canvas)
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const fonts = (document as any).fonts;
+        if (fonts?.ready) {
+          await fonts.ready;
+        }
+      } catch {
+        // ignore
+      }
+
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pageWidthMm = 210;
       const pageHeightMm = 297;
 
+      // Calidad alta por defecto: scale 3 + PNG
       for (let i = 0; i < pageEls.length; i++) {
         const pageEl = pageEls[i];
 
-        // Aumentar scale mejora nitidez del PDF
         const canvas = await html2canvas(pageEl, {
-          scale: 2,
-          backgroundColor: '#ffffff'
+          scale: 3,
+          backgroundColor: '#ffffff',
+          useCORS: true
         });
 
-        const imgData = canvas.toDataURL('image/jpeg', 1.0);
+        // PNG evita artefactos de compresión (JPEG suele verse "pixelado" en texto)
+        const imgData = canvas.toDataURL('image/png');
 
         if (i > 0) pdf.addPage();
-        pdf.addImage(imgData, 'JPEG', 0, 0, pageWidthMm, pageHeightMm);
+        const props = pdf.getImageProperties(imgData);
+        const pdfW = pageWidthMm;
+        const pdfH = (props.height * pdfW) / props.width;
+        // Centrar verticalmente si por algún motivo no coincide exactamente con A4
+        const y = Math.max(0, (pageHeightMm - pdfH) / 2);
+        pdf.addImage(imgData, 'PNG', 0, y, pdfW, pdfH);
       }
 
       const pi = this.cvData?.personalInfo;
@@ -83,6 +108,7 @@ export class CvPreviewComponent implements OnInit {
       pdf.save(name ? `CV - ${name}.pdf` : 'CV.pdf');
     } finally {
       body.classList.remove('pdf-export');
+      this.isDownloading = false;
     }
   }
 
