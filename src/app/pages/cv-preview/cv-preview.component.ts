@@ -68,6 +68,10 @@ export class CvPreviewComponent implements OnInit {
     body.classList.add('pdf-export');
 
     try {
+      // Esperar a que el CSS de pdf-export aplique antes de medir/capturar (evita diferencias vs preview)
+      await new Promise(resolve => requestAnimationFrame(() => resolve(true)));
+      await new Promise(resolve => requestAnimationFrame(() => resolve(true)));
+
       // Esperar a que las fuentes estén listas (mejora nitidez en canvas)
       try {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -89,22 +93,23 @@ export class CvPreviewComponent implements OnInit {
 
         const cleanups = await this.applyPhotoExportFix(pageEl);
         try {
+          const rect = pageEl.getBoundingClientRect();
+          const capW = Math.round(rect.width);
+          const capH = Math.round(rect.height);
           const canvas = await html2canvas(pageEl, {
             scale: 3,
             backgroundColor: '#ffffff',
-            useCORS: true
+            useCORS: true,
+            width: capW,
+            height: capH
           });
 
           // PNG evita artefactos de compresión (JPEG suele verse "pixelado" en texto)
           const imgData = canvas.toDataURL('image/png');
 
           if (i > 0) pdf.addPage();
-          const props = pdf.getImageProperties(imgData);
-          const pdfW = pageWidthMm;
-          const pdfH = (props.height * pdfW) / props.width;
-          // Centrar verticalmente si por algún motivo no coincide exactamente con A4
-          const y = Math.max(0, (pageHeightMm - pdfH) / 2);
-          pdf.addImage(imgData, 'PNG', 0, y, pdfW, pdfH);
+          // Forzar a ocupar toda el área A4 para que márgenes/ancho coincidan 1:1 con el preview
+          pdf.addImage(imgData, 'PNG', 0, 0, pageWidthMm, pageHeightMm);
         } finally {
           cleanups.forEach(fn => fn());
         }
