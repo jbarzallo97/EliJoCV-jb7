@@ -156,6 +156,33 @@
   background: #fafafa;
 }
 
+.custom-color-row {
+  border-top: 1px solid #eee;
+  padding-top: 0.85rem;
+}
+
+.custom-color-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.color-picker {
+  width: 46px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.hex-input {
+  max-width: 160px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
 .chip-swatch {
   width: 14px;
   height: 14px;
@@ -207,6 +234,14 @@
 
 :host-context(body.dark-mode) .selected-chip {
   background: #242424;
+  border-color: #444;
+}
+
+:host-context(body.dark-mode) .custom-color-row {
+  border-top-color: #333;
+}
+
+:host-context(body.dark-mode) .color-picker {
   border-color: #444;
 }
 

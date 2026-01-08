@@ -39,6 +39,21 @@ export class TemplatesComponent implements OnInit, OnDestroy {
   selectColor(value: string): void {
     this.templateService.setPrimaryColor(value);
   }
+
+  onHexChange(raw: string): void {
+    const normalized = this.normalizeHex(raw);
+    if (!normalized) return;
+    this.selectColor(normalized);
+  }
+
+  private normalizeHex(raw: string): string | null {
+    const v = (raw || '').trim();
+    if (!v) return null;
+    const withHash = v.startsWith('#') ? v : `#${v}`;
+    // #RGB o #RRGGBB
+    if (!/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(withHash)) return null;
+    return withHash.toUpperCase();
+  }
 }
 
 

@@ -308,7 +308,8 @@
 }
 
 .btn-download {
-  background: var(--cv-primary, #1976d2);
+  /* Este botón está FUERA de la hoja A4: no debe cambiar con la plantilla */
+  background: #1976d2;
   border: none;
   padding: 0.75rem 2rem;
   display: inline-flex;
@@ -318,8 +319,8 @@
 }
 
 .btn-download:hover {
-  background: var(--cv-primary, #1976d2);
-  filter: brightness(0.9);
+  background: #1565c0;
+  filter: none;
 }
 
 /* Mantener la hoja A4 (preview) igual en modo oscuro */

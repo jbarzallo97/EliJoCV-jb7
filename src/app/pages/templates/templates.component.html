@@ -45,6 +45,26 @@
           <span class="chip-text">{{ selectedColor }}</span>
         </span>
       </div>
+
+      <div class="custom-color-row mt-3">
+        <div class="text-muted mb-2">Personalizado</div>
+        <div class="custom-color-controls">
+          <input
+            class="color-picker"
+            type="color"
+            [value]="selectedColor"
+            (input)="selectColor($any($event.target).value)"
+            aria-label="Selector de color">
+
+          <input
+            class="form-control hex-input"
+            type="text"
+            [value]="selectedColor"
+            (change)="onHexChange($any($event.target).value)"
+            placeholder="#RRGGBB"
+            aria-label="Color en HEX">
+        </div>
+      </div>
     </div>
   </div>
 
