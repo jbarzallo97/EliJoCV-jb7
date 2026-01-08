@@ -22,6 +22,8 @@ export class CvPreviewComponent implements OnInit {
 
   private paginateRaf: number | null = null;
   private destroyed = false;
+  // Margen de seguridad para paginar un poco antes del borde inferior (en px)
+  private readonly pageBottomReservePx =30;
 
   constructor(
     private cvDataService: CvDataService,
@@ -482,7 +484,7 @@ export class CvPreviewComponent implements OnInit {
     if (!inner) return Number.POSITIVE_INFINITY;
     const innerRect = inner.getBoundingClientRect();
     const colRect = columnEl.getBoundingClientRect();
-    return Math.max(0, innerRect.bottom - colRect.top);
+    return Math.max(0, (innerRect.bottom - colRect.top) - this.pageBottomReservePx);
   }
 
   private measureUsedHeightPx(columnEl: HTMLElement): number {
