@@ -85,22 +85,27 @@ export class CvPreviewComponent implements OnInit {
       for (let i = 0; i < pageEls.length; i++) {
         const pageEl = pageEls[i];
 
-        const canvas = await html2canvas(pageEl, {
-          scale: 3,
-          backgroundColor: '#ffffff',
-          useCORS: true
-        });
+        const cleanups = await this.applyPhotoExportFix(pageEl);
+        try {
+          const canvas = await html2canvas(pageEl, {
+            scale: 3,
+            backgroundColor: '#ffffff',
+            useCORS: true
+          });
 
-        // PNG evita artefactos de compresión (JPEG suele verse "pixelado" en texto)
-        const imgData = canvas.toDataURL('image/png');
+          // PNG evita artefactos de compresión (JPEG suele verse "pixelado" en texto)
+          const imgData = canvas.toDataURL('image/png');
 
-        if (i > 0) pdf.addPage();
-        const props = pdf.getImageProperties(imgData);
-        const pdfW = pageWidthMm;
-        const pdfH = (props.height * pdfW) / props.width;
-        // Centrar verticalmente si por algún motivo no coincide exactamente con A4
-        const y = Math.max(0, (pageHeightMm - pdfH) / 2);
-        pdf.addImage(imgData, 'PNG', 0, y, pdfW, pdfH);
+          if (i > 0) pdf.addPage();
+          const props = pdf.getImageProperties(imgData);
+          const pdfW = pageWidthMm;
+          const pdfH = (props.height * pdfW) / props.width;
+          // Centrar verticalmente si por algún motivo no coincide exactamente con A4
+          const y = Math.max(0, (pageHeightMm - pdfH) / 2);
+          pdf.addImage(imgData, 'PNG', 0, y, pdfW, pdfH);
+        } finally {
+          cleanups.forEach(fn => fn());
+        }
       }
 
       const pi = this.cvData?.personalInfo;
@@ -109,6 +114,116 @@ export class CvPreviewComponent implements OnInit {
     } finally {
       body.classList.remove('pdf-export');
       this.isDownloading = false;
+    }
+  }
+
+  /**
+   * html2canvas puede renderizar distinto `object-fit: cover` cuando la imagen no es cuadrada.
+   * Para que el PDF se vea igual que el preview SIN perder nitidez, durante la exportación
+   * reemplazamos temporalmente el <img> por una versión cuadrada recortada (cover) en alta resolución.
+   */
+  private async applyPhotoExportFix(root: HTMLElement): Promise<Array<() => void>> {
+    const cleanups: Array<() => void> = [];
+    const imgs = Array.from(root.querySelectorAll('.cv-photo-circle img.cv-photo-img')) as HTMLImageElement[];
+
+    for (const img of imgs) {
+      const src = img.currentSrc || img.src;
+      if (!src) continue;
+
+      const prevSrc = img.src;
+      const prevSrcset = img.srcset;
+      const prevObjFit = img.style.objectFit;
+      const prevObjPos = img.style.objectPosition;
+
+      // Genera un recorte cuadrado en alta resolución (evita pixelado)
+      let newSrc: string | null = null;
+      try {
+        newSrc = await this.renderCoverSquareDataUrl(src, 1024);
+      } catch {
+        newSrc = null;
+      }
+
+      if (!newSrc) continue;
+
+      img.src = newSrc;
+      img.srcset = '';
+      img.style.objectFit = 'cover';
+      img.style.objectPosition = 'center';
+
+      // Asegura que el navegador decodifique la nueva imagen antes de capturar
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const d = (img as any).decode;
+        if (typeof d === 'function') {
+          await d.call(img);
+        }
+      } catch {
+        // ignore
+      }
+
+      cleanups.push(() => {
+        img.src = prevSrc;
+        img.srcset = prevSrcset;
+        img.style.objectFit = prevObjFit;
+        img.style.objectPosition = prevObjPos;
+      });
+    }
+
+    return cleanups;
+  }
+
+  private async renderCoverSquareDataUrl(src: string, size: number): Promise<string | null> {
+    try {
+      const image = new Image();
+      image.crossOrigin = 'anonymous';
+      image.src = src;
+
+      // decode() es más confiable que onload para algunos casos
+      if (typeof (image as any).decode === 'function') {
+        try {
+          await (image as any).decode();
+        } catch {
+          // fallback a onload
+          await new Promise<void>((resolve, reject) => {
+            image.onload = () => resolve();
+            image.onerror = () => reject(new Error('image load failed'));
+          });
+        }
+      } else {
+        await new Promise<void>((resolve, reject) => {
+          image.onload = () => resolve();
+          image.onerror = () => reject(new Error('image load failed'));
+        });
+      }
+
+      const sw = image.naturalWidth || image.width;
+      const sh = image.naturalHeight || image.height;
+      if (!sw || !sh) return null;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return null;
+
+      // High quality smoothing
+      (ctx as any).imageSmoothingEnabled = true;
+      try {
+        (ctx as any).imageSmoothingQuality = 'high';
+      } catch {
+        // ignore
+      }
+
+      const scale = Math.max(size / sw, size / sh);
+      const dw = sw * scale;
+      const dh = sh * scale;
+      const dx = (size - dw) / 2;
+      const dy = (size - dh) / 2;
+      ctx.drawImage(image, dx, dy, dw, dh);
+
+      return canvas.toDataURL('image/png');
+    } catch {
+      return null;
     }
   }
 
