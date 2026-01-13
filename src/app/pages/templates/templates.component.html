@@ -74,33 +74,48 @@
         <i class="material-icons">view_quilt</i>
         <h4 class="group-title mb-0">Plantilla</h4>
       </div>
-      <span class="badge text-bg-warning">En mantenimiento</span>
+      <span class="badge text-bg-light">Por defecto</span>
     </div>
 
     <div class="template-card-body">
       <p class="text-muted mb-3">
-        Estamos mejorando las plantillas (layouts, tipografías y distribución). Por ahora puedes personalizar el color principal.
+        Esta es la plantilla base actual. Más plantillas vendrán después.
       </p>
 
-      <div class="maintenance-panel" aria-disabled="true">
-        <label class="form-label mb-1">Seleccionar plantilla</label>
-        <select class="form-select" disabled>
-          <option selected>Actual (por defecto)</option>
-          <option>Clásico</option>
-          <option>Moderno</option>
-          <option>Minimalista</option>
-        </select>
+      <div class="templates-strip" aria-label="Galería de plantillas">
+        <button
+          type="button"
+          class="template-mini"
+          (click)="selectTemplate('template-1')"
+          [class.selected]="selectedTemplateId === 'template-1'">
+          <div class="template-mini-preview" aria-hidden="true">
+            <img
+              class="preview-img preview-img-base"
+              src="assets/image/plantillas/plantilla1-1.jpg"
+              alt=""
+              loading="lazy">
+            <img
+              class="preview-img preview-img-hover"
+              src="assets/image/plantillas/plantilla1-2.jpg"
+              alt=""
+              loading="lazy">
+          </div>
 
-        <div class="d-flex gap-2 mt-3 flex-wrap">
-          <button type="button" class="btn btn-outline-secondary d-inline-flex align-items-center gap-2" disabled>
-            <i class="material-icons">visibility</i>
-            Ver mini-preview
-          </button>
-          <button type="button" class="btn btn-primary d-inline-flex align-items-center gap-2" disabled>
-            <i class="material-icons">check</i>
-            Aplicar plantilla
-          </button>
-        </div>
+          <div class="template-mini-meta">
+            <div class="template-mini-name-row">
+              <div class="template-mini-name">Plantilla 1 (Actual)</div>
+              <span class="template-badge-selected" *ngIf="selectedTemplateId === 'template-1'">
+                <i class="material-icons">check_circle</i>
+                Seleccionada
+              </span>
+            </div>
+            <div class="template-mini-sub text-muted">
+              <span class="tag">ATS</span>
+              <span class="dot">·</span>
+              Por defecto
+            </div>
+          </div>
+        </button>
       </div>
     </div>
   </div>

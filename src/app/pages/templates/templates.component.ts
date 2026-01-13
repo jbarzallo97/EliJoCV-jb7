@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Template } from 'src/app/core/models/cv-data.model';
 import { TemplateService } from 'src/app/core/services/template.service';
 
 @Component({
@@ -9,7 +10,9 @@ import { TemplateService } from 'src/app/core/services/template.service';
 })
 export class TemplatesComponent implements OnInit, OnDestroy {
   selectedColor = '';
-  private sub?: Subscription;
+  selectedTemplateId = '';
+  templates: Template[] = [];
+  private sub = new Subscription();
 
   // Paleta de acentos profesionales (CV)
   colors: Array<{ name: string; value: string; hint: string }> = [
@@ -26,18 +29,29 @@ export class TemplatesComponent implements OnInit, OnDestroy {
   constructor(private templateService: TemplateService) {}
 
   ngOnInit(): void {
+    this.templates = this.templateService.getTemplates();
     this.selectedColor = this.templateService.getPrimaryColor();
-    this.sub = this.templateService.selectedPrimaryColor$.subscribe(c => {
+    this.selectedTemplateId = this.templateService.getSelectedTemplate().id;
+
+    this.sub.add(this.templateService.selectedPrimaryColor$.subscribe(c => {
       this.selectedColor = c;
-    });
+    }));
+
+    this.sub.add(this.templateService.selectedTemplate$.subscribe(t => {
+      this.selectedTemplateId = t.id;
+    }));
   }
 
   ngOnDestroy(): void {
-    this.sub?.unsubscribe();
+    this.sub.unsubscribe();
   }
 
   selectColor(value: string): void {
     this.templateService.setPrimaryColor(value);
+  }
+
+  selectTemplate(templateId: string): void {
+    this.templateService.selectTemplate(templateId);
   }
 
   onHexChange(raw: string): void {

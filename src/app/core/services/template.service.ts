@@ -13,9 +13,9 @@ export class TemplateService {
   private templates: Template[] = [
     {
       id: 'template-1',
-      nombre: 'Clásico',
-      descripcion: 'Diseño tradicional y profesional',
-      preview: '/assets/templates/template-1-preview.png',
+      nombre: 'Plantilla 1 (Actual)',
+      descripcion: 'Plantilla por defecto (layout actual)',
+      preview: 'assets/image/plantillas/plantilla1-1.jpg',
       estilos: {
         colorPrincipal: '#1976d2',
         colorSecundario: '#424242',

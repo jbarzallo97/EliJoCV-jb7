@@ -55,6 +55,250 @@
   border: 1px solid rgba(51, 65, 85, 0.12);
 }
 
+.template-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.templates-strip {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scroll-snap-type: x mandatory;
+}
+
+.templates-strip::-webkit-scrollbar {
+  height: 10px;
+}
+
+.templates-strip::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+}
+
+.template-mini {
+  flex: 0 0 250px;
+  scroll-snap-align: start;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  border-radius: 16px;
+  padding: 0.65rem;
+  text-align: left;
+  position: relative;
+  transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+}
+
+.template-mini:hover {
+  border-color: rgba(25, 118, 210, 0.35);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.10);
+  transform: translateY(-1px);
+}
+
+.template-mini.selected {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.18);
+}
+
+.template-mini-preview {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  /* Proporción A4 para que se vea "la hoja completa" */
+  aspect-ratio: 210 / 297;
+  height: auto;
+  background: #eef2f7;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.preview-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Mostrar la hoja completa (sin recortes) */
+  object-fit: contain;
+  background: #ffffff;
+  transition: opacity 160ms ease;
+}
+
+.preview-img-hover {
+  opacity: 0;
+}
+
+@keyframes templateSwapBase {
+  0%, 48% { opacity: 1; }
+  52%, 96% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes templateSwapHover {
+  0%, 48% { opacity: 0; transform: translateX(14px); }
+  52%, 96% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(14px); }
+}
+
+/* En hover: alternar cada ~2s (ciclo total 4s) con transición suave (entra desde la derecha) */
+.template-mini:hover .preview-img-base,
+.template-mini:focus-visible .preview-img-base {
+  animation: templateSwapBase 6s ease-in-out infinite;
+}
+
+.template-mini:hover .preview-img-hover,
+.template-mini:focus-visible .preview-img-hover {
+  animation: templateSwapHover 6s ease-in-out infinite;
+}
+
+.template-mini-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* .template-badge-new {
+  background: #ff4d4f;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 0.18rem 0.45rem;
+  border-radius: 999px;
+} */
+
+.template-badge-selected {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: #1976d2;
+  background: rgba(25, 118, 210, 0.08);
+  border: 1px solid rgba(25, 118, 210, 0.18);
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+}
+
+.template-badge-selected .material-icons {
+  font-size: 18px;
+}
+
+.template-mini-meta {
+  padding-top: 0.65rem;
+}
+
+.template-mini-name {
+  font-weight: 800;
+  color: #212121;
+  line-height: 1.1;
+}
+
+.template-mini-sub {
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.03);
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: #111827;
+}
+
+.dot {
+  opacity: 0.6;
+}
+
+.template-option {
+  width: 100%;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.75rem;
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  text-align: left;
+  position: relative;
+  transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+}
+
+.template-option:hover {
+  border-color: rgba(25, 118, 210, 0.35);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+.template-option.selected {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.18);
+}
+
+.template-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  width: 260px;
+  flex: 0 0 auto;
+}
+
+.template-preview-grid img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #f3f4f6;
+}
+
+.template-meta {
+  flex: 1;
+  min-width: 0;
+  padding-top: 0.1rem;
+}
+
+.template-name {
+  font-weight: 800;
+  color: #212121;
+}
+
+.template-desc {
+  font-size: 0.9rem;
+}
+
+.template-selected-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  font-size: 0.85rem;
+  color: #1976d2;
+}
+
+.template-selected-badge .material-icons {
+  font-size: 18px;
+}
+
+@media (max-width: 520px) {
+  .template-option {
+    flex-direction: column;
+  }
+  .template-preview-grid {
+    width: 100%;
+  }
+}
+
 .maintenance-panel {
   border: 1px dashed rgba(0, 0, 0, 0.15);
   border-radius: 12px;
@@ -230,6 +474,47 @@
 :host-context(body.dark-mode) .color-option {
   background: #1e1e1e;
   border-color: #444;
+}
+
+:host-context(body.dark-mode) .template-option {
+  background: #1e1e1e;
+  border-color: #444;
+}
+
+:host-context(body.dark-mode) .template-mini {
+  background: #1e1e1e;
+  border-color: #444;
+}
+
+:host-context(body.dark-mode) .template-mini-name {
+  color: #e0e0e0;
+}
+
+:host-context(body.dark-mode) .template-mini-preview {
+  background: #242424;
+  border-color: #333;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+:host-context(body.dark-mode) .template-badge-selected {
+  color: #64b5f6;
+  background: rgba(100, 181, 246, 0.12);
+  border-color: rgba(100, 181, 246, 0.22);
+}
+
+:host-context(body.dark-mode) .tag {
+  border-color: #444;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e0e0e0;
+}
+
+:host-context(body.dark-mode) .template-name {
+  color: #e0e0e0;
+}
+
+:host-context(body.dark-mode) .template-preview-grid img {
+  border-color: #444;
+  background: #242424;
 }
 
 :host-context(body.dark-mode) .selected-chip {
