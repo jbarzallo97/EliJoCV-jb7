@@ -84,35 +84,37 @@
 
       <div class="templates-strip" aria-label="Galería de plantillas">
         <button
+          *ngFor="let t of templateGallery; trackBy: trackByTemplateId"
           type="button"
           class="template-mini"
-          (click)="selectTemplate('template-1')"
-          [class.selected]="selectedTemplateId === 'template-1'">
+          (click)="selectTemplate(t.id)"
+          [class.selected]="selectedTemplateId === t.id">
           <div class="template-mini-preview" aria-hidden="true">
             <img
               class="preview-img preview-img-base"
-              src="assets/image/plantillas/plantilla1-1.jpg"
+              [src]="t.previewBase"
               alt=""
               loading="lazy">
             <img
               class="preview-img preview-img-hover"
-              src="assets/image/plantillas/plantilla1-2.jpg"
+              [src]="t.previewHover"
               alt=""
               loading="lazy">
           </div>
 
           <div class="template-mini-meta">
             <div class="template-mini-name-row">
-              <div class="template-mini-name">Plantilla 1 (Actual)</div>
-              <span class="template-badge-selected" *ngIf="selectedTemplateId === 'template-1'">
+              <div class="template-mini-name">{{ t.nombre }}</div>
+              <span class="template-badge-selected" *ngIf="selectedTemplateId === t.id">
                 <i class="material-icons">check_circle</i>
                 Seleccionada
               </span>
             </div>
             <div class="template-mini-sub text-muted">
-              <span class="tag">ATS</span>
-              <span class="dot">·</span>
-              Por defecto
+              <ng-container *ngFor="let tag of t.tags; let last = last">
+                <span class="tag">{{ tag }}</span>
+                <span class="dot" *ngIf="!last">·</span>
+              </ng-container>
             </div>
           </div>
         </button>

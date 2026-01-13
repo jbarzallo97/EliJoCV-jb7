@@ -28,7 +28,7 @@ export class TemplateService {
       id: 'template-2',
       nombre: 'Moderno',
       descripcion: 'Diseño contemporáneo y limpio',
-      preview: '/assets/templates/template-2-preview.png',
+      preview: 'assets/image/plantillas/plantilla2-1.png',
       estilos: {
         colorPrincipal: '#00bcd4',
         colorSecundario: '#607d8b',

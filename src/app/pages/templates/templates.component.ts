@@ -12,6 +12,16 @@ export class TemplatesComponent implements OnInit, OnDestroy {
   selectedColor = '';
   selectedTemplateId = '';
   templates: Template[] = [];
+
+  templateGallery: Array<{
+    id: string;
+    nombre: string;
+    descripcion: string;
+    previewBase: string;
+    previewHover: string;
+    tags: string[];
+    isDefault?: boolean;
+  }> = [];
   private sub = new Subscription();
 
   // Paleta de acentos profesionales (CV)
@@ -32,6 +42,32 @@ export class TemplatesComponent implements OnInit, OnDestroy {
     this.templates = this.templateService.getTemplates();
     this.selectedColor = this.templateService.getPrimaryColor();
     this.selectedTemplateId = this.templateService.getSelectedTemplate().id;
+
+    const galleryMeta: Record<string, { previewBase: string; previewHover: string; tags: string[]; isDefault?: boolean }> = {
+      'template-1': {
+        previewBase: 'assets/image/plantillas/plantilla1-1.jpg',
+        previewHover: 'assets/image/plantillas/plantilla1-2.jpg',
+        tags: ['ATS', 'Por defecto'],
+        isDefault: true
+      },
+      'template-2': {
+        previewBase: 'assets/image/plantillas/plantilla2-1.png',
+        previewHover: 'assets/image/plantillas/plantilla2-2.png',
+        tags: ['Moderno', 'Nuevo']
+      }
+    };
+
+    this.templateGallery = this.templates
+      .filter(t => t.id in galleryMeta)
+      .map(t => ({
+        id: t.id,
+        nombre: t.nombre,
+        descripcion: t.descripcion,
+        previewBase: galleryMeta[t.id].previewBase,
+        previewHover: galleryMeta[t.id].previewHover,
+        tags: galleryMeta[t.id].tags,
+        isDefault: galleryMeta[t.id].isDefault
+      }));
 
     this.sub.add(this.templateService.selectedPrimaryColor$.subscribe(c => {
       this.selectedColor = c;
@@ -58,6 +94,10 @@ export class TemplatesComponent implements OnInit, OnDestroy {
     const normalized = this.normalizeHex(raw);
     if (!normalized) return;
     this.selectColor(normalized);
+  }
+
+  trackByTemplateId(_: number, t: { id: string }): string {
+    return t.id;
   }
 
   private normalizeHex(raw: string): string | null {
