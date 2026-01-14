@@ -59,6 +59,11 @@ export class TemplatesComponent implements OnInit, OnDestroy {
         previewBase: 'assets/image/plantillas/plantilla3-1.png',
         previewHover: 'assets/image/plantillas/plantilla3-2.png',
         tags: ['Minimalista', 'Nuevo']
+      },
+      'template-4': {
+        previewBase: 'assets/image/plantillas/plantilla4-1.svg',
+        previewHover: 'assets/image/plantillas/plantilla4-2.svg',
+        tags: ['Sidebar izquierda', 'Nuevo']
       }
     };
 

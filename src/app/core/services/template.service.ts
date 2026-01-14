@@ -49,6 +49,19 @@ export class TemplateService {
         fuenteTexto: 'Inter',
         espaciado: 'normal'
       }
+    },
+    {
+      id: 'template-4',
+      nombre: 'Plantilla 4',
+      descripcion: 'Sidebar izquierda + timeline moderno',
+      preview: 'assets/image/plantillas/plantilla4-1.svg',
+      estilos: {
+        colorPrincipal: '#0f766e',
+        colorSecundario: '#0f172a',
+        fuenteTitulo: 'Montserrat',
+        fuenteTexto: 'Inter',
+        espaciado: 'normal'
+      }
     }
   ];
 
