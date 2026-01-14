@@ -75,6 +75,19 @@ export class TemplateService {
         fuenteTexto: 'Inter',
         espaciado: 'normal'
       }
+    },
+    {
+      id: 'template-6',
+      nombre: 'Plantilla 6',
+      descripcion: 'Timeline + sidebar limpio (placeholder SVG)',
+      preview: 'assets/image/plantillas/plantilla6-1.svg',
+      estilos: {
+        colorPrincipal: '#4f46e5',
+        colorSecundario: '#06b6d4',
+        fuenteTitulo: 'Montserrat',
+        fuenteTexto: 'Inter',
+        espaciado: 'normal'
+      }
     }
   ];
 

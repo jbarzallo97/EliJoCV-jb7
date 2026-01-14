@@ -1212,6 +1212,324 @@
   word-break: break-word;
 }
 
+/* =========================
+   Template 6 (sidebar izquierda + borde full color)
+   ========================= */
+.cv-layout-template-6 {
+  position: relative;
+  height: 100%;
+}
+
+/* Borde izquierdo a todo lo alto (full page) */
+.cv-layout-template-6::before {
+  content: '';
+  position: absolute;
+  top: -32mm;
+  bottom: -16mm;
+  left: -16mm;
+  width: 10mm;
+  background: var(--cv-primary, #4f46e5);
+  z-index: 0;
+}
+
+/* Fondo del sidebar (zona izquierda) */
+.cv-layout-template-6::after {
+  content: '';
+  position: absolute;
+  top: -32mm;
+  bottom: -16mm;
+  left: calc(-16mm + 10mm);
+  width: 64mm;
+  background: color-mix(in srgb, var(--cv-primary, #4f46e5) 10%, #ffffff);
+  z-index: 0;
+}
+
+.cv-layout-template-6 > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Visualmente, el sidebar va a la izquierda (sin romper paginación) */
+.cv-layout-template-6 .cv-page-right,
+.cv-layout-template-6 .cv-flow-right {
+  order: 1;
+  /* Bootstrap agrega gutters a las columnas; aquí los controlamos para que el centrado
+     (foto/nombre) se vea realmente centrado en el panel izquierdo */
+  padding-left: 2mm !important;
+  padding-right: 4mm !important;
+}
+
+.cv-layout-template-6 .cv-page-left,
+.cv-layout-template-6 .cv-flow-left {
+  order: 2;
+}
+
+/* Reducimos el gap superior (ya hay header) */
+.cv-layout-template-6 .row.mt-4 {
+  margin-top: 0.35rem !important;
+}
+
+.cv-layout-template-6 .cv-t6-kv .k {
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--cv-primary, #4f46e5) 70%, #0f172a);
+  line-height: 1.1;
+}
+
+.cv-layout-template-6 .cv-t6-kv .v {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0f172a;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+.cv-layout-template-6 .cv-t6-sidebar-identity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1.1rem;
+  width: 100%;
+}
+
+.cv-layout-template-6 .cv-t6-sidebar-name {
+  margin-top: 0.85rem;
+  max-width: 62mm;
+}
+
+.cv-layout-template-6 .cv-t6-name {
+  font-size: 2.05rem;
+  line-height: 1.05;
+  color: #0f172a;
+  font-weight: 900;
+  text-wrap: balance;
+  margin-top: 0;
+}
+
+.cv-layout-template-6 .cv-t6-position {
+  font-size: 1.1rem;
+  color: #64748b;
+  font-weight: 600;
+  margin-top: 0.45rem;
+  max-width: none;
+}
+
+.cv-layout-template-6 .cv-photo-circle--t6 {
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, var(--cv-primary, #4f46e5) 22%, #ffffff);
+  background: #fff;
+  margin-top: 0.15rem;
+}
+
+.cv-layout-template-6 .cv-t6-sidebar-contact {
+  margin-bottom: 1.05rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.10);
+  width: 100%;
+}
+
+.cv-layout-template-6 .cv-t6-sidebar-contact .cv-t6-kv + .cv-t6-kv {
+  margin-top: 0.45rem;
+}
+
+.cv-layout-template-6 .cv-sidebar-section {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-left: 0;
+}
+
+.cv-layout-template-6 .cv-sidebar-item {
+  margin-bottom: 0.55rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.cv-layout-template-6 .cv-sidebar-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.cv-layout-template-6 .cv-sidebar-title {
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: color-mix(in srgb, var(--cv-primary, #4f46e5) 75%, #0f172a);
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0.55rem;
+}
+
+.cv-layout-template-6 .cv-sidebar-title::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 100%;
+  margin-top: 0.35rem;
+  background: color-mix(in srgb, var(--cv-primary, #4f46e5) 25%, rgba(15, 23, 42, 0.10));
+}
+
+/* Idiomas: alineación + nivel como pill */
+.cv-layout-template-6 .cv-sidebar-item.d-flex {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.cv-layout-template-6 .cv-sidebar-item.d-flex > span:first-child {
+  font-weight: 800;
+  color: #0f172a;
+  min-width: 0;
+}
+
+.cv-layout-template-6 .cv-sidebar-item.d-flex .text-muted {
+  color: color-mix(in srgb, var(--cv-primary, #4f46e5) 90%, #0f172a) !important;
+  font-weight: 900;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--cv-primary, #4f46e5) 18%, transparent);
+  background: color-mix(in srgb, var(--cv-primary, #4f46e5) 10%, transparent);
+  white-space: nowrap;
+}
+
+/* Habilidades: fila principal + categoría secundaria */
+.cv-layout-template-6 .cv-sidebar-item > .d-flex {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.cv-layout-template-6 .cv-sidebar-item > .d-flex > span:first-child {
+  font-weight: 800;
+  color: #0f172a;
+  min-width: 0;
+}
+
+.cv-layout-template-6 .cv-sidebar-item > .d-flex .text-muted {
+  color: color-mix(in srgb, var(--cv-primary, #4f46e5) 90%, #0f172a) !important;
+  font-weight: 900;
+  font-size: 0.72rem;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--cv-primary, #4f46e5) 18%, transparent);
+  background: color-mix(in srgb, var(--cv-primary, #4f46e5) 10%, transparent);
+  white-space: nowrap;
+}
+
+.cv-layout-template-6 .cv-sidebar-item > small.text-muted {
+  display: inline-block;
+  margin-top: 0.25rem;
+  color: #64748b !important;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Proyectos: nombre/fecha + url más limpio */
+.cv-layout-template-6 .cv-sidebar-item .fw-semibold {
+  font-weight: 900 !important;
+  color: #0f172a;
+}
+
+.cv-layout-template-6 .cv-sidebar-item .small.text-muted {
+  color: #64748b !important;
+  margin-top: 0.2rem;
+  font-weight: 600;
+}
+
+.cv-layout-template-6 .cv-sidebar-item .small {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Columna derecha (Template 6): Perfil / Experiencia / Educación / Referencias */
+.cv-layout-template-6 .cv-page-left,
+.cv-layout-template-6 .cv-flow-left {
+  padding-left: 6mm !important;
+}
+
+.cv-layout-template-6 .cv-section-title {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0.9rem;
+  font-size: 1.02rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--cv-primary, #4f46e5) 85%, #0f172a);
+}
+
+.cv-layout-template-6 .cv-section-title::after {
+  content: '';
+  display: block;
+  height: 2px;
+  width: 70%;
+  margin-top: 0.45rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--cv-primary, #4f46e5) 55%, transparent),
+    color-mix(in srgb, var(--cv-primary, #4f46e5) 10%, transparent)
+  );
+}
+
+.cv-layout-template-6 .cv-item {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-left: 4px solid color-mix(in srgb, var(--cv-primary, #4f46e5) 55%, transparent);
+  border-radius: 14px;
+  padding: 0.85rem 0.95rem;
+  margin-bottom: 0.95rem;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.045);
+}
+
+.cv-layout-template-6 .cv-item h4 {
+  font-size: 1.12rem;
+  font-weight: 900;
+  color: #0f172a;
+  margin-bottom: 0.3rem;
+}
+
+.cv-layout-template-6 .cv-item-meta {
+  color: #475569;
+  font-size: 0.92rem;
+  margin-bottom: 0.45rem;
+}
+
+.cv-layout-template-6 .cv-item-meta .fw-semibold {
+  font-weight: 800 !important;
+  color: #0f172a;
+}
+
+.cv-layout-template-6 .cv-bullet-list {
+  margin-top: 0.35rem;
+  padding-left: 1.1rem;
+}
+
+.cv-layout-template-6 .cv-bullet-list li {
+  margin-bottom: 0.28rem;
+}
+
+.cv-layout-template-6 .cv-bullet-list li::marker {
+  color: var(--cv-primary, #4f46e5);
+}
+
 .cv-placeholder {
   padding: 2rem;
   text-align: center;
