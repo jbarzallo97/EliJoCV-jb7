@@ -976,6 +976,242 @@
   transform: translateY(-1px);
 }
 
+/* =========================
+   Template 5 (franja superior full width)
+   ========================= */
+.cv-layout-template-5 {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cv-layout-template-5 .cv-header {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/* Full-bleed: quitamos el padding del a4-inner SOLO para el header */
+.cv-layout-template-5 .cv-header--t5 {
+  background: var(--cv-primary, #111827);
+  color: #fff;
+  margin: -16mm -16mm 10mm -16mm;
+  padding: 12mm 16mm 10mm 16mm;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.cv-layout-template-5 .cv-header-t5-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cv-layout-template-5 .cv-header-t5-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.cv-layout-template-5 .cv-photo-circle--t5 {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  border: 2px solid color-mix(in srgb, #ffffff 35%, transparent);
+  flex: 0 0 auto;
+}
+
+.cv-layout-template-5 .cv-name {
+  color: #fff;
+  font-weight: 900;
+}
+
+.cv-layout-template-5 .cv-position {
+  color: color-mix(in srgb, #ffffff 80%, transparent);
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+/* Datos debajo del nombre (template 5) */
+.cv-layout-template-5 .cv-header-t5-bottom {
+  margin-top: 0.9rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, #ffffff 18%, transparent);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem 1.2rem;
+}
+
+.cv-layout-template-5 .cv-t5-kv {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  align-items: flex-start;
+}
+
+.cv-layout-template-5 .cv-t5-kv .k {
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, #ffffff 70%, transparent);
+  line-height: 1.1;
+}
+
+.cv-layout-template-5 .cv-t5-kv .v {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ffffff;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+/* Divisor vertical como Template 2 (altura completa SOLO en el bloque de columnas) */
+.cv-layout-template-5 .cv-columns {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.cv-layout-template-5 .cv-columns::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(100% * 8 / 12);
+  width: 1px;
+  background: rgba(15, 23, 42, 0.10);
+  pointer-events: none;
+}
+
+/* Contenido principal (template 5): estilo nuevo, limpio y profesional */
+.cv-layout-template-5 .cv-section-title {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0.9rem;
+  font-size: 0.98rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--cv-primary, #111827) 85%, #0f172a);
+}
+
+.cv-layout-template-5 .cv-section-title::after {
+  content: '';
+  display: block;
+  height: 2px;
+  width: 68%;
+  margin-top: 0.45rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--cv-primary, #111827) 65%, transparent),
+    color-mix(in srgb, var(--cv-primary, #111827) 10%, transparent)
+  );
+}
+
+.cv-layout-template-5 .cv-item {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-left: 4px solid color-mix(in srgb, var(--cv-primary, #111827) 65%, transparent);
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+  margin-bottom: 0.9rem;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.05);
+}
+
+.cv-layout-template-5 .cv-item h4 {
+  margin-bottom: 0.25rem;
+}
+
+.cv-layout-template-5 .cv-item-meta {
+  margin-bottom: 0.4rem;
+}
+
+.cv-layout-template-5 .cv-bullet-list {
+  margin-top: 0.35rem;
+}
+
+.cv-layout-template-5 .cv-bullet-list li {
+  margin-bottom: 0.25rem;
+}
+
+/* Sidebar derecho (template 5) estilo limpio como la referencia */
+.cv-layout-template-5 .cv-page-right,
+.cv-layout-template-5 .cv-flow-right {
+  padding-left: 1.2rem;
+  border-left: none;
+}
+
+.cv-layout-template-5 .cv-sidebar-section {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.cv-layout-template-5 .cv-sidebar-title {
+  font-size: 0.9rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--cv-primary, #111827) 80%, #0f172a);
+  border-bottom: 1px solid color-mix(in srgb, var(--cv-primary, #111827) 25%, rgba(15, 23, 42, 0.10));
+  padding-bottom: 0.45rem;
+  margin-bottom: 0.7rem;
+}
+
+.cv-layout-template-5 .cv-sidebar-item {
+  margin-bottom: 0.6rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.cv-layout-template-5 .cv-sidebar-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+/* Refuerzo visual + color reactivo en el sidebar de Template 5 */
+.cv-layout-template-5 .cv-sidebar-item.d-flex > span:first-child {
+  font-weight: 800;
+  color: #0f172a;
+}
+
+/* Nivel (Idiomas) como pill con color seleccionado */
+.cv-layout-template-5 .cv-sidebar-item.d-flex .text-muted {
+  color: color-mix(in srgb, var(--cv-primary, #111827) 90%, #0f172a) !important;
+  font-weight: 900;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--cv-primary, #111827) 18%, transparent);
+  background: color-mix(in srgb, var(--cv-primary, #111827) 10%, transparent);
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+/* En HABILIDADES el nivel NO debe verse como “botón/pill” */
+.cv-layout-template-5 .cv-t5-skill-section .cv-sidebar-item.d-flex .text-muted {
+  padding: 0;
+  border: none;
+  background: transparent;
+  border-radius: 0;
+  font-size: 0.82rem;
+  letter-spacing: 0;
+}
+
+.cv-layout-template-5 .cv-sidebar-item .small {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 .cv-placeholder {
   padding: 2rem;
   text-align: center;

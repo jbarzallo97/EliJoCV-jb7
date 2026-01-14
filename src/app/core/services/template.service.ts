@@ -62,6 +62,19 @@ export class TemplateService {
         fuenteTexto: 'Inter',
         espaciado: 'normal'
       }
+    },
+    {
+      id: 'template-5',
+      nombre: 'Plantilla 5',
+      descripcion: 'Header oscuro + dos columnas',
+      preview: 'assets/image/plantillas/plantilla5-1.svg',
+      estilos: {
+        colorPrincipal: '#111827',
+        colorSecundario: '#334155',
+        fuenteTitulo: 'Montserrat',
+        fuenteTexto: 'Inter',
+        espaciado: 'normal'
+      }
     }
   ];
 
