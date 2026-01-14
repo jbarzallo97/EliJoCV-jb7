@@ -91,9 +91,9 @@ export class CvDataService {
     // Drag&drop puede disparar fuera de NgZone: garantizamos emisión dentro de Angular
     // y clonamos el array para forzar nueva referencia.
     this.ngZone.run(() => {
-      const current = this.cvDataSubject.value;
-      this.cvDataSubject.next({
-        ...current,
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
         workExperience: [...experiences]
       });
       this.saveToStorage();

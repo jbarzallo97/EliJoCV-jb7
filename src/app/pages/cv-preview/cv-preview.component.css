@@ -275,6 +275,122 @@
   text-decoration: underline;
 }
 
+/* =========================
+   Template 2 (Moderno) layout
+   ========================= */
+.cv-layout-template-2 .cv-header {
+  border-bottom-width: 1px;
+  padding-bottom: 0.85rem;
+  margin-bottom: 0.9rem;
+}
+
+.cv-layout-template-2 .cv-header--t2 {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+}
+
+.cv-layout-template-2 .cv-photo-wrapper-t2 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.65rem;
+}
+
+.cv-layout-template-2 .cv-name {
+  color: var(--cv-primary, #1976d2);
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.cv-layout-template-2 .cv-position {
+  margin-top: 0.2rem;
+  margin-bottom: 0.35rem;
+  color: #6b7280;
+}
+
+.cv-layout-template-2 .cv-contact-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem;
+  font-size: 0.78rem;
+  margin-top: 0.25rem;
+}
+
+.cv-layout-template-2 .cv-contact-label-inline {
+  color: var(--cv-primary, #1976d2);
+  font-weight: 700;
+  margin-right: 0.25rem;
+}
+
+.cv-layout-template-2 .cv-contact-value-inline {
+  color: #374151;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.cv-layout-template-2 .cv-page-left,
+.cv-layout-template-2 .cv-flow-left {
+  border-right: 1px solid rgba(0, 0, 0, 0.10);
+  padding-right: 1rem;
+}
+
+.cv-layout-template-2 .cv-page-right,
+.cv-layout-template-2 .cv-flow-right {
+  padding-left: 1rem;
+}
+
+.cv-layout-template-2 .cv-section-title,
+.cv-layout-template-2 .cv-sidebar-title {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.95rem;
+  font-weight: 800;
+  border-bottom: 2px solid var(--cv-primary, #1976d2);
+  padding-bottom: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.cv-layout-template-2 .cv-section {
+  margin-bottom: 1.4rem;
+}
+
+.cv-layout-template-2 .cv-item {
+  margin-bottom: 1.1rem;
+}
+
+.cv-layout-template-2 .cv-sidebar-section {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 1.25rem;
+}
+
+.cv-layout-template-2 .cv-skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+/* Template 2: Perfil en bloque superior (full width) */
+.cv-layout-template-2 .cv-page-top .cv-section-title,
+.cv-layout-template-2 .cv-flow-top .cv-section-title {
+  margin-top: 0.25rem;
+}
+
+.cv-layout-template-2 .cv-page-top .cv-section p,
+.cv-layout-template-2 .cv-flow-top .cv-section p {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  padding: 0.75rem 0.85rem;
+  margin: 0;
+  color: #374151;
+}
+
+/* Un poco menos de separación entre perfil y columnas en template 2 */
+.cv-layout-template-2 .row.mt-4 {
+  margin-top: 1rem !important;
+}
+
 .cv-placeholder {
   padding: 2rem;
   text-align: center;

@@ -12,73 +12,137 @@
       <div class="cv-pages">
         <div class="a4-page" *ngFor="let p of pages; let pageIndex = index">
           <div class="a4-inner">
+            <div class="cv-layout" [ngClass]="'cv-layout-' + selectedTemplateId">
             <!-- Header SOLO en la primera página -->
             <ng-container *ngIf="pageIndex === 0">
               <div class="cv-first-page-header" #firstPageHeader>
-                <!-- Header: Nombre, puesto y foto -->
-                <div class="cv-header row align-items-center">
-                  <div class="col-md-8">
-                    <h1 class="cv-name">
-                      {{ cvData.personalInfo.nombres }} {{ cvData.personalInfo.apellidos }}
-                    </h1>
-                    <p class="cv-position" *ngIf="cvData.personalInfo.puesto">
-                      {{ cvData.personalInfo.puesto }}
-                    </p>
-                  </div>
-                  <div class="col-md-4 text-md-end" *ngIf="cvData.personalInfo.foto">
-                    <div class="cv-photo-wrapper d-inline-block">
-                      <div class="cv-photo-circle">
-                        <img [src]="cvData.personalInfo.foto" alt="Foto de perfil" class="cv-photo-img">
+                <ng-container [ngSwitch]="selectedTemplateId">
+                  <!-- Template 2: header centrado como el diseño de referencia -->
+                  <ng-container *ngSwitchCase="'template-2'">
+                    <div class="cv-header cv-header--t2 text-center">
+                      <div class="cv-photo-wrapper-t2" *ngIf="cvData.personalInfo.foto">
+                        <div class="cv-photo-circle">
+                          <img [src]="cvData.personalInfo.foto" alt="Foto de perfil" class="cv-photo-img">
+                        </div>
+                      </div>
+
+                      <h1 class="cv-name">
+                        {{ cvData.personalInfo.nombres }} {{ cvData.personalInfo.apellidos }}
+                      </h1>
+                      <p class="cv-position" *ngIf="cvData.personalInfo.puesto">
+                        {{ cvData.personalInfo.puesto }}
+                      </p>
+
+                      <div
+                        class="cv-contact-line"
+                        *ngIf="
+                          cvData.personalInfo.email ||
+                          cvData.personalInfo.celular ||
+                          cvData.personalInfo.ubicacion ||
+                          cvData.personalInfo.nacionalidad ||
+                          cvData.personalInfo.fechaNacimiento ||
+                          getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) !== null
+                        ">
+                        <span class="cv-contact-inline" *ngIf="cvData.personalInfo.email">
+                          <span class="cv-contact-label-inline">{{ cvData.labels.labelEmail }}</span>
+                          <span class="cv-contact-value-inline">{{ cvData.personalInfo.email }}</span>
+                        </span>
+                        <span class="cv-contact-inline" *ngIf="cvData.personalInfo.celular">
+                          <span class="cv-contact-label-inline">{{ cvData.labels.labelPhone }}</span>
+                          <span class="cv-contact-value-inline">{{ cvData.personalInfo.celular }}</span>
+                        </span>
+                        <span class="cv-contact-inline" *ngIf="cvData.personalInfo.ubicacion">
+                          <span class="cv-contact-label-inline">{{ cvData.labels.labelAddress }}</span>
+                          <span class="cv-contact-value-inline">{{ cvData.personalInfo.ubicacion }}</span>
+                        </span>
+                        <span class="cv-contact-inline" *ngIf="cvData.personalInfo.nacionalidad">
+                          <span class="cv-contact-label-inline">{{ cvData.labels.labelNationality }}</span>
+                          <span class="cv-contact-value-inline">{{ cvData.personalInfo.nacionalidad }}</span>
+                        </span>
+                        <span class="cv-contact-inline" *ngIf="cvData.personalInfo.fechaNacimiento">
+                          <span class="cv-contact-label-inline">{{ cvData.labels.labelBirthDate }}</span>
+                          <span class="cv-contact-value-inline">{{ cvData.personalInfo.fechaNacimiento }}</span>
+                        </span>
+                        <span class="cv-contact-inline" *ngIf="getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) !== null">
+                          <span class="cv-contact-label-inline">{{ cvData.labels.labelAge }}</span>
+                          <span class="cv-contact-value-inline">{{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} años</span>
+                        </span>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </ng-container>
 
-                <!-- Barra de contacto -->
-                <div
-                  class="cv-contact-bar mt-3"
-                  *ngIf="
-                    cvData.personalInfo.email ||
-                    cvData.personalInfo.celular ||
-                    cvData.personalInfo.ubicacion ||
-                    cvData.personalInfo.nacionalidad ||
-                    cvData.personalInfo.fechaNacimiento
-                  ">
-                  <div class="row text-center text-md-start gy-2">
-                    <div class="col-md-4" *ngIf="cvData.personalInfo.email">
-                      <span class="cv-contact-label">{{ cvData.labels.labelEmail }}</span>
-                      <span class="cv-contact-value">{{ cvData.personalInfo.email }}</span>
+                  <!-- Default: layout actual -->
+                  <ng-container *ngSwitchDefault>
+                    <!-- Header: Nombre, puesto y foto -->
+                    <div class="cv-header row align-items-center">
+                      <div class="col-md-8">
+                        <h1 class="cv-name">
+                          {{ cvData.personalInfo.nombres }} {{ cvData.personalInfo.apellidos }}
+                        </h1>
+                        <p class="cv-position" *ngIf="cvData.personalInfo.puesto">
+                          {{ cvData.personalInfo.puesto }}
+                        </p>
+                      </div>
+                      <div class="col-md-4 text-md-end" *ngIf="cvData.personalInfo.foto">
+                        <div class="cv-photo-wrapper d-inline-block">
+                          <div class="cv-photo-circle">
+                            <img [src]="cvData.personalInfo.foto" alt="Foto de perfil" class="cv-photo-img">
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-md-4" *ngIf="cvData.personalInfo.celular">
-                      <span class="cv-contact-label">{{ cvData.labels.labelPhone }}</span>
-                      <span class="cv-contact-value">{{ cvData.personalInfo.celular }}</span>
+
+                    <!-- Barra de contacto -->
+                    <div
+                      class="cv-contact-bar mt-3"
+                      *ngIf="
+                        cvData.personalInfo.email ||
+                        cvData.personalInfo.celular ||
+                        cvData.personalInfo.ubicacion ||
+                        cvData.personalInfo.nacionalidad ||
+                        cvData.personalInfo.fechaNacimiento
+                      ">
+                      <div class="row text-center text-md-start gy-2">
+                        <div class="col-md-4" *ngIf="cvData.personalInfo.email">
+                          <span class="cv-contact-label">{{ cvData.labels.labelEmail }}</span>
+                          <span class="cv-contact-value">{{ cvData.personalInfo.email }}</span>
+                        </div>
+                        <div class="col-md-4" *ngIf="cvData.personalInfo.celular">
+                          <span class="cv-contact-label">{{ cvData.labels.labelPhone }}</span>
+                          <span class="cv-contact-value">{{ cvData.personalInfo.celular }}</span>
+                        </div>
+                        <div class="col-md-4" *ngIf="cvData.personalInfo.ubicacion">
+                          <span class="cv-contact-label">{{ cvData.labels.labelAddress }}</span>
+                          <span class="cv-contact-value">{{ cvData.personalInfo.ubicacion }}</span>
+                        </div>
+                        <div class="col-md-4" *ngIf="cvData.personalInfo.nacionalidad">
+                          <span class="cv-contact-label">{{ cvData.labels.labelNationality }}</span>
+                          <span class="cv-contact-value">{{ cvData.personalInfo.nacionalidad }}</span>
+                        </div>
+                        <div class="col-md-4" *ngIf="cvData.personalInfo.fechaNacimiento">
+                          <span class="cv-contact-label">{{ cvData.labels.labelBirthDate }}</span>
+                          <span class="cv-contact-value">{{ cvData.personalInfo.fechaNacimiento }}</span>
+                        </div>
+                        <div class="col-md-4" *ngIf="getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) !== null">
+                          <span class="cv-contact-label">{{ cvData.labels.labelAge }}</span>
+                          <span class="cv-contact-value">
+                            {{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} años
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-md-4" *ngIf="cvData.personalInfo.ubicacion">
-                      <span class="cv-contact-label">{{ cvData.labels.labelAddress }}</span>
-                      <span class="cv-contact-value">{{ cvData.personalInfo.ubicacion }}</span>
-                    </div>
-                    <div class="col-md-4" *ngIf="cvData.personalInfo.nacionalidad">
-                      <span class="cv-contact-label">{{ cvData.labels.labelNationality }}</span>
-                      <span class="cv-contact-value">{{ cvData.personalInfo.nacionalidad }}</span>
-                    </div>
-                    <div class="col-md-4" *ngIf="cvData.personalInfo.fechaNacimiento">
-                      <span class="cv-contact-label">{{ cvData.labels.labelBirthDate }}</span>
-                      <span class="cv-contact-value">{{ cvData.personalInfo.fechaNacimiento }}</span>
-                    </div>
-                    <div class="col-md-4" *ngIf="getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) !== null">
-                      <span class="cv-contact-label">{{ cvData.labels.labelAge }}</span>
-                      <span class="cv-contact-value">
-                        {{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} años
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                  </ng-container>
+                </ng-container>
               </div>
             </ng-container>
+
+            <!-- Template 2: Perfil (Resumen profesional) ocupa 100% antes de las columnas -->
+            <div class="cv-page-top" *ngIf="selectedTemplateId === 'template-2'" #pageTop></div>
 
             <div class="row mt-4">
               <div class="col-lg-8 cv-page-left" #pageLeft></div>
               <div class="col-lg-4 cv-page-right" #pageRight></div>
+            </div>
             </div>
           </div>
         </div>
@@ -88,13 +152,23 @@
       <div class="cv-flow" aria-hidden="true">
       <div class="a4-page cv-flow-page">
         <div class="a4-inner">
+          <!-- Template 2: Perfil (Resumen profesional) en bloque 100% antes de las columnas -->
+          <div class="cv-flow-top" *ngIf="selectedTemplateId === 'template-2'" #flowTop>
+            <div class="cv-section" *ngIf="cvData.personalInfo.resumenProfesional" data-key="100">
+              <h3 class="cv-section-title">{{ cvData.labels.sectionProfile }}</h3>
+              <p>{{ cvData.personalInfo.resumenProfesional }}</p>
+            </div>
+          </div>
+
           <div class="row mt-4">
             <div class="col-lg-8 cv-flow-left" #flowLeft>
               <!-- Resumen Profesional -->
-              <div class="cv-section" *ngIf="cvData.personalInfo.resumenProfesional" data-key="100">
-                <h3 class="cv-section-title">{{ cvData.labels.sectionProfile }}</h3>
-                <p>{{ cvData.personalInfo.resumenProfesional }}</p>
-              </div>
+              <ng-container *ngIf="selectedTemplateId !== 'template-2'">
+                <div class="cv-section" *ngIf="cvData.personalInfo.resumenProfesional" data-key="100">
+                  <h3 class="cv-section-title">{{ cvData.labels.sectionProfile }}</h3>
+                  <p>{{ cvData.personalInfo.resumenProfesional }}</p>
+                </div>
+              </ng-container>
 
               <!-- Experiencia profesional (paginable por trabajo) -->
               <ng-container *ngIf="getVisibleWorkExperience().length > 0">
@@ -212,67 +286,117 @@
             </div>
 
             <div class="col-lg-4 cv-flow-right" #flowRight>
-              <!-- Idiomas -->
-              <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0">
-                <h3 class="cv-sidebar-title">{{ cvData.labels.sectionLanguages }}</h3>
-                <div *ngFor="let lang of getVisibleLanguages(); trackBy: trackById" class="cv-sidebar-item d-flex justify-content-between">
-                  <span>{{ lang.idioma }}</span>
-                  <span class="text-muted text-end text-capitalize">{{ lang.nivel }}</span>
-                </div>
-              </div>
-
-              <!-- Habilidades -->
-              <div class="cv-sidebar-section" *ngIf="getVisibleSkills().length > 0">
-                <h3 class="cv-sidebar-title">{{ cvData.labels.sectionSkills }}</h3>
-                <div *ngFor="let skill of getVisibleSkills(); trackBy: trackById" class="cv-sidebar-item">
-                  <div class="d-flex justify-content-between">
-                    <span>{{ skill.nombre }}</span>
-                    <span class="text-muted text-capitalize">{{ skill.nivel }}</span>
+              <ng-container [ngSwitch]="selectedTemplateId">
+                <!-- Template 2: orden (Proyectos, Habilidades, Idiomas) -->
+                <ng-container *ngSwitchCase="'template-2'">
+                  <!-- Proyectos -->
+                  <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0">
+                    <h3 class="cv-sidebar-title">{{ cvData.labels.sectionProjects }}</h3>
+                    <div *ngFor="let project of getVisibleProjects(); trackBy: trackById" class="cv-sidebar-item">
+                      <h4 class="cv-sidebar-item-title d-flex justify-content-between gap-2">
+                        <span>{{ project.nombre }}</span>
+                        <span class="text-muted" *ngIf="project.fecha">{{ project.fecha }}</span>
+                      </h4>
+                      <div class="cv-item-meta" *ngIf="project.tecnologias?.length">
+                        <span class="d-inline-flex flex-wrap gap-1 align-items-center">
+                          <span
+                            *ngFor="let tech of project.tecnologias"
+                            class="badge bg-secondary">
+                            {{ tech }}
+                          </span>
+                        </span>
+                      </div>
+                      <p class="mb-1" *ngIf="project.descripcion">{{ project.descripcion }}</p>
+                      <a *ngIf="project.url" [href]="project.url" target="_blank" rel="noopener" class="cv-link d-inline-block">
+                        {{ project.url }}
+                      </a>
+                    </div>
                   </div>
-                  <small class="text-muted text-capitalize">{{ skill.categoria }}</small>
-                </div>
-              </div>
 
-              <!-- Cursos -->
-              <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0">
-                <h3 class="cv-sidebar-title">{{ cvData.labels.sectionCourses }}</h3>
-                <div *ngFor="let c of getVisibleCourses(); trackBy: trackById" class="cv-sidebar-item">
-                  <h4 class="cv-sidebar-item-title d-flex justify-content-between gap-2">
-                    <span>{{ c.nombre }}</span>
-                    <span class="text-muted" *ngIf="c.fecha">{{ c.fecha }}</span>
-                  </h4>
-                  <p class="cv-item-meta mb-1" *ngIf="c.institucion">{{ c.institucion }}</p>
-                  <p class="mb-1" *ngIf="c.descripcion">{{ c.descripcion }}</p>
-                  <a *ngIf="c.url" [href]="c.url" target="_blank" rel="noopener" class="cv-link d-inline-block">
-                    {{ c.url }}
-                  </a>
-                </div>
-              </div>
-
-              <!-- Proyectos -->
-              <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0">
-                <h3 class="cv-sidebar-title">{{ cvData.labels.sectionProjects }}</h3>
-                <div *ngFor="let project of getVisibleProjects(); trackBy: trackById" class="cv-sidebar-item">
-                  <h4 class="cv-sidebar-item-title d-flex justify-content-between gap-2">
-                    <span>{{ project.nombre }}</span>
-                    <span class="text-muted" *ngIf="project.fecha">{{ project.fecha }}</span>
-                  </h4>
-                  <div class="cv-item-meta" *ngIf="project.tecnologias?.length">
-                    <!-- <span class="me-1">Tecnologías:</span> -->
-                    <span class="d-inline-flex flex-wrap gap-1 align-items-center">
-                      <span
-                        *ngFor="let tech of project.tecnologias"
-                        class="badge bg-secondary">
-                        {{ tech }}
+                  <!-- Habilidades -->
+                  <div class="cv-sidebar-section" *ngIf="getVisibleSkills().length > 0">
+                    <h3 class="cv-sidebar-title">{{ cvData.labels.sectionSkills }}</h3>
+                    <div class="cv-skill-tags">
+                      <span *ngFor="let skill of getVisibleSkills(); trackBy: trackById" class="badge bg-secondary">
+                        {{ skill.nombre }}
                       </span>
-                    </span>
+                    </div>
                   </div>
-                  <p class="mb-1" *ngIf="project.descripcion">{{ project.descripcion }}</p>
-                  <a *ngIf="project.url" [href]="project.url" target="_blank" rel="noopener" class="cv-link d-inline-block">
-                    {{ project.url }}
-                  </a>
-                </div>
-              </div>
+
+                  <!-- Idiomas -->
+                  <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0">
+                    <h3 class="cv-sidebar-title">{{ cvData.labels.sectionLanguages }}</h3>
+                    <div *ngFor="let lang of getVisibleLanguages(); trackBy: trackById" class="cv-sidebar-item d-flex justify-content-between">
+                      <span>{{ lang.idioma }}</span>
+                      <span class="text-muted text-end text-capitalize">{{ lang.nivel }}</span>
+                    </div>
+                  </div>
+                </ng-container>
+
+                <!-- Default: layout actual -->
+                <ng-container *ngSwitchDefault>
+                  <!-- Idiomas -->
+                  <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0">
+                    <h3 class="cv-sidebar-title">{{ cvData.labels.sectionLanguages }}</h3>
+                    <div *ngFor="let lang of getVisibleLanguages(); trackBy: trackById" class="cv-sidebar-item d-flex justify-content-between">
+                      <span>{{ lang.idioma }}</span>
+                      <span class="text-muted text-end text-capitalize">{{ lang.nivel }}</span>
+                    </div>
+                  </div>
+
+                  <!-- Habilidades -->
+                  <div class="cv-sidebar-section" *ngIf="getVisibleSkills().length > 0">
+                    <h3 class="cv-sidebar-title">{{ cvData.labels.sectionSkills }}</h3>
+                    <div *ngFor="let skill of getVisibleSkills(); trackBy: trackById" class="cv-sidebar-item">
+                      <div class="d-flex justify-content-between">
+                        <span>{{ skill.nombre }}</span>
+                        <span class="text-muted text-capitalize">{{ skill.nivel }}</span>
+                      </div>
+                      <small class="text-muted text-capitalize">{{ skill.categoria }}</small>
+                    </div>
+                  </div>
+
+                  <!-- Cursos -->
+                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0">
+                    <h3 class="cv-sidebar-title">{{ cvData.labels.sectionCourses }}</h3>
+                    <div *ngFor="let c of getVisibleCourses(); trackBy: trackById" class="cv-sidebar-item">
+                      <h4 class="cv-sidebar-item-title d-flex justify-content-between gap-2">
+                        <span>{{ c.nombre }}</span>
+                        <span class="text-muted" *ngIf="c.fecha">{{ c.fecha }}</span>
+                      </h4>
+                      <p class="cv-item-meta mb-1" *ngIf="c.institucion">{{ c.institucion }}</p>
+                      <p class="mb-1" *ngIf="c.descripcion">{{ c.descripcion }}</p>
+                      <a *ngIf="c.url" [href]="c.url" target="_blank" rel="noopener" class="cv-link d-inline-block">
+                        {{ c.url }}
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Proyectos -->
+                  <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0">
+                    <h3 class="cv-sidebar-title">{{ cvData.labels.sectionProjects }}</h3>
+                    <div *ngFor="let project of getVisibleProjects(); trackBy: trackById" class="cv-sidebar-item">
+                      <h4 class="cv-sidebar-item-title d-flex justify-content-between gap-2">
+                        <span>{{ project.nombre }}</span>
+                        <span class="text-muted" *ngIf="project.fecha">{{ project.fecha }}</span>
+                      </h4>
+                      <div class="cv-item-meta" *ngIf="project.tecnologias?.length">
+                        <span class="d-inline-flex flex-wrap gap-1 align-items-center">
+                          <span
+                            *ngFor="let tech of project.tecnologias"
+                            class="badge bg-secondary">
+                            {{ tech }}
+                          </span>
+                        </span>
+                      </div>
+                      <p class="mb-1" *ngIf="project.descripcion">{{ project.descripcion }}</p>
+                      <a *ngIf="project.url" [href]="project.url" target="_blank" rel="noopener" class="cv-link d-inline-block">
+                        {{ project.url }}
+                      </a>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
 
             </div>
           </div>

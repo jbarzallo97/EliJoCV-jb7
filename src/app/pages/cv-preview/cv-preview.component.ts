@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { CvDataService } from '../../core/services/cv-data.service';
 import { CvData } from '../../core/models/cv-data.model';
+import { TemplateService } from '../../core/services/template.service';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
@@ -11,12 +12,16 @@ import jsPDF from 'jspdf';
 })
 export class CvPreviewComponent implements OnInit {
   cvData!: CvData;
+  selectedTemplateId = 'template-1';
   pages: number[] = [0];
   previewReady = true;
   isDownloading = false;
+  private hasCvData = false;
 
+  @ViewChild('flowTop') flowTopRef?: ElementRef<HTMLElement>;
   @ViewChild('flowLeft') flowLeftRef!: ElementRef<HTMLElement>;
   @ViewChild('flowRight') flowRightRef!: ElementRef<HTMLElement>;
+  @ViewChildren('pageTop') pageTopRefs!: QueryList<ElementRef<HTMLElement>>;
   @ViewChildren('pageLeft') pageLeftRefs!: QueryList<ElementRef<HTMLElement>>;
   @ViewChildren('pageRight') pageRightRefs!: QueryList<ElementRef<HTMLElement>>;
 
@@ -27,6 +32,7 @@ export class CvPreviewComponent implements OnInit {
 
   constructor(
     private cvDataService: CvDataService,
+    private templateService: TemplateService,
     private cdr: ChangeDetectorRef,
     private ngZone: NgZone
   ) {}
@@ -34,7 +40,15 @@ export class CvPreviewComponent implements OnInit {
   ngOnInit(): void {
     this.cvDataService.cvData$.subscribe(data => {
       this.cvData = data;
+      this.hasCvData = true;
       this.rebuildPreviewThenPaginate();
+    });
+
+    this.templateService.selectedTemplate$.subscribe(t => {
+      this.selectedTemplateId = t?.id || 'template-1';
+      if (this.hasCvData) {
+        this.rebuildPreviewThenPaginate();
+      }
     });
   }
 
@@ -359,6 +373,15 @@ export class CvPreviewComponent implements OnInit {
     // 1) Reset: todo lo visible vuelve al flujo oculto
     this.resetPagesToFlow();
 
+    // 1.5) Template 2: llenar el bloque superior (Perfil) antes de las columnas
+    const topPagesNeeded =
+      this.selectedTemplateId === 'template-2' && this.flowTopRef
+        ? this.fillColumnFromFlow(
+            this.flowTopRef.nativeElement,
+            (pageIndex) => this.getPageTopEl(pageIndex)
+          )
+        : 0;
+
     // 2) Llenar páginas por columna, pero usando el alto REAL del contenido (incluye márgenes)
     const leftPagesNeeded = this.fillColumnFromFlow(
       this.flowLeftRef.nativeElement,
@@ -371,7 +394,7 @@ export class CvPreviewComponent implements OnInit {
     );
 
     // 3) Sincronizar cantidad de páginas (si una columna necesita más, se crean páginas vacías para la otra)
-    const totalNeeded = Math.max(leftPagesNeeded, rightPagesNeeded, 1);
+    const totalNeeded = Math.max(topPagesNeeded, leftPagesNeeded, rightPagesNeeded, 1);
     if (this.pages.length !== totalNeeded) {
       this.pages = Array.from({ length: totalNeeded }, (_, i) => i);
       this.cdr.detectChanges();
@@ -379,8 +402,20 @@ export class CvPreviewComponent implements OnInit {
   }
 
   private resetPagesToFlow(): void {
+    const flowTop = this.flowTopRef?.nativeElement || null;
     const flowLeft = this.flowLeftRef.nativeElement;
     const flowRight = this.flowRightRef.nativeElement;
+
+    // Template 2: devolver top (Perfil) al flowTop
+    if (flowTop) {
+      this.pageTopRefs.toArray().forEach(ref => {
+        const pageEl = ref.nativeElement;
+        while (pageEl.firstElementChild) {
+          flowTop.appendChild(pageEl.firstElementChild);
+        }
+        pageEl.innerHTML = '';
+      });
+    }
 
     this.pageLeftRefs.toArray().forEach(ref => {
       const pageEl = ref.nativeElement;
@@ -473,6 +508,15 @@ export class CvPreviewComponent implements OnInit {
     this.pages = Array.from({ length: pageIndex + 1 }, (_, i) => i);
     this.cdr.detectChanges();
     return this.pageLeftRefs.toArray()[pageIndex].nativeElement;
+  }
+
+  private getPageTopEl(pageIndex: number): HTMLElement {
+    const arr = this.pageTopRefs.toArray();
+    const ref = arr[pageIndex];
+    if (ref) return ref.nativeElement;
+    this.pages = Array.from({ length: pageIndex + 1 }, (_, i) => i);
+    this.cdr.detectChanges();
+    return this.pageTopRefs.toArray()[pageIndex].nativeElement;
   }
 
   private getPageRightEl(pageIndex: number): HTMLElement {
