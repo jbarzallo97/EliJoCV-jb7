@@ -278,6 +278,36 @@
 /* =========================
    Template 2 (Moderno) layout
    ========================= */
+.cv-layout-template-2 {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Divisor vertical a altura completa, pero SOLO en el bloque de columnas
+   (así no se monta sobre el header/perfil de la primera hoja). */
+.cv-layout-template-2 .cv-columns {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.cv-layout-template-2::after {
+  display: none;
+}
+
+.cv-layout-template-2 .cv-columns::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(100% * 8 / 12);
+  width: 1px;
+  background: rgba(0, 0, 0, 0.10);
+  pointer-events: none;
+}
+
 .cv-layout-template-2 .cv-header {
   border-bottom-width: 1px;
   padding-bottom: 0.85rem;
@@ -329,7 +359,7 @@
 
 .cv-layout-template-2 .cv-page-left,
 .cv-layout-template-2 .cv-flow-left {
-  border-right: 1px solid rgba(0, 0, 0, 0.10);
+  border-right: none;
   padding-right: 1rem;
 }
 
