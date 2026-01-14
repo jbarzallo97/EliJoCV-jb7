@@ -9,7 +9,7 @@ export class TemplateService {
   private readonly STORAGE_KEY = 'selected_template';
   private readonly PRIMARY_COLOR_KEY = 'cv_primary_color';
   private readonly DEFAULT_PRIMARY_COLOR = '#1976d2';
-  
+
   private templates: Template[] = [
     {
       id: 'template-1',
@@ -39,15 +39,15 @@ export class TemplateService {
     },
     {
       id: 'template-3',
-      nombre: 'Minimalista',
-      descripcion: 'Diseño simple y elegante',
-      preview: '/assets/templates/template-3-preview.png',
+      nombre: 'Plantilla 3',
+      descripcion: 'Header destacado + sidebar limpio',
+      preview: 'assets/image/plantillas/plantilla3-1.png',
       estilos: {
-        colorPrincipal: '#212121',
-        colorSecundario: '#757575',
-        fuenteTitulo: 'Helvetica',
-        fuenteTexto: 'Helvetica',
-        espaciado: 'compacto'
+        colorPrincipal: '#2563eb',
+        colorSecundario: '#0f172a',
+        fuenteTitulo: 'Montserrat',
+        fuenteTexto: 'Inter',
+        espaciado: 'normal'
       }
     }
   ];

@@ -401,6 +401,47 @@
   gap: 0.35rem;
 }
 
+/* Template 2: Habilidades con meta (categoría + nivel) */
+.cv-layout-template-2 .cv-t2-skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.cv-layout-template-2 .cv-t2-skill-pill {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  border-radius: 10px;
+  padding: 0.35rem 0.55rem;
+  min-width: 0;
+}
+
+.cv-layout-template-2 .cv-t2-skill-name {
+  font-weight: 800;
+  color: #111827;
+  font-size: 0.85rem;
+  line-height: 1.1;
+}
+
+.cv-layout-template-2 .cv-t2-skill-meta {
+  margin-top: 0.12rem;
+  font-size: 0.72rem;
+  color: #64748b;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  text-transform: capitalize;
+}
+
+.cv-layout-template-2 .cv-t2-skill-level {
+  color: var(--cv-primary, #1976d2);
+  font-weight: 800;
+}
+
+.cv-layout-template-2 .cv-t2-skill-dot {
+  opacity: 0.7;
+}
+
 /* Template 2: Perfil en bloque superior (full width) */
 .cv-layout-template-2 .cv-page-top .cv-section-title,
 .cv-layout-template-2 .cv-flow-top .cv-section-title {
@@ -419,6 +460,230 @@
 /* Un poco menos de separación entre perfil y columnas en template 2 */
 .cv-layout-template-2 .row.mt-4 {
   margin-top: 1rem !important;
+}
+
+/* =========================
+   Template 3 (Header azul + sidebar limpio)
+   ========================= */
+.cv-layout-template-3 .cv-header {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 1rem;
+}
+
+/* “Full bleed” del header dentro del A4 (respeta el padding de a4-inner) */
+.cv-layout-template-3 .cv-header--t3 {
+  background: var(--cv-primary, #2563eb);
+  color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.cv-layout-template-3 .cv-first-page-header .cv-header--t3 {
+  /* que se sienta como bloque destacado */
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.cv-layout-template-3 .cv-header-t3-top {
+  padding: 1.1rem 1.2rem 0.85rem;
+}
+
+.cv-layout-template-3 .cv-header-t3-left {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.cv-layout-template-3 .cv-photo-circle--t3 {
+  width: 78px;
+  height: 78px;
+  border: 3px solid rgba(255, 255, 255, 0.65);
+}
+
+.cv-layout-template-3 .cv-name {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.cv-layout-template-3 .cv-position {
+  color: rgba(255, 255, 255, 0.86);
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+.cv-layout-template-3 .cv-header-t3-contact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  padding: 0.85rem 1.2rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.cv-layout-template-3 .cv-t3-contact-item {
+  min-width: 0;
+}
+
+.cv-layout-template-3 .cv-t3-contact-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.cv-layout-template-3 .cv-t3-contact-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Sidebar estilo “panel” */
+.cv-layout-template-3 .cv-page-right,
+.cv-layout-template-3 .cv-flow-right {
+  padding-left: 1rem;
+}
+
+.cv-layout-template-3 .cv-sidebar-section {
+  /* Sin “card”: solo acento con línea vertical (como estilo template-2) */
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0 0 0 1rem;
+  position: relative;
+}
+
+.cv-layout-template-3 .cv-sidebar-section::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  width: 3px;
+  border-radius: 999px;
+  background: var(--cv-primary, #2563eb);
+  opacity: 0.95;
+}
+
+.cv-layout-template-3 .cv-sidebar-title {
+  color: var(--cv-primary, #2563eb);
+  border-bottom: 2px solid rgba(37, 99, 235, 0.25);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.cv-layout-template-3 .cv-t3-accent {
+  color: var(--cv-primary, #2563eb);
+  font-weight: 800;
+}
+
+.cv-layout-template-3 .cv-t3-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.cv-layout-template-3 .cv-t3-row {
+  font-size: 0.9rem;
+}
+
+.cv-layout-template-3 .cv-t3-skill-row {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.cv-layout-template-3 .cv-t3-skill-name {
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.cv-layout-template-3 .cv-t3-skill-main {
+  min-width: 0;
+}
+
+.cv-layout-template-3 .cv-t3-skill-meta {
+  margin-top: 0.12rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  text-transform: capitalize;
+}
+
+.cv-layout-template-3 .cv-t3-skill-level {
+  color: var(--cv-primary, #2563eb);
+  font-weight: 800;
+}
+
+.cv-layout-template-3 .cv-t3-skill-dot {
+  opacity: 0.7;
+}
+
+.cv-layout-template-3 .cv-t3-skill-line {
+  display: none;
+}
+
+.cv-layout-template-3 .cv-t3-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.cv-layout-template-3 .cv-t3-project-card {
+  /* Sin “tarjeta”: bloque limpio con acento lateral */
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0.25rem 0 0.25rem 0.75rem;
+}
+
+.cv-layout-template-3 .cv-t3-project-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  align-items: baseline;
+}
+
+.cv-layout-template-3 .cv-t3-project-name {
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.cv-layout-template-3 .cv-t3-project-date {
+  color: #64748b;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.cv-layout-template-3 .cv-t3-project-desc {
+  margin-top: 0.35rem;
+  color: #334155;
+  font-size: 0.85rem;
+}
+
+.cv-layout-template-3 .cv-t3-chips {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.cv-layout-template-3 .cv-t3-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.10);
+  color: var(--cv-primary, #2563eb);
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  font-weight: 800;
+  font-size: 0.75rem;
 }
 
 .cv-placeholder {
