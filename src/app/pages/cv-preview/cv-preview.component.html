@@ -517,6 +517,22 @@
                     </div>
                   </div>
 
+                  <!-- Cursos -->
+                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0">
+                    <h3 class="cv-sidebar-title">{{ cvData.labels.sectionCourses }}</h3>
+                    <div *ngFor="let c of getVisibleCourses(); trackBy: trackById" class="cv-sidebar-item">
+                      <div class="d-flex justify-content-between gap-2">
+                        <span class="fw-semibold">{{ c.nombre }}</span>
+                        <span class="text-muted" *ngIf="c.fecha">{{ c.fecha }}</span>
+                      </div>
+                      <div class="small text-muted" *ngIf="c.institucion">{{ c.institucion }}</div>
+                      <div class="small" *ngIf="c.descripcion">{{ c.descripcion }}</div>
+                      <a *ngIf="c.url" [href]="c.url" target="_blank" rel="noopener" class="cv-link d-inline-block">
+                        {{ c.url }}
+                      </a>
+                    </div>
+                  </div>
+
                   <!-- Idiomas -->
                   <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0">
                     <h3 class="cv-sidebar-title">{{ cvData.labels.sectionLanguages }}</h3>
@@ -555,6 +571,24 @@
                             <span class="cv-t3-skill-level" *ngIf="skill.nivel">{{ skill.nivel }}</span>
                           </div>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Cursos -->
+                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0">
+                    <h3 class="cv-sidebar-title">{{ cvData.labels.sectionCourses }}</h3>
+                    <div class="cv-t3-list">
+                      <div *ngFor="let c of getVisibleCourses(); trackBy: trackById" class="cv-t3-row">
+                        <div class="d-flex justify-content-between gap-2">
+                          <span class="fw-semibold">{{ c.nombre }}</span>
+                          <span class="text-muted" *ngIf="c.fecha">{{ c.fecha }}</span>
+                        </div>
+                        <div class="small text-muted" *ngIf="c.institucion">{{ c.institucion }}</div>
+                        <div class="small" *ngIf="c.descripcion">{{ c.descripcion }}</div>
+                        <a *ngIf="c.url" [href]="c.url" target="_blank" rel="noopener" class="cv-link d-inline-block">
+                          {{ c.url }}
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -606,6 +640,22 @@
                     </div>
                   </div>
 
+                  <!-- Cursos -->
+                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0">
+                    <h3 class="cv-sidebar-title">{{ cvData.labels.sectionCourses }}</h3>
+                    <div *ngFor="let c of getVisibleCourses(); trackBy: trackById" class="cv-sidebar-item">
+                      <div class="d-flex justify-content-between gap-2">
+                        <span class="fw-semibold">{{ c.nombre }}</span>
+                        <span class="text-muted" *ngIf="c.fecha">{{ c.fecha }}</span>
+                      </div>
+                      <div class="small text-muted" *ngIf="c.institucion">{{ c.institucion }}</div>
+                      <div class="small" *ngIf="c.descripcion">{{ c.descripcion }}</div>
+                      <a *ngIf="c.url" [href]="c.url" target="_blank" rel="noopener" class="cv-link d-inline-block">
+                        {{ c.url }}
+                      </a>
+                    </div>
+                  </div>
+
                   <!-- Proyectos -->
                   <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0">
                     <h3 class="cv-sidebar-title">{{ cvData.labels.sectionProjects }}</h3>
@@ -641,6 +691,22 @@
                     <div *ngFor="let skill of getVisibleSkills(); trackBy: trackById" class="cv-sidebar-item d-flex justify-content-between">
                       <span>{{ skill.nombre }}</span>
                       <span class="text-muted text-end text-capitalize" *ngIf="skill.nivel">{{ skill.nivel }}</span>
+                    </div>
+                  </div>
+
+                  <!-- Cursos -->
+                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0">
+                    <h3 class="cv-sidebar-title">{{ cvData.labels.sectionCourses }}</h3>
+                    <div *ngFor="let c of getVisibleCourses(); trackBy: trackById" class="cv-sidebar-item">
+                      <div class="d-flex justify-content-between gap-2">
+                        <span class="fw-semibold">{{ c.nombre }}</span>
+                        <span class="text-muted" *ngIf="c.fecha">{{ c.fecha }}</span>
+                      </div>
+                      <div class="small text-muted" *ngIf="c.institucion">{{ c.institucion }}</div>
+                      <div class="small" *ngIf="c.descripcion">{{ c.descripcion }}</div>
+                      <a *ngIf="c.url" [href]="c.url" target="_blank" rel="noopener" class="cv-link d-inline-block">
+                        {{ c.url }}
+                      </a>
                     </div>
                   </div>
 
@@ -722,6 +788,22 @@
                         <span class="text-muted text-capitalize" *ngIf="skill.nivel">{{ skill.nivel }}</span>
                       </div>
                       <small class="text-muted text-capitalize" *ngIf="skill.categoria">{{ skill.categoria }}</small>
+                    </div>
+                  </div>
+
+                  <!-- Cursos -->
+                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0">
+                    <h3 class="cv-sidebar-title">{{ cvData.labels.sectionCourses }}</h3>
+                    <div *ngFor="let c of getVisibleCourses(); trackBy: trackById" class="cv-sidebar-item">
+                      <div class="d-flex justify-content-between gap-2">
+                        <span class="fw-semibold">{{ c.nombre }}</span>
+                        <span class="text-muted" *ngIf="c.fecha">{{ c.fecha }}</span>
+                      </div>
+                      <div class="small text-muted" *ngIf="c.institucion">{{ c.institucion }}</div>
+                      <div class="small" *ngIf="c.descripcion">{{ c.descripcion }}</div>
+                      <a *ngIf="c.url" [href]="c.url" target="_blank" rel="noopener" class="cv-link d-inline-block">
+                        {{ c.url }}
+                      </a>
                     </div>
                   </div>
 

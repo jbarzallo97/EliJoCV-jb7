@@ -67,6 +67,9 @@
   overflow-x: auto;
   padding-bottom: 0.5rem;
   scroll-snap-type: x mandatory;
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.18) transparent;
 }
 
 .templates-strip::-webkit-scrollbar {
@@ -76,6 +79,10 @@
 .templates-strip::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.18);
   border-radius: 999px;
+}
+
+.templates-strip::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.28);
 }
 
 .template-mini {
@@ -103,6 +110,9 @@
 
 .template-mini-preview {
   position: relative;
+  width: 100%;
+  max-width: 220px;
+  margin: 0 auto;
   border-radius: 14px;
   overflow: hidden;
   /* Proporción A4 para que se vea "la hoja completa" */
@@ -313,13 +323,13 @@
 
 .color-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+  gap: 0.5rem;
 }
 
 @media (min-width: 992px) {
   .color-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
   }
 }
 
@@ -328,10 +338,12 @@
   border: 1px solid #e6e6e6;
   background: #fff;
   border-radius: 12px;
-  padding: 0.75rem;
+  padding: 0.25rem;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  position: relative;
   text-align: left;
   transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
 }
@@ -348,33 +360,26 @@
 }
 
 .swatch {
-  width: 36px;
-  height: 36px;
+  width: 100%;
+  height: 100%;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .meta {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
+  display: none;
 }
 
-.name {
-  font-weight: 700;
-  color: #212121;
-  line-height: 1.1;
-}
-
-.hint {
-  font-size: 0.85rem;
-  line-height: 1.1;
-}
+/* (compact mode) name/hint now live in tooltip/title */
 
 .check {
-  margin-left: auto;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 20px;
   color: #1976d2;
+  background: #fff;
+  border-radius: 999px;
 }
 
 :host-context(body.dark-mode) .form-section-title .material-icons,
@@ -412,6 +417,174 @@
   flex-wrap: wrap;
 }
 
+.typography-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .typography-controls {
+    grid-template-columns: 1fr 260px;
+    align-items: start;
+  }
+}
+
+/* Evita “huecos” verticales raros cuando un panel (fuente) es mucho más alto que el otro (tamaño) */
+.typography-field {
+  align-self: start;
+}
+
+.font-search {
+  width: min(320px, 100%);
+}
+
+.font-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  max-height: 280px;
+  overflow: auto;
+  padding-right: 4px;
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.18) transparent;
+}
+
+/* Scrollbar como .templates-strip (WebKit) */
+.font-grid::-webkit-scrollbar {
+  width: 10px;
+}
+
+.font-grid::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+}
+
+.font-grid::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.28);
+}
+
+/* Scrollbar (dark mode) — mismo estilo que el strip, pero adaptado */
+::host-context(body.dark-mode) .font-grid {
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+
+::host-context(body.dark-mode) .font-grid::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+::host-context(body.dark-mode) .font-grid::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* Scrollbar (dark mode) para Plantillas: igual a Fuente */
+::host-context(body.dark-mode) .templates-strip {
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+
+::host-context(body.dark-mode) .templates-strip::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+::host-context(body.dark-mode) .templates-strip::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+@media (min-width: 992px) {
+  .font-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.font-option {
+  width: 100%;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.6rem 0.65rem;
+  text-align: left;
+  position: relative;
+  transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+}
+
+.font-option:hover {
+  border-color: rgba(25, 118, 210, 0.35);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+.font-option.selected {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.18);
+}
+
+.font-option-name {
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.font-option-sample {
+  font-size: 0.85rem;
+  line-height: 1.1;
+  margin-top: 0.2rem;
+}
+
+.font-option-check {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 18px;
+  color: #1976d2;
+}
+
+.size-row {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+
+.size-pill {
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  border-radius: 999px;
+  padding: 0.35rem 0.4rem;
+  font-weight: 800;
+  font-size: 0.85rem;
+  transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+}
+
+.size-pill:hover {
+  border-color: rgba(25, 118, 210, 0.35);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+.size-pill.selected {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.18);
+}
+
+.size-preview {
+  border: 1px dashed rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 0.6rem 0.75rem;
+  background: rgba(0, 0, 0, 0.02);
+  font-size: var(--cv-font-size, 14px);
+}
+
+.size-preview-title {
+  font-weight: 900;
+  font-size: 1.35em;
+  line-height: 1.1;
+}
+
+.size-preview-body {
+  margin-top: 0.25rem;
+  font-size: 1em;
+  line-height: 1.2;
+}
+
 .color-picker {
   width: 46px;
   height: 38px;
@@ -446,8 +619,7 @@
 }
 
 :host-context(body.dark-mode) .form-section-title,
-:host-context(body.dark-mode) .group-title,
-:host-context(body.dark-mode) .name {
+:host-context(body.dark-mode) .group-title {
   color: #e0e0e0;
 }
 
@@ -530,3 +702,24 @@
   border-color: #444;
 }
 
+/* Tipografía (dark mode) */
+:host-context(body.dark-mode) .font-search,
+:host-context(body.dark-mode) .font-option,
+:host-context(body.dark-mode) .size-pill {
+  background: #1e1e1e;
+  border-color: #444;
+  color: #e0e0e0;
+}
+
+:host-context(body.dark-mode) .font-option-sample {
+  color: #b0b0b0 !important;
+}
+
+:host-context(body.dark-mode) .font-option-check {
+  color: #64b5f6;
+}
+
+:host-context(body.dark-mode) .size-preview {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+}

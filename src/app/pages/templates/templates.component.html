@@ -3,10 +3,10 @@
     <div>
       <h3 class="form-section-title d-flex align-items-center gap-2 mb-1">
         <i class="material-icons">palette</i>
-        Plantillas
+        Diseño
       </h3>
       <p class="text-muted mb-0">
-        Elige el <strong>color principal</strong> del CV. Por defecto está el estilo actual.
+        Elige una <strong>plantilla</strong>, personaliza el <strong>color principal</strong> y ajusta la <strong>tipografía</strong>.
       </p>
     </div>
   </div>
@@ -14,74 +14,13 @@
   <div class="template-card">
     <div class="template-card-header">
       <div class="d-flex align-items-center gap-2">
-        <i class="material-icons">format_paint</i>
-        <h4 class="group-title mb-0">Color principal</h4>
-      </div>
-      <span class="badge text-bg-light">Acento</span>
-    </div>
-
-    <div class="template-card-body">
-      <div class="color-grid">
-        <button
-          type="button"
-          class="color-option"
-          *ngFor="let c of colors"
-          (click)="selectColor(c.value)"
-          [class.selected]="selectedColor === c.value"
-          [attr.aria-pressed]="selectedColor === c.value">
-          <span class="swatch" [style.background]="c.value"></span>
-          <span class="meta">
-            <span class="name">{{ c.name }}</span>
-            <span class="hint text-muted">{{ c.hint }}</span>
-          </span>
-          <i class="material-icons check" *ngIf="selectedColor === c.value">check_circle</i>
-        </button>
-      </div>
-
-      <div class="selected-row mt-3">
-        <span class="text-muted">Seleccionado:</span>
-        <span class="selected-chip">
-          <span class="chip-swatch" [style.background]="selectedColor"></span>
-          <span class="chip-text">{{ selectedColor }}</span>
-        </span>
-      </div>
-
-      <div class="custom-color-row mt-3">
-        <div class="text-muted mb-2">Personalizado</div>
-        <div class="custom-color-controls">
-          <input
-            class="color-picker"
-            type="color"
-            [value]="selectedColor"
-            (input)="selectColor($any($event.target).value)"
-            aria-label="Selector de color">
-
-          <input
-            class="form-control hex-input"
-            type="text"
-            [value]="selectedColor"
-            (change)="onHexChange($any($event.target).value)"
-            placeholder="#RRGGBB"
-            aria-label="Color en HEX">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="template-card mt-3">
-    <div class="template-card-header">
-      <div class="d-flex align-items-center gap-2">
         <i class="material-icons">view_quilt</i>
-        <h4 class="group-title mb-0">Plantilla</h4>
+        <h4 class="group-title mb-0">Plantillas</h4>
       </div>
-      <span class="badge text-bg-light">Por defecto</span>
+      <!-- <span class="badge text-bg-light">Actual: {{ selectedTemplateId }}</span> -->
     </div>
 
     <div class="template-card-body">
-      <p class="text-muted mb-3">
-        Esta es la plantilla base actual. Más plantillas vendrán después.
-      </p>
-
       <div class="templates-strip" aria-label="Galería de plantillas">
         <button
           *ngFor="let t of templateGallery; trackBy: trackByTemplateId"
@@ -118,6 +57,128 @@
             </div>
           </div>
         </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="template-card mt-3">
+    <div class="template-card-header">
+      <div class="d-flex align-items-center gap-2">
+        <i class="material-icons">format_paint</i>
+        <h4 class="group-title mb-0">Color principal</h4>
+      </div>
+      <span class="badge text-bg-light">Acento</span>
+    </div>
+
+    <div class="template-card-body">
+      <div class="color-grid">
+        <button
+          type="button"
+          class="color-option"
+          *ngFor="let c of colors"
+          (click)="selectColor(c.value)"
+          [class.selected]="selectedColor === c.value"
+          [attr.aria-pressed]="selectedColor === c.value"
+          [attr.aria-label]="c.name + ' (' + c.value + ')'"
+          [attr.title]="c.name + (c.hint ? ' · ' + c.hint : '')">
+          <span class="swatch" [style.background]="c.value"></span>
+          <i class="material-icons check" *ngIf="selectedColor === c.value">check_circle</i>
+        </button>
+      </div>
+
+      <!-- <div class="selected-row mt-3">
+        <span class="text-muted">Seleccionado:</span>
+        <span class="selected-chip">
+          <span class="chip-swatch" [style.background]="selectedColor"></span>
+          <span class="chip-text">{{ selectedColor }}</span>
+        </span>
+      </div> -->
+
+      <div class="custom-color-row mt-3">
+        <div class="text-muted mb-2">¿No te convence? Elige el color que quieras</div>
+        <div class="custom-color-controls">
+          <input
+            class="color-picker"
+            type="color"
+            [value]="selectedColor"
+            (input)="selectColor($any($event.target).value)"
+            aria-label="Selector de color">
+
+          <input
+            class="form-control hex-input"
+            type="text"
+            [value]="selectedColor"
+            (change)="onHexChange($any($event.target).value)"
+            placeholder="#RRGGBB"
+            aria-label="Color en HEX">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="template-card mt-3">
+    <div class="template-card-header">
+      <div class="d-flex align-items-center gap-2">
+        <i class="material-icons">text_fields</i>
+        <h4 class="group-title mb-0">Tipografía</h4>
+      </div>
+      <span class="badge text-bg-light">Texto</span>
+    </div>
+
+    <div class="template-card-body">
+      <div class="typography-controls">
+        <div class="typography-field">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+            <label class="form-label mb-0">Fuente</label>
+            <input
+              class="form-control form-control-sm font-search"
+              type="search"
+              [value]="fontQuery"
+              (input)="fontQuery = $any($event.target).value"
+              placeholder="Buscar fuente…"
+              aria-label="Buscar fuente">
+          </div>
+
+          <div class="font-grid" role="list" aria-label="Lista de fuentes">
+            <button
+              type="button"
+              class="font-option"
+              *ngFor="let f of filteredFontFamilies"
+              (click)="selectFontFamily(f.value)"
+              [class.selected]="selectedFontFamily === f.value"
+              [style.font-family]="f.value"
+              [attr.aria-pressed]="selectedFontFamily === f.value">
+              <div class="font-option-name">{{ f.name }}</div>
+              <div class="font-option-sample text-muted">Aa Bb Cc · 012345</div>
+              <i class="material-icons font-option-check" *ngIf="selectedFontFamily === f.value">check_circle</i>
+            </button>
+          </div>
+        </div>
+
+        <div class="typography-field">
+          <label class="form-label mb-2">Tamaño</label>
+
+          <div class="size-row" role="group" aria-label="Tamaño de fuente">
+            <button
+              type="button"
+              class="size-pill"
+              *ngFor="let s of fontSizes"
+              (click)="selectFontSize(s.value)"
+              [class.selected]="selectedFontSize === s.value"
+              [attr.aria-pressed]="selectedFontSize === s.value">
+              {{ s.label }}
+            </button>
+          </div>
+
+          <div class="text-muted small mt-2" *ngIf="selectedFontSizeMeta">
+            {{ selectedFontSizeMeta.label }} — {{ selectedFontSizeMeta.hint }}
+          </div>
+
+          <div class="size-preview mt-2" [style.font-family]="selectedFontFamily">
+            <div class="size-preview-title">Ejemplo de título</div>
+            <div class="size-preview-body">Texto de ejemplo para ver legibilidad y densidad.</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

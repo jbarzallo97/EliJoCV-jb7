@@ -50,6 +50,19 @@ export class CvPreviewComponent implements OnInit {
         this.rebuildPreviewThenPaginate();
       }
     });
+
+    // Tipografía: al cambiar tamaño/fuente, recalcular paginación
+    this.templateService.selectedFontFamily$.subscribe(() => {
+      if (this.hasCvData) {
+        this.rebuildPreviewThenPaginate();
+      }
+    });
+
+    this.templateService.selectedFontSize$.subscribe(() => {
+      if (this.hasCvData) {
+        this.rebuildPreviewThenPaginate();
+      }
+    });
   }
 
   ngAfterViewInit(): void {

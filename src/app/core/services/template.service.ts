@@ -9,6 +9,18 @@ export class TemplateService {
   private readonly STORAGE_KEY = 'selected_template';
   private readonly PRIMARY_COLOR_KEY = 'cv_primary_color';
   private readonly DEFAULT_PRIMARY_COLOR = '#1976d2';
+  private readonly FONT_FAMILY_KEY = 'cv_font_family';
+  private readonly FONT_SIZE_KEY = 'cv_font_size';
+  private readonly DEFAULT_FONT_FAMILY = `'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`;
+  private readonly DEFAULT_FONT_SIZE_KEY = 'm';
+  private readonly FONT_SIZE_PRESETS: Record<string, string> = {
+    xxs: '10px',
+    xs: '11px',
+    s: '12px',
+    m: '14px',
+    l: '15px',
+    xl: '16px'
+  };
 
   private templates: Template[] = [
     {
@@ -97,10 +109,18 @@ export class TemplateService {
   private selectedPrimaryColorSubject = new BehaviorSubject<string>(this.DEFAULT_PRIMARY_COLOR);
   public selectedPrimaryColor$: Observable<string> = this.selectedPrimaryColorSubject.asObservable();
 
+  private selectedFontFamilySubject = new BehaviorSubject<string>(this.DEFAULT_FONT_FAMILY);
+  public selectedFontFamily$: Observable<string> = this.selectedFontFamilySubject.asObservable();
+
+  private selectedFontSizeSubject = new BehaviorSubject<string>(this.DEFAULT_FONT_SIZE_KEY);
+  public selectedFontSize$: Observable<string> = this.selectedFontSizeSubject.asObservable();
+
   constructor() {
     this.loadSelectedTemplate();
     this.loadPrimaryColor();
     this.applyPrimaryColorToDom(this.selectedPrimaryColorSubject.value);
+    this.loadTypography();
+    this.applyTypographyToDom(this.selectedFontFamilySubject.value, this.fontSizeKeyToPx(this.selectedFontSizeSubject.value));
   }
 
   getTemplates(): Template[] {
@@ -138,6 +158,37 @@ export class TemplateService {
     this.applyPrimaryColorToDom(color);
   }
 
+  getFontFamily(): string {
+    return this.selectedFontFamilySubject.value;
+  }
+
+  setFontFamily(fontFamily: string): void {
+    if (!fontFamily) return;
+    this.selectedFontFamilySubject.next(fontFamily);
+    try {
+      localStorage.setItem(this.FONT_FAMILY_KEY, fontFamily);
+    } catch {
+      // ignore
+    }
+    this.applyTypographyToDom(fontFamily, this.fontSizeKeyToPx(this.selectedFontSizeSubject.value));
+  }
+
+  getFontSize(): string {
+    return this.selectedFontSizeSubject.value;
+  }
+
+  setFontSize(fontSize: string): void {
+    const key = this.normalizeFontSizeKey(fontSize);
+    if (!key) return;
+    this.selectedFontSizeSubject.next(key);
+    try {
+      localStorage.setItem(this.FONT_SIZE_KEY, key);
+    } catch {
+      // ignore
+    }
+    this.applyTypographyToDom(this.selectedFontFamilySubject.value, this.fontSizeKeyToPx(key));
+  }
+
   private loadSelectedTemplate(): void {
     const stored = localStorage.getItem(this.STORAGE_KEY);
     if (stored) {
@@ -159,6 +210,27 @@ export class TemplateService {
     }
   }
 
+  private loadTypography(): void {
+    try {
+      const storedFamily = localStorage.getItem(this.FONT_FAMILY_KEY);
+      if (storedFamily) {
+        this.selectedFontFamilySubject.next(storedFamily);
+      }
+    } catch {
+      // ignore
+    }
+
+    try {
+      const storedSize = localStorage.getItem(this.FONT_SIZE_KEY);
+      if (storedSize) {
+        const key = this.normalizeFontSizeKey(storedSize);
+        if (key) this.selectedFontSizeSubject.next(key);
+      }
+    } catch {
+      // ignore
+    }
+  }
+
   private applyPrimaryColorToDom(color: string): void {
     // Aplicamos en :root para que impacte el preview (y cualquier componente que use la variable)
     try {
@@ -166,6 +238,45 @@ export class TemplateService {
     } catch {
       // En entornos sin DOM (tests) no hacemos nada
     }
+  }
+
+  private applyTypographyToDom(fontFamily: string, fontSize: string): void {
+    try {
+      document.documentElement.style.setProperty('--cv-font-family', fontFamily);
+      document.documentElement.style.setProperty('--cv-font-size', fontSize);
+    } catch {
+      // ignore
+    }
+  }
+
+  private normalizeFontSizeKey(input: string): string | null {
+    const v = (input || '').trim().toLowerCase();
+    if (!v) return null;
+    if (v in this.FONT_SIZE_PRESETS) return v;
+
+    // Backwards-compat: si había un valor como "14px", lo mapeamos al preset más cercano
+    const m = v.match(/^(\d+(?:\.\d+)?)px$/);
+    if (m) {
+      const px = Number(m[1]);
+      if (!Number.isFinite(px)) return null;
+      const entries = Object.entries(this.FONT_SIZE_PRESETS).map(([k, pxStr]) => [k, Number(pxStr.replace('px', ''))] as const);
+      let bestKey = this.DEFAULT_FONT_SIZE_KEY;
+      let bestDist = Number.POSITIVE_INFINITY;
+      for (const [k, p] of entries) {
+        const d = Math.abs(p - px);
+        if (d < bestDist) {
+          bestDist = d;
+          bestKey = k;
+        }
+      }
+      return bestKey;
+    }
+
+    return null;
+  }
+
+  private fontSizeKeyToPx(key: string): string {
+    return this.FONT_SIZE_PRESETS[key] || this.FONT_SIZE_PRESETS[this.DEFAULT_FONT_SIZE_KEY];
   }
 }
 

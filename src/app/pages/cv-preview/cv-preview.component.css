@@ -56,6 +56,18 @@
   height: 100%;
   padding: 16mm;
   box-sizing: border-box;
+  /* Tipografía del CV (controlada desde Diseño) */
+  font-family: var(--cv-font-family, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif);
+  font-size: var(--cv-font-size, 14px);
+}
+
+/* Asegura que dentro del CV (incluyendo nombre/títulos) se respete la tipografía seleccionada,
+   incluso si hay estilos globales que fuerzan Montserrat en .cv-name o encabezados. */
+.a4-inner h1,
+.a4-inner h2,
+.a4-inner h3,
+.a4-inner .cv-name {
+  font-family: var(--cv-font-family, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif);
 }
 
 .a4-inner .row {
@@ -126,14 +138,14 @@
 }
 
 .cv-name {
-  font-size: 2rem;
+  font-size: 2em;
   font-weight: 600;
   color: #212121;
   margin: 0;
 }
 
 .cv-position {
-  font-size: 1.1rem;
+  font-size: 1.1em;
   color: #666;
   margin: 0.5rem 0 0 0;
 }
@@ -175,7 +187,7 @@
 
 .cv-contact-label {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.75em;
   /* text-transform: uppercase; */
   color: var(--cv-primary, #1976d2);
   font-weight: 600;
@@ -183,7 +195,7 @@
 
 .cv-contact-value {
   display: block;
-  font-size: 0.9rem;
+  font-size: 0.9em;
   color: #424242;
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -194,7 +206,7 @@
   flex-wrap: wrap;
   gap: 1rem;
   color: #666;
-  font-size: 0.9rem;
+  font-size: 0.9em;
   margin-bottom: 1.5rem;
 }
 
@@ -203,7 +215,7 @@
 }
 
 .cv-section-title {
-  font-size: 1.3rem;
+  font-size: 1.3em;
   font-weight: 600;
   color: var(--cv-primary, #1976d2);
   margin-bottom: 1rem;
@@ -216,7 +228,7 @@
 }
 
 .cv-item h4 {
-  font-size: 1.1rem;
+  font-size: 1.1em;
   font-weight: 600;
   color: #212121;
   margin: 0 0 0.25rem 0;
@@ -224,7 +236,7 @@
 
 .cv-item-meta {
   color: #666;
-  font-size: 0.9rem;
+  font-size: 0.9em;
   margin: 0 0 0.5rem 0;
 }
 
@@ -246,7 +258,7 @@
 }
 
 .cv-sidebar-title {
-  font-size: 1.1rem;
+  font-size: 1.1em;
   font-weight: 600;
   color: var(--cv-primary, #1976d2);
   margin-bottom: 0.75rem;
@@ -254,17 +266,17 @@
 
 .cv-sidebar-item {
   margin-bottom: 0.75rem;
-  font-size: 0.9rem;
+  font-size: 0.9em;
 }
 
 .cv-sidebar-item-title {
-  font-size: 0.95rem;
+  font-size: 0.95em;
   font-weight: 600;
   margin: 0 0 0.25rem 0;
 }
 
 .cv-link {
-  font-size: 0.8rem;
+  font-size: 0.8em;
   word-break: break-all;
   color: #424242;
   text-decoration: none;
@@ -341,7 +353,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.85rem;
-  font-size: 0.78rem;
+  font-size: 0.78em;
   margin-top: 0.25rem;
 }
 
@@ -372,7 +384,7 @@
 .cv-layout-template-2 .cv-sidebar-title {
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: 0.95rem;
+  font-size: 0.95em;
   font-weight: 800;
   border-bottom: 2px solid var(--cv-primary, #1976d2);
   padding-bottom: 0.35rem;
@@ -419,13 +431,13 @@
 .cv-layout-template-2 .cv-t2-skill-name {
   font-weight: 800;
   color: #111827;
-  font-size: 0.85rem;
+  font-size: 0.85em;
   line-height: 1.1;
 }
 
 .cv-layout-template-2 .cv-t2-skill-meta {
   margin-top: 0.12rem;
-  font-size: 0.72rem;
+  font-size: 0.72em;
   color: #64748b;
   display: inline-flex;
   flex-wrap: wrap;
@@ -502,7 +514,7 @@
 
 .cv-layout-template-3 .cv-name {
   color: #fff;
-  font-size: 1.8rem;
+  font-size: 1.8em;
   font-weight: 800;
   line-height: 1.1;
 }
@@ -526,7 +538,7 @@
 }
 
 .cv-layout-template-3 .cv-t3-contact-label {
-  font-size: 0.72rem;
+  font-size: 0.72em;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -534,7 +546,7 @@
 }
 
 .cv-layout-template-3 .cv-t3-contact-value {
-  font-size: 0.85rem;
+  font-size: 0.85em;
   font-weight: 600;
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -572,7 +584,7 @@
   border-bottom: 2px solid color-mix(in srgb, var(--cv-primary, #2563eb) 25%, transparent);
   text-transform: none;
   letter-spacing: 0;
-  font-size: 1.05rem;
+  font-size: 1.05em;
   font-weight: 800;
 }
 
@@ -588,13 +600,13 @@
 }
 
 .cv-layout-template-3 .cv-t3-row {
-  font-size: 0.9rem;
+  font-size: 0.9em;
 }
 
 .cv-layout-template-3 .cv-t3-skill-row {
   display: flex;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: 0.9em;
 }
 
 .cv-layout-template-3 .cv-t3-skill-name {
@@ -608,7 +620,7 @@
 
 .cv-layout-template-3 .cv-t3-skill-meta {
   margin-top: 0.12rem;
-  font-size: 0.8rem;
+  font-size: 0.8em;
   color: #64748b;
   display: inline-flex;
   flex-wrap: wrap;
@@ -657,14 +669,14 @@
 
 .cv-layout-template-3 .cv-t3-project-date {
   color: #64748b;
-  font-size: 0.8rem;
+  font-size: 0.8em;
   white-space: nowrap;
 }
 
 .cv-layout-template-3 .cv-t3-project-desc {
   margin-top: 0.35rem;
   color: #334155;
-  font-size: 0.85rem;
+  font-size: 0.85em;
 }
 
 .cv-layout-template-3 .cv-t3-chips {
@@ -683,7 +695,7 @@
   color: var(--cv-primary, #2563eb);
   border: 1px solid color-mix(in srgb, var(--cv-primary, #2563eb) 18%, transparent);
   font-weight: 800;
-  font-size: 0.75rem;
+  font-size: 0.75em;
 }
 
 /* =========================
@@ -710,14 +722,7 @@
 }
 
 .cv-layout-template-4 .cv-columns::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: calc(100% * 4 / 12);
-  background: #f8fafc;
-  pointer-events: none;
+  display: none;
 }
 
 .cv-layout-template-4 .cv-columns::after {
@@ -780,7 +785,7 @@
 }
 
 .cv-layout-template-4 .cv-t4-kicker {
-  font-size: 0.75rem;
+  font-size: 0.75em;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -791,7 +796,7 @@
 .cv-layout-template-4 .cv-name {
   color: #0f172a;
   font-weight: 900;
-  font-size: 1.8rem;
+  font-size: 1.8em;
 }
 
 .cv-layout-template-4 .cv-position {
@@ -809,7 +814,7 @@
 }
 
 .cv-layout-template-4 .cv-t4-contact-label {
-  font-size: 0.72rem;
+  font-size: 0.72em;
   font-weight: 800;
   color: color-mix(in srgb, var(--cv-primary, #0f766e) 90%, #0f172a);
   margin-right: 0.25rem;
@@ -818,7 +823,7 @@
 }
 
 .cv-layout-template-4 .cv-t4-contact-value {
-  font-size: 0.85rem;
+  font-size: 0.85em;
   font-weight: 700;
   color: #0f172a;
   overflow-wrap: anywhere;
@@ -851,7 +856,7 @@
 }
 
 .cv-layout-template-4 .cv-sidebar-title {
-  font-size: 0.95rem;
+  font-size: 0.95em;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -881,14 +886,14 @@
 }
 
 .cv-layout-template-4 .cv-t4-mini-title {
-  font-size: 0.8rem;
+  font-size: 0.8em;
   font-weight: 900;
   color: #0f172a;
   margin-bottom: 0.25rem;
 }
 
 .cv-layout-template-4 .cv-t4-mini-text {
-  font-size: 0.82rem;
+  font-size: 0.82em;
   color: #334155;
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -899,7 +904,7 @@
 }
 
 .cv-layout-template-4 .cv-t4-kv .k {
-  font-size: 0.72rem;
+  font-size: 0.72em;
   font-weight: 800;
   color: color-mix(in srgb, var(--cv-primary, #0f766e) 90%, #0f172a);
   text-transform: uppercase;
@@ -907,7 +912,7 @@
 }
 
 .cv-layout-template-4 .cv-t4-kv .v {
-  font-size: 0.85rem;
+  font-size: 0.85em;
   font-weight: 700;
   color: #0f172a;
   overflow-wrap: anywhere;
@@ -925,7 +930,7 @@
   display: flex;
   justify-content: space-between;
   gap: 0.6rem;
-  font-size: 0.9rem;
+  font-size: 0.9em;
 }
 
 .cv-layout-template-4 .cv-t4-row .lvl {
@@ -936,12 +941,12 @@
 .cv-layout-template-4 .cv-t4-skill .n {
   font-weight: 900;
   color: #0f172a;
-  font-size: 0.9rem;
+  font-size: 0.9em;
 }
 
 .cv-layout-template-4 .cv-t4-skill .m {
   margin-top: 0.12rem;
-  font-size: 0.78rem;
+  font-size: 0.78em;
   color: #64748b;
   display: inline-flex;
   flex-wrap: wrap;
@@ -958,7 +963,7 @@
 .cv-layout-template-4 .cv-section-title {
   color: #0f172a;
   border-bottom: none;
-  font-size: 1.05rem;
+  font-size: 1.05em;
   font-weight: 900;
   text-transform: none;
   padding: 0;
@@ -1052,7 +1057,7 @@
 }
 
 .cv-layout-template-5 .cv-t5-kv .k {
-  font-size: 0.72rem;
+  font-size: 0.72em;
   font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1061,7 +1066,7 @@
 }
 
 .cv-layout-template-5 .cv-t5-kv .v {
-  font-size: 0.85rem;
+  font-size: 0.85em;
   font-weight: 700;
   color: #ffffff;
   overflow-wrap: anywhere;
@@ -1077,14 +1082,7 @@
 }
 
 .cv-layout-template-5 .cv-columns::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: calc(100% * 8 / 12);
-  width: 1px;
-  background: rgba(15, 23, 42, 0.10);
-  pointer-events: none;
+  display: none;
 }
 
 /* Contenido principal (template 5): estilo nuevo, limpio y profesional */
@@ -1092,7 +1090,7 @@
   border-bottom: none;
   padding-bottom: 0;
   margin-bottom: 0.9rem;
-  font-size: 0.98rem;
+  font-size: 0.98em;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1155,7 +1153,7 @@
 }
 
 .cv-layout-template-5 .cv-sidebar-title {
-  font-size: 0.9rem;
+  font-size: 0.9em;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1187,7 +1185,7 @@
 .cv-layout-template-5 .cv-sidebar-item.d-flex .text-muted {
   color: color-mix(in srgb, var(--cv-primary, #111827) 90%, #0f172a) !important;
   font-weight: 900;
-  font-size: 0.75rem;
+  font-size: 0.75em;
   letter-spacing: 0.02em;
   padding: 0.12rem 0.5rem;
   border-radius: 999px;
@@ -1203,7 +1201,7 @@
   border: none;
   background: transparent;
   border-radius: 0;
-  font-size: 0.82rem;
+  font-size: 0.82em;
   letter-spacing: 0;
 }
 
@@ -1270,7 +1268,7 @@
 }
 
 .cv-layout-template-6 .cv-t6-kv .k {
-  font-size: 0.68rem;
+  font-size: 0.68em;
   font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1279,7 +1277,7 @@
 }
 
 .cv-layout-template-6 .cv-t6-kv .v {
-  font-size: 0.82rem;
+  font-size: 0.82em;
   font-weight: 700;
   color: #0f172a;
   overflow-wrap: anywhere;
@@ -1302,7 +1300,7 @@
 }
 
 .cv-layout-template-6 .cv-t6-name {
-  font-size: 2.05rem;
+  font-size: 2.05em;
   line-height: 1.05;
   color: #0f172a;
   font-weight: 900;
@@ -1311,7 +1309,7 @@
 }
 
 .cv-layout-template-6 .cv-t6-position {
-  font-size: 1.1rem;
+  font-size: 1.1em;
   color: #64748b;
   font-weight: 600;
   margin-top: 0.45rem;
@@ -1361,7 +1359,7 @@
 }
 
 .cv-layout-template-6 .cv-sidebar-title {
-  font-size: 0.78rem;
+  font-size: 0.78em;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.10em;
@@ -1397,7 +1395,7 @@
 .cv-layout-template-6 .cv-sidebar-item.d-flex .text-muted {
   color: color-mix(in srgb, var(--cv-primary, #4f46e5) 90%, #0f172a) !important;
   font-weight: 900;
-  font-size: 0.72rem;
+  font-size: 0.72em;
   letter-spacing: 0.02em;
   padding: 0.12rem 0.45rem;
   border-radius: 999px;
@@ -1423,7 +1421,7 @@
 .cv-layout-template-6 .cv-sidebar-item > .d-flex .text-muted {
   color: color-mix(in srgb, var(--cv-primary, #4f46e5) 90%, #0f172a) !important;
   font-weight: 900;
-  font-size: 0.72rem;
+  font-size: 0.72em;
   padding: 0.12rem 0.45rem;
   border-radius: 999px;
   border: 1px solid color-mix(in srgb, var(--cv-primary, #4f46e5) 18%, transparent);
@@ -1436,7 +1434,7 @@
   margin-top: 0.25rem;
   color: #64748b !important;
   font-weight: 700;
-  font-size: 0.75rem;
+  font-size: 0.75em;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -1468,7 +1466,7 @@
   border-bottom: none;
   padding-bottom: 0;
   margin-bottom: 0.9rem;
-  font-size: 1.02rem;
+  font-size: 1.02em;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1500,7 +1498,7 @@
 }
 
 .cv-layout-template-6 .cv-item h4 {
-  font-size: 1.12rem;
+  font-size: 1.12em;
   font-weight: 900;
   color: #0f172a;
   margin-bottom: 0.3rem;
@@ -1508,7 +1506,7 @@
 
 .cv-layout-template-6 .cv-item-meta {
   color: #475569;
-  font-size: 0.92rem;
+  font-size: 0.92em;
   margin-bottom: 0.45rem;
 }
 

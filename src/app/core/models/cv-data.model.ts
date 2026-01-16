@@ -50,7 +50,7 @@ export interface Course {
   id: string;
   nombre: string;
   institucion?: string;
-  fecha?: string; // YYYY-MM-DD (input type="date")
+  fecha?: string; // Texto libre (ej: "2025", "Ene 2025", "2023-2024")
   url?: string;
   descripcion?: string;
   /**
