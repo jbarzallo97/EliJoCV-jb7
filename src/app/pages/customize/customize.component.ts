@@ -12,26 +12,85 @@ import { CvIcons, CvLabels } from 'src/app/core/models/cv-data.model';
 export class CustomizeComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   private sub?: Subscription;
-  iconOptions: Array<{ label: string; value: string }> = [
-    { label: 'Persona', value: 'person' },
-    { label: 'Perfil', value: 'account_circle' },
-    { label: 'Trabajo', value: 'work' },
-    { label: 'Portafolio', value: 'work_outline' },
-    { label: 'Educación', value: 'school' },
-    { label: 'Libro', value: 'menu_book' },
-    { label: 'Cursos', value: 'library_books' },
-    { label: 'Idiomas', value: 'translate' },
-    { label: 'Idioma', value: 'language' },
-    { label: 'Habilidades', value: 'psychology' },
-    { label: 'Herramientas', value: 'build' },
-    { label: 'Código', value: 'code' },
-    { label: 'Proyectos', value: 'folder' },
-    { label: 'Proyectos alt', value: 'folder_open' },
-    { label: 'Referencias', value: 'groups' },
-    { label: 'Contacto', value: 'contact_page' },
-    { label: 'Verificado', value: 'verified' },
-    { label: 'Estrella', value: 'star' }
-  ];
+  iconOptionsBySection: Record<
+    keyof CvIcons,
+    Array<{ label: string; value: string }>
+  > = {
+    // Perfil
+    profile: [
+      { label: 'Persona', value: 'person' },
+      { label: 'Perfil', value: 'account_circle' },
+      { label: 'Credencial', value: 'badge' },
+      { label: 'Contacto', value: 'contact_page' },
+      { label: 'ID', value: 'assignment_ind' },
+      { label: 'Verificado', value: 'verified_user' }
+    ],
+
+    // Experiencia
+    workExperience: [
+      { label: 'Trabajo', value: 'work' },
+      { label: 'Portafolio', value: 'work_outline' },
+      { label: 'Maletín', value: 'business_center' },
+      { label: 'Empresa', value: 'domain' },
+      { label: 'Historial', value: 'work_history' },
+      { label: 'Casos', value: 'cases' }
+    ],
+
+    // Educación
+    education: [
+      { label: 'Escuela', value: 'school' },
+      { label: 'Biblioteca', value: 'local_library' },
+      { label: 'Diploma', value: 'workspace_premium' },
+      { label: 'Historia', value: 'history_edu' },
+      { label: 'Libros', value: 'auto_stories' }
+    ],
+
+    // Referencias
+    references: [
+      { label: 'Personas', value: 'groups' },
+      { label: 'Usuarios', value: 'supervisor_account' },
+      { label: 'Recomendación', value: 'recommend' },
+      { label: 'Manos', value: 'handshake' },
+      { label: 'Contacto', value: 'contact_mail' }
+    ],
+
+    // Idiomas
+    languages: [
+      { label: 'Traducir', value: 'translate' },
+      { label: 'Idioma', value: 'language' },
+      { label: 'Mundo', value: 'public' },
+      { label: 'Voz', value: 'record_voice_over' }
+    ],
+
+    // Habilidades
+    skills: [
+      { label: 'Habilidades', value: 'psychology' },
+      { label: 'Herramientas', value: 'build' },
+      { label: 'Ingeniería', value: 'engineering' },
+      { label: 'Estrella', value: 'star' },
+      { label: 'Checklist', value: 'checklist' },
+      { label: 'Auto-fix', value: 'auto_fix_high' }
+    ],
+
+    // Cursos
+    courses: [
+      { label: 'Libro', value: 'menu_book' },
+      { label: 'Cursos', value: 'library_books' },
+      { label: 'Biblioteca', value: 'local_library' },
+      { label: 'Historias', value: 'auto_stories' },
+      { label: 'Libro abierto', value: 'import_contacts' }
+    ],
+
+    // Proyectos
+    projects: [
+      { label: 'Carpeta', value: 'folder' },
+      { label: 'Carpeta abierta', value: 'folder_open' },
+      { label: 'Código', value: 'code' },
+      { label: 'Terminal', value: 'terminal' },
+      { label: 'Laptop', value: 'laptop_mac' },
+      { label: 'Construcción', value: 'construction' }
+    ]
+  };
 
   constructor(
     private fb: FormBuilder,

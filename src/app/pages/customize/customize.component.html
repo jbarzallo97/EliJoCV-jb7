@@ -182,7 +182,7 @@
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconProfile')?.value }}</i></span>
                   <select class="form-select" formControlName="iconProfile">
-                    <option *ngFor="let o of iconOptions" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.profile" [value]="o.value">{{ o.label }}</option>
                   </select>
                 </div>
               </div>
@@ -192,7 +192,7 @@
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconWorkExperience')?.value }}</i></span>
                   <select class="form-select" formControlName="iconWorkExperience">
-                    <option *ngFor="let o of iconOptions" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.workExperience" [value]="o.value">{{ o.label }}</option>
                   </select>
                 </div>
               </div>
@@ -202,7 +202,7 @@
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconEducation')?.value }}</i></span>
                   <select class="form-select" formControlName="iconEducation">
-                    <option *ngFor="let o of iconOptions" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.education" [value]="o.value">{{ o.label }}</option>
                   </select>
                 </div>
               </div>
@@ -212,7 +212,7 @@
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconReferences')?.value }}</i></span>
                   <select class="form-select" formControlName="iconReferences">
-                    <option *ngFor="let o of iconOptions" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.references" [value]="o.value">{{ o.label }}</option>
                   </select>
                 </div>
               </div>
@@ -222,7 +222,7 @@
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconLanguages')?.value }}</i></span>
                   <select class="form-select" formControlName="iconLanguages">
-                    <option *ngFor="let o of iconOptions" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.languages" [value]="o.value">{{ o.label }}</option>
                   </select>
                 </div>
               </div>
@@ -232,7 +232,7 @@
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconSkills')?.value }}</i></span>
                   <select class="form-select" formControlName="iconSkills">
-                    <option *ngFor="let o of iconOptions" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.skills" [value]="o.value">{{ o.label }}</option>
                   </select>
                 </div>
               </div>
@@ -242,7 +242,7 @@
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconCourses')?.value }}</i></span>
                   <select class="form-select" formControlName="iconCourses">
-                    <option *ngFor="let o of iconOptions" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.courses" [value]="o.value">{{ o.label }}</option>
                   </select>
                 </div>
               </div>
@@ -252,7 +252,7 @@
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconProjects')?.value }}</i></span>
                   <select class="form-select" formControlName="iconProjects">
-                    <option *ngFor="let o of iconOptions" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.projects" [value]="o.value">{{ o.label }}</option>
                   </select>
                 </div>
               </div>
