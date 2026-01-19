@@ -495,6 +495,28 @@
   opacity: 0.7;
 }
 
+/* Títulos / separador de agrupación de habilidades (para plantillas con sidebar) */
+.cv-layout-template-3 .cv-skill-group-title,
+.cv-layout-template-4 .cv-skill-group-title,
+.cv-layout-template-5 .cv-skill-group-title,
+.cv-layout-template-6 .cv-skill-group-title {
+  font-size: 0.78em;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin: 0 0 0.5rem 0;
+}
+
+.cv-layout-template-3 .cv-skill-divider,
+.cv-layout-template-4 .cv-skill-divider,
+.cv-layout-template-5 .cv-skill-divider,
+.cv-layout-template-6 .cv-skill-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.10);
+  margin: 0.75rem 0;
+}
+
 /* Template 2: Perfil en bloque superior (full width) */
 .cv-layout-template-2 .cv-page-top .cv-section-title,
 .cv-layout-template-2 .cv-flow-top .cv-section-title {
@@ -1654,6 +1676,20 @@
 :host-context(body.dark-mode) .cv-contact-label,
 :host-context(body.dark-mode) .cv-sidebar-title {
   color: var(--cv-primary, #1976d2);
+}
+
+:host-context(body.dark-mode) .cv-layout-template-3 .cv-skill-group-title,
+:host-context(body.dark-mode) .cv-layout-template-4 .cv-skill-group-title,
+:host-context(body.dark-mode) .cv-layout-template-5 .cv-skill-group-title,
+:host-context(body.dark-mode) .cv-layout-template-6 .cv-skill-group-title {
+  color: #b0b0b0;
+}
+
+:host-context(body.dark-mode) .cv-layout-template-3 .cv-skill-divider,
+:host-context(body.dark-mode) .cv-layout-template-4 .cv-skill-divider,
+:host-context(body.dark-mode) .cv-layout-template-5 .cv-skill-divider,
+:host-context(body.dark-mode) .cv-layout-template-6 .cv-skill-divider {
+  background: rgba(255, 255, 255, 0.16);
 }
 
 /* Dark mode para el header del preview (fuera de la hoja A4) */
