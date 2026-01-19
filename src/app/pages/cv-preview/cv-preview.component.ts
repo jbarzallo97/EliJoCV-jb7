@@ -312,6 +312,11 @@ export class CvPreviewComponent implements OnInit {
     return list.filter(s => (s as any).visible !== false);
   }
 
+  getVisibleSkillsByCategory(category: 'tecnica' | 'blanda'): CvData['skills'] {
+    // Compatibilidad: si una habilidad vieja no tiene categoria, asumimos 'tecnica'
+    return this.getVisibleSkills().filter(s => ((s as any).categoria || 'tecnica') === category);
+  }
+
   getVisibleLanguages(): CvData['languages'] {
     const list = this.cvData?.languages || [];
     return list.filter(l => (l as any).visible !== false);

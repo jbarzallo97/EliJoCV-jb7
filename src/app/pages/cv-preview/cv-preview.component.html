@@ -902,13 +902,43 @@
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.skills }}</i>
                       <span>{{ cvData.labels.sectionSkills }}</span>
                     </h3>
-                    <div *ngFor="let skill of getVisibleSkills(); trackBy: trackById" class="cv-sidebar-item">
-                      <div class="d-flex justify-content-between">
-                        <span>{{ skill.nombre }}</span>
-                        <span class="text-muted text-capitalize">{{ skill.nivel }}</span>
-                      </div>
-                      <small class="text-muted text-capitalize">{{ skill.categoria }}</small>
-                    </div>
+                    <ng-container *ngIf="getVisibleSkillsByCategory('tecnica') as techSkills">
+                      <ng-container *ngIf="getVisibleSkillsByCategory('blanda') as softSkills">
+                        <ng-container *ngIf="techSkills.length > 0 && softSkills.length > 0; else singleSkillsTpl">
+                          <div class="cv-skill-group">
+                            <div class="cv-skill-group-title">Técnicas</div>
+                            <div *ngFor="let skill of techSkills; trackBy: trackById" class="cv-sidebar-item">
+                              <div class="d-flex justify-content-between">
+                                <span>{{ skill.nombre }}</span>
+                                <span class="text-muted text-capitalize" *ngIf="skill.nivel">{{ skill.nivel }}</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="cv-skill-divider" aria-hidden="true"></div>
+
+                          <div class="cv-skill-group">
+                            <div class="cv-skill-group-title">Blandas</div>
+                            <div *ngFor="let skill of softSkills; trackBy: trackById" class="cv-sidebar-item">
+                              <div class="d-flex justify-content-between">
+                                <span>{{ skill.nombre }}</span>
+                                <span class="text-muted text-capitalize" *ngIf="skill.nivel">{{ skill.nivel }}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
+
+                        <ng-template #singleSkillsTpl>
+                          <div *ngFor="let skill of getVisibleSkills(); trackBy: trackById" class="cv-sidebar-item">
+                            <div class="d-flex justify-content-between">
+                              <span>{{ skill.nombre }}</span>
+                              <span class="text-muted text-capitalize" *ngIf="skill.nivel">{{ skill.nivel }}</span>
+                            </div>
+                            <small class="text-muted text-capitalize" *ngIf="skill.categoria">{{ skill.categoria }}</small>
+                          </div>
+                        </ng-template>
+                      </ng-container>
+                    </ng-container>
                   </div>
 
                   <!-- Cursos -->

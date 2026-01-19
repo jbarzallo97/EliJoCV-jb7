@@ -286,6 +286,21 @@
   margin: 0 0 0.25rem 0;
 }
 
+.cv-layout-template-1 .cv-skill-group-title {
+  font-size: 0.78em;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin: 0 0 0.5rem 0;
+}
+
+.cv-layout-template-1 .cv-skill-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.10);
+  margin: 0.75rem 0;
+}
+
 .cv-link {
   font-size: 0.8em;
   word-break: break-all;
