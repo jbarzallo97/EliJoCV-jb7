@@ -9,6 +9,8 @@ export class TemplateService {
   private readonly STORAGE_KEY = 'selected_template';
   private readonly PRIMARY_COLOR_KEY = 'cv_primary_color';
   private readonly DEFAULT_PRIMARY_COLOR = '#1976d2';
+  private readonly PAPER_COLOR_KEY = 'cv_paper_color';
+  private readonly DEFAULT_PAPER_COLOR = '#ffffff';
   private readonly FONT_FAMILY_KEY = 'cv_font_family';
   private readonly FONT_SIZE_KEY = 'cv_font_size';
   private readonly DEFAULT_FONT_FAMILY = `'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`;
@@ -109,6 +111,9 @@ export class TemplateService {
   private selectedPrimaryColorSubject = new BehaviorSubject<string>(this.DEFAULT_PRIMARY_COLOR);
   public selectedPrimaryColor$: Observable<string> = this.selectedPrimaryColorSubject.asObservable();
 
+  private selectedPaperColorSubject = new BehaviorSubject<string>(this.DEFAULT_PAPER_COLOR);
+  public selectedPaperColor$: Observable<string> = this.selectedPaperColorSubject.asObservable();
+
   private selectedFontFamilySubject = new BehaviorSubject<string>(this.DEFAULT_FONT_FAMILY);
   public selectedFontFamily$: Observable<string> = this.selectedFontFamilySubject.asObservable();
 
@@ -119,6 +124,8 @@ export class TemplateService {
     this.loadSelectedTemplate();
     this.loadPrimaryColor();
     this.applyPrimaryColorToDom(this.selectedPrimaryColorSubject.value);
+    this.loadPaperColor();
+    this.applyPaperColorToDom(this.selectedPaperColorSubject.value);
     this.loadTypography();
     this.applyTypographyToDom(this.selectedFontFamilySubject.value, this.fontSizeKeyToPx(this.selectedFontSizeSubject.value));
   }
@@ -156,6 +163,21 @@ export class TemplateService {
       // ignore
     }
     this.applyPrimaryColorToDom(color);
+  }
+
+  getPaperColor(): string {
+    return this.selectedPaperColorSubject.value;
+  }
+
+  setPaperColor(color: string): void {
+    if (!color) return;
+    this.selectedPaperColorSubject.next(color);
+    try {
+      localStorage.setItem(this.PAPER_COLOR_KEY, color);
+    } catch {
+      // ignore
+    }
+    this.applyPaperColorToDom(color);
   }
 
   getFontFamily(): string {
@@ -210,6 +232,17 @@ export class TemplateService {
     }
   }
 
+  private loadPaperColor(): void {
+    try {
+      const stored = localStorage.getItem(this.PAPER_COLOR_KEY);
+      if (stored) {
+        this.selectedPaperColorSubject.next(stored);
+      }
+    } catch {
+      // ignore
+    }
+  }
+
   private loadTypography(): void {
     try {
       const storedFamily = localStorage.getItem(this.FONT_FAMILY_KEY);
@@ -237,6 +270,14 @@ export class TemplateService {
       document.documentElement.style.setProperty('--cv-primary', color);
     } catch {
       // En entornos sin DOM (tests) no hacemos nada
+    }
+  }
+
+  private applyPaperColorToDom(color: string): void {
+    try {
+      document.documentElement.style.setProperty('--cv-paper', color);
+    } catch {
+      // ignore
     }
   }
 

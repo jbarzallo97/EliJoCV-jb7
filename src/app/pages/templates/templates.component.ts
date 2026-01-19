@@ -10,6 +10,7 @@ import { TemplateService } from 'src/app/core/services/template.service';
 })
 export class TemplatesComponent implements OnInit, OnDestroy {
   selectedColor = '';
+  selectedPaperColor = '#ffffff';
   selectedTemplateId = '';
   selectedFontFamily = '';
   selectedFontSize = 'm';
@@ -43,6 +44,16 @@ export class TemplatesComponent implements OnInit, OnDestroy {
     { name: 'Oro viejo', value: '#b45309', hint: 'Cálido y elegante' },
     // { name: 'Naranja', value: '#ea580c', hint: 'Dinámico' },
     { name: 'Oliva', value: '#3f6212', hint: 'Natural y sobrio' }
+  ];
+
+  // Fondo de hoja (sutiles y elegantes)
+  paperColors: Array<{ name: string; value: string }> = [
+    { name: 'Blanco', value: '#ffffff' },
+    { name: 'Marfil', value: '#fffaf0' },
+    { name: 'Perla', value: '#f8fafc' },
+    { name: 'Niebla', value: '#f3f4f6' },
+    { name: 'Arena', value: '#faf5ef' },
+    { name: 'Hielo', value: '#f1f5f9' }
   ];
 
   fontFamilies: Array<{ name: string; value: string }> = [
@@ -204,6 +215,7 @@ export class TemplatesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.templates = this.templateService.getTemplates();
     this.selectedColor = this.templateService.getPrimaryColor();
+    this.selectedPaperColor = this.templateService.getPaperColor();
     this.selectedFontFamily = this.templateService.getFontFamily();
     this.selectedFontSize = this.templateService.getFontSize();
     this.selectedTemplateId = this.templateService.getSelectedTemplate().id;
@@ -258,6 +270,10 @@ export class TemplatesComponent implements OnInit, OnDestroy {
       this.selectedColor = c;
     }));
 
+    this.sub.add(this.templateService.selectedPaperColor$.subscribe(c => {
+      this.selectedPaperColor = c;
+    }));
+
     this.sub.add(this.templateService.selectedTemplate$.subscribe(t => {
       this.selectedTemplateId = t.id;
     }));
@@ -279,6 +295,10 @@ export class TemplatesComponent implements OnInit, OnDestroy {
     this.templateService.setPrimaryColor(value);
   }
 
+  selectPaperColor(value: string): void {
+    this.templateService.setPaperColor(value);
+  }
+
   selectFontFamily(value: string): void {
     this.templateService.setFontFamily(value);
   }
@@ -295,6 +315,12 @@ export class TemplatesComponent implements OnInit, OnDestroy {
     const normalized = this.normalizeHex(raw);
     if (!normalized) return;
     this.selectColor(normalized);
+  }
+
+  onPaperHexChange(raw: string): void {
+    const normalized = this.normalizeHex(raw);
+    if (!normalized) return;
+    this.selectPaperColor(normalized);
   }
 
   trackByTemplateId(_: number, t: { id: string }): string {

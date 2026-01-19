@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CvData, CvLabels, PersonalInfo, WorkExperience, Education, Course, Skill, Language, Project, Reference } from '../models/cv-data.model';
+import { CvData, CvIcons, CvLabels, PersonalInfo, WorkExperience, Education, Course, Skill, Language, Project, Reference } from '../models/cv-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +36,8 @@ export class CvDataService {
       languages: [],
       projects: [],
       references: [],
-      labels: this.getDefaultLabels()
+      labels: this.getDefaultLabels(),
+      icons: this.getDefaultIcons()
     };
   }
 
@@ -56,6 +57,19 @@ export class CvDataService {
       labelNationality: 'Nacionalidad',
       labelBirthDate: 'Fecha de nacimiento',
       labelAge: 'Edad'
+    };
+  }
+
+  private getDefaultIcons(): CvIcons {
+    return {
+      profile: 'person',
+      workExperience: 'work',
+      education: 'school',
+      references: 'groups',
+      languages: 'translate',
+      skills: 'psychology',
+      courses: 'menu_book',
+      projects: 'folder'
     };
   }
 
@@ -311,6 +325,25 @@ export class CvDataService {
     this.saveToStorage();
   }
 
+  // Icons (Customize)
+  setIcons(icons: CvIcons): void {
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
+      icons: { ...icons }
+    });
+    this.saveToStorage();
+  }
+
+  resetIcons(): void {
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
+      icons: this.getDefaultIcons()
+    });
+    this.saveToStorage();
+  }
+
   updateProject(id: string, project: Partial<Project>): void {
     const current = this.cvDataSubject.value;
     this.cvDataSubject.next({
@@ -371,6 +404,10 @@ export class CvDataService {
           labels: {
             ...initial.labels,
             ...(data?.labels || {})
+          },
+          icons: {
+            ...initial.icons,
+            ...(data?.icons || {})
           }
         };
         this.cvDataSubject.next(merged);

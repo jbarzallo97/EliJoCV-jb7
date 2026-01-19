@@ -122,6 +122,21 @@ export interface CvData {
   projects: Project[];
   references: Reference[];
   labels: CvLabels;
+  icons: CvIcons;
+}
+
+export interface CvIcons {
+  // Main column
+  profile: string;
+  workExperience: string;
+  education: string;
+  references: string;
+
+  // Sidebar
+  languages: string;
+  skills: string;
+  courses: string;
+  projects: string;
 }
 
 export interface Template {

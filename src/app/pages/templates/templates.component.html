@@ -119,6 +119,56 @@
   <div class="template-card mt-3">
     <div class="template-card-header">
       <div class="d-flex align-items-center gap-2">
+        <i class="material-icons">layers</i>
+        <h4 class="group-title mb-0">Color secundario</h4>
+      </div>
+      <span class="badge text-bg-light">Hoja</span>
+    </div>
+
+    <div class="template-card-body">
+      <p class="text-muted mb-3">
+        Cambia el <strong>fondo de la hoja</strong> del CV (la página A4).
+      </p>
+
+      <div class="color-grid">
+        <button
+          type="button"
+          class="color-option"
+          *ngFor="let c of paperColors"
+          (click)="selectPaperColor(c.value)"
+          [class.selected]="selectedPaperColor === c.value"
+          [attr.aria-pressed]="selectedPaperColor === c.value"
+          [attr.aria-label]="c.name + ' (' + c.value + ')'">
+          <span class="swatch" [style.background]="c.value"></span>
+          <i class="material-icons check" *ngIf="selectedPaperColor === c.value">check_circle</i>
+        </button>
+      </div>
+
+      <div class="custom-color-row mt-3">
+        <div class="text-muted mb-2">Personaliza el fondo si quieres</div>
+        <div class="custom-color-controls">
+          <input
+            class="color-picker"
+            type="color"
+            [value]="selectedPaperColor"
+            (input)="selectPaperColor($any($event.target).value)"
+            aria-label="Selector de color de fondo">
+
+          <input
+            class="form-control hex-input"
+            type="text"
+            [value]="selectedPaperColor"
+            (change)="onPaperHexChange($any($event.target).value)"
+            placeholder="#RRGGBB"
+            aria-label="Color de fondo en HEX">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="template-card mt-3">
+    <div class="template-card-header">
+      <div class="d-flex align-items-center gap-2">
         <i class="material-icons">text_fields</i>
         <h4 class="group-title mb-0">Tipografía</h4>
       </div>

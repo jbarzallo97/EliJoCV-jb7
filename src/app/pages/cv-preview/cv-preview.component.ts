@@ -123,9 +123,10 @@ export class CvPreviewComponent implements OnInit {
           const rect = pageEl.getBoundingClientRect();
           const capW = Math.round(rect.width);
           const capH = Math.round(rect.height);
+          const bg = getComputedStyle(pageEl).backgroundColor || '#ffffff';
           const canvas = await html2canvas(pageEl, {
             scale: 3,
-            backgroundColor: '#ffffff',
+            backgroundColor: bg,
             useCORS: true,
             width: capW,
             height: capH

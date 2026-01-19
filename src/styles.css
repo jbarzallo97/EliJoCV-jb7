@@ -16,6 +16,8 @@
 :root {
   /* Color principal del CV (accent). Se puede cambiar desde "Plantillas" */
   --cv-primary: #1976d2;
+  /* Fondo (hoja) del CV */
+  --cv-paper: #ffffff;
   /* Tipografía del CV (se puede cambiar desde "Diseño") */
   --cv-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --cv-font-size: 14px;
