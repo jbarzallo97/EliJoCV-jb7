@@ -1,17 +1,21 @@
 .app-container {
   min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  /* Evita scroll del body; el scroll vive en las columnas */
+  overflow: hidden;
 }
 
 .main-content {
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
   padding: 0;
 }
 
 .main-content .row {
   margin: 0;
-  height: calc(100vh - 80px);
+  height: 100%;
 }
 
 .main-content [class*="col-"] {
