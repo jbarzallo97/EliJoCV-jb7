@@ -446,6 +446,21 @@
   gap: 0.45rem;
 }
 
+.cv-layout-template-2 .cv-t2-skill-group-title {
+  font-size: 0.76em;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #64748b;
+  margin: 0 0 0.45rem 0;
+}
+
+.cv-layout-template-2 .cv-t2-skill-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.10);
+  margin: 0.75rem 0;
+}
+
 .cv-layout-template-2 .cv-t2-skill-pill {
   background: rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(0, 0, 0, 0.10);

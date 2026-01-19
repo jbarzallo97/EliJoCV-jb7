@@ -520,16 +520,54 @@
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.skills }}</i>
                       <span>{{ cvData.labels.sectionSkills }}</span>
                     </h3>
-                    <div class="cv-t2-skill-tags">
-                      <div *ngFor="let skill of getVisibleSkills(); trackBy: trackById" class="cv-t2-skill-pill">
-                        <div class="cv-t2-skill-name">{{ skill.nombre }}</div>
-                        <div class="cv-t2-skill-meta" *ngIf="skill.categoria || skill.nivel">
-                          <span *ngIf="skill.categoria">{{ skill.categoria }}</span>
-                          <span class="cv-t2-skill-dot" *ngIf="skill.categoria && skill.nivel">·</span>
-                          <span class="cv-t2-skill-level" *ngIf="skill.nivel">{{ skill.nivel }}</span>
-                        </div>
-                      </div>
-                    </div>
+                    <ng-container *ngIf="getVisibleSkillsByCategory('tecnica') as techSkills">
+                      <ng-container *ngIf="getVisibleSkillsByCategory('blanda') as softSkills">
+                        <ng-container *ngIf="techSkills.length > 0 && softSkills.length > 0; else singleSkillsTplT2">
+                          <div class="cv-t2-skill-group">
+                            <div class="cv-t2-skill-group-title">Técnicas</div>
+                            <div class="cv-t2-skill-tags">
+                              <div *ngFor="let skill of techSkills; trackBy: trackById" class="cv-t2-skill-pill">
+                                <div class="cv-t2-skill-name">{{ skill.nombre }}</div>
+                                <div class="cv-t2-skill-meta" *ngIf="skill.categoria || skill.nivel">
+                                  <span *ngIf="skill.categoria">{{ skill.categoria }}</span>
+                                  <span class="cv-t2-skill-dot" *ngIf="skill.categoria && skill.nivel">·</span>
+                                  <span class="cv-t2-skill-level" *ngIf="skill.nivel">{{ skill.nivel }}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="cv-t2-skill-divider" aria-hidden="true"></div>
+
+                          <div class="cv-t2-skill-group">
+                            <div class="cv-t2-skill-group-title">Blandas</div>
+                            <div class="cv-t2-skill-tags">
+                              <div *ngFor="let skill of softSkills; trackBy: trackById" class="cv-t2-skill-pill">
+                                <div class="cv-t2-skill-name">{{ skill.nombre }}</div>
+                                <div class="cv-t2-skill-meta" *ngIf="skill.categoria || skill.nivel">
+                                  <span *ngIf="skill.categoria">{{ skill.categoria }}</span>
+                                  <span class="cv-t2-skill-dot" *ngIf="skill.categoria && skill.nivel">·</span>
+                                  <span class="cv-t2-skill-level" *ngIf="skill.nivel">{{ skill.nivel }}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
+
+                        <ng-template #singleSkillsTplT2>
+                          <div class="cv-t2-skill-tags">
+                            <div *ngFor="let skill of getVisibleSkills(); trackBy: trackById" class="cv-t2-skill-pill">
+                              <div class="cv-t2-skill-name">{{ skill.nombre }}</div>
+                              <div class="cv-t2-skill-meta" *ngIf="skill.categoria || skill.nivel">
+                                <span *ngIf="skill.categoria">{{ skill.categoria }}</span>
+                                <span class="cv-t2-skill-dot" *ngIf="skill.categoria && skill.nivel">·</span>
+                                <span class="cv-t2-skill-level" *ngIf="skill.nivel">{{ skill.nivel }}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </ng-container>
+                    </ng-container>
                   </div>
 
                   <!-- Cursos -->
