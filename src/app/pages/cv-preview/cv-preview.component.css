@@ -835,10 +835,15 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem 1.1rem;
+  /* Permite alinear el bloque derecho al fondo del header */
+  align-items: stretch;
 }
 
 .cv-layout-template-4 .cv-header-t4-left {
   min-width: 0;
+  flex: 1 1 58%;
+  max-width: 58%;
+  align-self: flex-start;
 }
 
 .cv-layout-template-4 .cv-photo-circle--t4-header {
@@ -876,6 +881,23 @@
   flex-direction: column;
   gap: 0.35rem;
   text-align: right;
+  flex: 0 1 42%;
+  max-width: 42%;
+  justify-content: flex-end;
+}
+
+@media (max-width: 600px) {
+  .cv-layout-template-4 .cv-header-t4-inner {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cv-layout-template-4 .cv-header-t4-left,
+  .cv-layout-template-4 .cv-header-t4-right {
+    max-width: 100%;
+    flex: 1 1 auto;
+    text-align: left;
+  }
 }
 
 .cv-layout-template-4 .cv-t4-contact-label {
@@ -1026,13 +1048,18 @@
 
 /* Main: títulos con “pill” y timeline suave */
 .cv-layout-template-4 .cv-section-title {
-  color: #0f172a;
+  color: var(--cv-primary, #0f766e);
   border-bottom: none;
   font-size: 1.05em;
   font-weight: 900;
   text-transform: none;
   padding: 0;
   margin-bottom: 0.75rem;
+}
+
+/* Asegura que el icono y el texto hereden el color del título en template 4 */
+.cv-layout-template-4 .cv-section-title .cv-title-icon {
+  color: inherit;
 }
 
 .cv-layout-template-4 .cv-section-title::before {
