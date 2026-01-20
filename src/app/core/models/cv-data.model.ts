@@ -137,6 +137,11 @@ export interface CvData {
   projects: Project[];
   references: Reference[];
   labels: CvLabels;
+  /**
+   * 'auto': los labels siguen el idioma de la app.
+   * 'custom': el usuario los editó en Personalizar y no se sobreescriben al cambiar idioma.
+   */
+  labelsMode?: 'auto' | 'custom';
   icons: CvIcons;
   sectionLayout: CvSectionLayout;
 }

@@ -1,8 +1,8 @@
 <div class="preview-container">
   <div class="preview-header mb-4">
-    <h2 class="preview-title">Vista previa</h2>
+    <h2 class="preview-title">{{ 'preview.title' | translate }}</h2>
     <p class="preview-subtitle">
-      Completa tus datos y verás la información acá.
+      {{ 'preview.subtitle' | translate }}
     </p>
   </div>
 
@@ -24,7 +24,7 @@
                     <div class="cv-header cv-header--t2 text-center">
                       <div class="cv-photo-wrapper-t2" *ngIf="cvData.personalInfo.foto">
                         <div class="cv-photo-circle">
-                          <img [src]="cvData.personalInfo.foto" alt="Foto de perfil" class="cv-photo-img">
+                          <img [src]="cvData.personalInfo.foto" [attr.alt]="'cv.photoAlt' | translate" class="cv-photo-img">
                         </div>
                       </div>
 
@@ -67,7 +67,7 @@
                         </span>
                         <span class="cv-contact-inline" *ngIf="getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) !== null">
                           <span class="cv-contact-label-inline">{{ cvData.labels.labelAge }}</span>
-                          <span class="cv-contact-value-inline">{{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} años</span>
+                          <span class="cv-contact-value-inline">{{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} {{ 'cv.years' | translate }}</span>
                         </span>
                       </div>
                     </div>
@@ -81,7 +81,7 @@
                       <div class="cv-header-t3-top">
                         <div class="cv-header-t3-left">
                           <div class="cv-photo-circle cv-photo-circle--t3" *ngIf="cvData.personalInfo.foto">
-                            <img [src]="cvData.personalInfo.foto" alt="Foto de perfil" class="cv-photo-img">
+                            <img [src]="cvData.personalInfo.foto" [attr.alt]="'cv.photoAlt' | translate" class="cv-photo-img">
                           </div>
                           <div class="cv-header-t3-name">
                             <h1 class="cv-name mb-0">
@@ -126,7 +126,7 @@
                         </div>
                         <div class="cv-t3-contact-item" *ngIf="getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) !== null">
                           <div class="cv-t3-contact-label">{{ cvData.labels.labelAge }}</div>
-                          <div class="cv-t3-contact-value">{{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} años</div>
+                          <div class="cv-t3-contact-value">{{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} {{ 'cv.years' | translate }}</div>
                         </div>
                       </div>
                     </div>
@@ -140,7 +140,7 @@
                       <div class="cv-header-t4-inner">
                         <div class="cv-header-t4-left">
                           <div class="cv-photo-circle cv-photo-circle--t4-header" *ngIf="cvData.personalInfo.foto">
-                            <img [src]="cvData.personalInfo.foto" alt="Foto de perfil" class="cv-photo-img">
+                            <img [src]="cvData.personalInfo.foto" [attr.alt]="'cv.photoAlt' | translate" class="cv-photo-img">
                           </div>
                           <h1 class="cv-name mb-0">
                             {{ cvData.personalInfo.nombres }} {{ cvData.personalInfo.apellidos }}
@@ -173,7 +173,7 @@
                           </div>
                           <div class="cv-t4-contact" *ngIf="getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) !== null">
                             <span class="cv-t4-contact-label">{{ cvData.labels.labelAge }}</span>
-                            <span class="cv-t4-contact-value">{{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} años</span>
+                            <span class="cv-t4-contact-value">{{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} {{ 'cv.years' | translate }}</span>
                           </div>
                         </div>
                       </div>
@@ -188,7 +188,7 @@
                       <div class="cv-header-t5-inner">
                         <div class="cv-header-t5-left">
                           <div class="cv-photo-circle cv-photo-circle--t5" *ngIf="cvData.personalInfo.foto">
-                            <img [src]="cvData.personalInfo.foto" alt="Foto de perfil" class="cv-photo-img">
+                            <img [src]="cvData.personalInfo.foto" [attr.alt]="'cv.photoAlt' | translate" class="cv-photo-img">
                           </div>
                           <div class="cv-header-t5-text">
                             <h1 class="cv-name mb-0">
@@ -234,7 +234,7 @@
                         </div>
                         <div class="cv-t5-kv" *ngIf="getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) !== null">
                           <span class="k">{{ cvData.labels.labelAge }}</span>
-                          <span class="v">{{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} años</span>
+                          <span class="v">{{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} {{ 'cv.years' | translate }}</span>
                         </div>
                       </div>
                     </div>
@@ -264,7 +264,7 @@
                       <div class="col-md-4 text-md-end" *ngIf="cvData.personalInfo.foto">
                         <div class="cv-photo-wrapper d-inline-block">
                           <div class="cv-photo-circle">
-                            <img [src]="cvData.personalInfo.foto" alt="Foto de perfil" class="cv-photo-img">
+                            <img [src]="cvData.personalInfo.foto" [attr.alt]="'cv.photoAlt' | translate" class="cv-photo-img">
                           </div>
                         </div>
                       </div>
@@ -304,7 +304,7 @@
                         <div class="col-md-4" *ngIf="getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) !== null">
                           <span class="cv-contact-label">{{ cvData.labels.labelAge }}</span>
                           <span class="cv-contact-value">
-                            {{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} años
+                            {{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} {{ 'cv.years' | translate }}
                           </span>
                         </div>
                       </div>
@@ -313,7 +313,7 @@
 
                   <!-- Fallback: si agregas template-3+ y aún no tiene layout dedicado -->
                   <ng-container *ngSwitchDefault>
-                    <!-- Sin fallback visual: si no hay layout para la plantilla, no mostramos nada -->
+                    <!-- {{ 'preview.noFallback' | translate }} -->
                   </ng-container>
                 </ng-container>
               </div>
@@ -385,7 +385,7 @@
                     <span class="fw-semibold">{{ exp.puesto }}</span>
                     <span *ngIf="exp.fechaInicio"> · {{ exp.fechaInicio }}</span>
                     <span *ngIf="exp.fechaFin && !exp.actualmenteTrabajando"> - {{ exp.fechaFin }}</span>
-                    <span *ngIf="exp.actualmenteTrabajando"> - Actual</span>
+                    <span *ngIf="exp.actualmenteTrabajando"> - {{ 'cv.current' | translate }}</span>
                   </p>
                   <ng-container *ngIf="exp.descripcion">
                     <ul class="cv-bullet-list" *ngIf="formatBulletLines(exp.descripcion).length; else expPlainDesc">
@@ -427,10 +427,10 @@
                   <p class="cv-item-meta">
                     <span *ngIf="edu.fechaInicio"> {{ edu.fechaInicio }}</span>
                     <span *ngIf="edu.fechaFin && !edu.enCurso"> - {{ edu.fechaFin }}</span>
-                    <span *ngIf="edu.enCurso"> · Actualmente estudiando</span>
+                    <span *ngIf="edu.enCurso"> · {{ 'cv.currentlyStudying' | translate }}</span>
                   </p>
                   <p class="cv-item-meta" *ngIf="edu.promedio">
-                    Promedio (GPA): {{ edu.promedio }}
+                    {{ 'cv.gpa' | translate }}: {{ edu.promedio }}
                   </p>
                   <ng-container *ngIf="edu.descripcion">
                     <ul class="cv-bullet-list" *ngIf="formatBulletLines(edu.descripcion).length; else eduPlainDesc">
@@ -917,7 +917,7 @@
                   <!-- Sidebar (izquierda): Foto + Nombre + Puesto -->
                   <div class="cv-t6-sidebar-identity">
                     <div class="cv-photo-circle cv-photo-circle--t6" *ngIf="cvData.personalInfo.foto">
-                      <img [src]="cvData.personalInfo.foto" alt="Foto de perfil" class="cv-photo-img">
+                      <img [src]="cvData.personalInfo.foto" [attr.alt]="'cv.photoAlt' | translate" class="cv-photo-img">
                     </div>
                     <div class="cv-t6-sidebar-name">
                       <div class="cv-t6-name">
@@ -953,7 +953,7 @@
                     </div>
                     <div class="cv-t6-kv" *ngIf="getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) !== null">
                       <div class="k">{{ cvData.labels.labelAge }}</div>
-                      <div class="v">{{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} años</div>
+                      <div class="v">{{ getAgeFromBirthDate(cvData.personalInfo.fechaNacimiento) }} {{ 'cv.years' | translate }}</div>
                     </div>
                   </div>
 
@@ -1156,7 +1156,7 @@
 
                 <!-- Fallback: templates nuevos aún sin sidebar dedicado -->
                 <ng-container *ngSwitchDefault>
-                  <!-- Sin fallback visual -->
+                  <!-- {{ 'preview.noFallback' | translate }} -->
                 </ng-container>
               </ng-container>
 
@@ -1174,7 +1174,7 @@
     <div class="empty-preview">
       <div class="empty-preview-content">
         <i class="material-icons empty-icon">description</i>
-        <p class="empty-text">Completa el formulario para ver la vista previa de tu CV</p>
+        <p class="empty-text">{{ 'preview.empty' | translate }}</p>
       </div>
     </div>
   </ng-template>
@@ -1189,11 +1189,11 @@
       [attr.aria-busy]="isDownloading">
       <ng-container *ngIf="!isDownloading; else downloadingTpl">
         <i class="material-icons">download</i>
-        Descargar PDF
+        {{ 'preview.downloadPdf' | translate }}
       </ng-container>
       <ng-template #downloadingTpl>
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Generando PDF...
+        {{ 'preview.generatingPdf' | translate }}
       </ng-template>
     </button>
   </div>

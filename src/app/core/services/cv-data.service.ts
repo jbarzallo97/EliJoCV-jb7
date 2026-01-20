@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CvData, CvIcons, CvLabels, CvSectionId, CvSectionLayout, PersonalInfo, WorkExperience, Education, Course, Skill, Language, Project, Reference } from '../models/cv-data.model';
+import { I18nService, AppLang } from './i18n.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,21 @@ export class CvDataService {
   private cvDataSubject = new BehaviorSubject<CvData>(this.getInitialData());
   public cvData$: Observable<CvData> = this.cvDataSubject.asObservable();
 
-  constructor(private ngZone: NgZone) {
+  constructor(private ngZone: NgZone, private i18n: I18nService) {
     this.loadFromStorage();
+
+    // Si los labels están en modo auto, siguen el idioma de la app.
+    this.i18n.lang$.subscribe(lang => {
+      const current = this.cvDataSubject.value;
+      if ((current.labelsMode || 'auto') === 'auto') {
+        this.cvDataSubject.next({
+          ...current,
+          labels: this.getDefaultLabels(lang),
+          labelsMode: 'auto'
+        });
+        this.saveToStorage();
+      }
+    });
   }
 
   private getInitialData(): CvData {
@@ -36,13 +50,32 @@ export class CvDataService {
       languages: [],
       projects: [],
       references: [],
-      labels: this.getDefaultLabels(),
+      labels: this.getDefaultLabels(this.i18n.current),
+      labelsMode: 'auto',
       icons: this.getDefaultIcons(),
       sectionLayout: this.getDefaultSectionLayout()
     };
   }
 
-  private getDefaultLabels(): CvLabels {
+  private getDefaultLabels(lang: AppLang): CvLabels {
+    if (lang === 'en') {
+      return {
+        sectionProfile: 'Profile',
+        sectionWorkExperience: 'Work experience',
+        sectionEducation: 'Education',
+        sectionReferences: 'References',
+        sectionLanguages: 'Languages',
+        sectionSkills: 'Skills',
+        sectionCourses: 'Courses',
+        sectionProjects: 'Projects',
+        labelEmail: 'Email',
+        labelPhone: 'Phone',
+        labelAddress: 'Address',
+        labelNationality: 'Nationality',
+        labelBirthDate: 'Birth date',
+        labelAge: 'Age'
+      };
+    }
     return {
       sectionProfile: 'Perfil',
       sectionWorkExperience: 'Experiencia profesional',
@@ -378,7 +411,8 @@ export class CvDataService {
     const current = this.cvDataSubject.value;
     this.cvDataSubject.next({
       ...current,
-      labels: { ...labels }
+      labels: { ...labels },
+      labelsMode: 'custom'
     });
     this.saveToStorage();
   }
@@ -387,7 +421,8 @@ export class CvDataService {
     const current = this.cvDataSubject.value;
     this.cvDataSubject.next({
       ...current,
-      labels: this.getDefaultLabels()
+      labels: this.getDefaultLabels(this.i18n.current),
+      labelsMode: 'auto'
     });
     this.saveToStorage();
   }
@@ -492,12 +527,17 @@ export class CvDataService {
             ...initial.labels,
             ...(data?.labels || {})
           },
+          labelsMode: (data?.labelsMode === 'custom' ? 'custom' : 'auto'),
           icons: {
             ...initial.icons,
             ...(data?.icons || {})
           },
           sectionLayout: this.sanitizeSectionLayout(data?.sectionLayout)
         };
+        // Si viene en auto, forzar labels del idioma actual
+        if ((merged.labelsMode || 'auto') === 'auto') {
+          merged.labels = this.getDefaultLabels(this.i18n.current);
+        }
         this.cvDataSubject.next(merged);
       }
     } catch (error) {

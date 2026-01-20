@@ -12,14 +12,14 @@ export class SectionTabsComponent {
   activeSection: FormSection = 'personal';
 
   sections = [
-    { id: 'personal' as FormSection, label: 'Información Personal', icon: 'person' },
-    { id: 'trabajo' as FormSection, label: 'Experiencia Laboral', icon: 'work' },
-    { id: 'educacion' as FormSection, label: 'Educación', icon: 'school' },
-    { id: 'cursos' as FormSection, label: 'Cursos', icon: 'library_books' },
-    { id: 'habilidades' as FormSection, label: 'Habilidades', icon: 'psychology' },
-    { id: 'idiomas' as FormSection, label: 'Idiomas', icon: 'translate' },
-    { id: 'proyectos' as FormSection, label: 'Proyectos', icon: 'folder' },
-    { id: 'referencias' as FormSection, label: 'Referencias', icon: 'groups' }
+    { id: 'personal' as FormSection, labelKey: 'sections.personalInfo', icon: 'person' },
+    { id: 'trabajo' as FormSection, labelKey: 'sections.workExperience', icon: 'work' },
+    { id: 'educacion' as FormSection, labelKey: 'sections.education', icon: 'school' },
+    { id: 'cursos' as FormSection, labelKey: 'sections.courses', icon: 'library_books' },
+    { id: 'habilidades' as FormSection, labelKey: 'sections.skills', icon: 'psychology' },
+    { id: 'idiomas' as FormSection, labelKey: 'sections.languages', icon: 'translate' },
+    { id: 'proyectos' as FormSection, labelKey: 'sections.projects', icon: 'folder' },
+    { id: 'referencias' as FormSection, labelKey: 'sections.references', icon: 'groups' }
   ];
 
   selectSection(section: FormSection): void {

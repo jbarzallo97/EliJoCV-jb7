@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { MainTab } from '../../../core/models/cv-data.model';
 import { filter, Subscription } from 'rxjs';
+import { I18nService, AppLang } from '../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-header',
@@ -10,27 +11,27 @@ import { filter, Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   activeTab: MainTab = 'datos';
-  currentLanguage = 'ES';
+  currentLang: AppLang = 'es';
   isDarkMode = false;
   private routerSub?: Subscription;
 
   tabs = [
-    { id: 'datos' as MainTab, label: 'Datos', icon: 'person' },
-    { id: 'plantillas' as MainTab, label: 'Plantillas', icon: 'description' },
-    { id: 'personalizar' as MainTab, label: 'Personalizar', icon: 'settings' }
+    { id: 'datos' as MainTab, labelKey: 'nav.data', icon: 'person' },
+    { id: 'plantillas' as MainTab, labelKey: 'nav.templates', icon: 'description' },
+    { id: 'personalizar' as MainTab, labelKey: 'nav.customize', icon: 'settings' }
   ];
 
-  languages = [
-    { code: 'ES', name: 'Español' },
-    { code: 'EN', name: 'English' }
-  ];
+  languages = this.i18n.supported;
 
   constructor(
     private renderer: Renderer2,
-    private router: Router
+    private router: Router,
+    private i18n: I18nService
   ) {}
 
   ngOnInit(): void {
+    this.currentLang = this.i18n.current;
+    this.i18n.lang$.subscribe(l => (this.currentLang = l));
     // Cargar preferencia guardada
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
@@ -83,6 +84,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     } else {
       this.renderer.removeClass(body, 'dark-mode');
     }
+  }
+
+  setLanguage(lang: AppLang): void {
+    this.i18n.use(lang);
   }
 }
 

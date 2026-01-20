@@ -1,21 +1,21 @@
 <div class="form-section">
-  <h3 class="form-section-title">Información básica</h3>
+  <h3 class="form-section-title">{{ 'form.personalInfo.title' | translate }}</h3>
 
   <form [formGroup]="form">
     <div class="row g-3">
       <!-- Columna Izquierda -->
       <div class="col-md-6">
         <div class="mb-3">
-          <label class="form-label">Nombre(s) <span class="required-asterisk">*</span></label>
+          <label class="form-label">{{ 'form.personalInfo.firstName' | translate }} <span class="required-asterisk">*</span></label>
           <input
             type="text"
             class="form-control"
             formControlName="nombres"
-            placeholder="Ej: Tu nombre">
+            [placeholder]="'form.personalInfo.firstNamePh' | translate">
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Fecha de nacimiento</label>
+          <label class="form-label">{{ 'form.personalInfo.birthDate' | translate }}</label>
           <div class="input-group">
             <input
               type="date"
@@ -28,86 +28,86 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Edad</label>
+          <label class="form-label">{{ 'form.personalInfo.age' | translate }}</label>
           <input
             type="text"
             class="form-control"
-            [value]="age !== null ? (age + ' años') : ''"
-            placeholder="—"
+            [value]="age !== null ? (age + ' ' + ('cv.years' | translate)) : ''"
+            [placeholder]="'common.dash' | translate"
             disabled>
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Email <span class="required-asterisk">*</span></label>
+          <label class="form-label">{{ 'form.personalInfo.email' | translate }} <span class="required-asterisk">*</span></label>
           <input
             type="email"
             class="form-control"
             formControlName="email"
-            placeholder="ejemplo@email.com">
+            [placeholder]="'form.personalInfo.emailPh' | translate">
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Dirección</label>
+          <label class="form-label">{{ 'form.personalInfo.address' | translate }}</label>
           <input
             type="text"
             class="form-control"
             formControlName="ubicacion"
-            placeholder="Ciudad, País">
+            [placeholder]="'form.personalInfo.addressPh' | translate">
         </div>
       </div>
 
       <!-- Columna Derecha -->
       <div class="col-md-6">
         <div class="mb-3">
-          <label class="form-label">Apellido(s) <span class="required-asterisk">*</span></label>
+          <label class="form-label">{{ 'form.personalInfo.lastName' | translate }} <span class="required-asterisk">*</span></label>
           <input
             type="text"
             class="form-control"
             formControlName="apellidos"
-            placeholder="Ej: Tu apellido">
+            [placeholder]="'form.personalInfo.lastNamePh' | translate">
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Profesión</label>
+          <label class="form-label">{{ 'form.personalInfo.jobTitle' | translate }}</label>
           <input
             type="text"
             class="form-control"
             formControlName="puesto"
-            placeholder="Ej: Tu profesión / rol">
+            [placeholder]="'form.personalInfo.jobTitlePh' | translate">
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Número de teléfono</label>
+          <label class="form-label">{{ 'form.personalInfo.phone' | translate }}</label>
           <input
             type="tel"
             class="form-control"
             formControlName="celular"
-            placeholder="+1234567890">
+            [placeholder]="'form.personalInfo.phonePh' | translate">
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Nacionalidad</label>
+          <label class="form-label">{{ 'form.personalInfo.nationality' | translate }}</label>
           <input
             type="text"
             class="form-control"
             formControlName="nacionalidad"
-            placeholder="Nacionalidad">
+            [placeholder]="'form.personalInfo.nationalityPh' | translate">
         </div>
       </div>
     </div>
 
     <!-- Resumen Profesional -->
     <div class="mb-3">
-      <label class="form-label">Perfil</label>
+      <label class="form-label">{{ 'form.personalInfo.profile' | translate }}</label>
       <textarea
         class="form-control"
         formControlName="resumenProfesional"
         (keydown)="onResumenKeyDown($event)"
         (paste)="onResumenPaste($event)"
         rows="4"
-        placeholder="Escribe un breve resumen de tu experiencia y objetivos profesionales..."></textarea>
+        [placeholder]="'form.personalInfo.profilePh' | translate"></textarea>
       <div class="d-flex justify-content-between mt-1">
-        <small class="text-muted">Máx. {{ resumenWordLimit }} palabras</small>
+        <small class="text-muted">{{ 'form.personalInfo.profileMaxWords' | translate:{ max: resumenWordLimit } }}</small>
         <small class="text-muted" [class.text-danger]="resumenWordCount >= resumenWordLimit">
           {{ resumenWordCount }}/{{ resumenWordLimit }}
         </small>
@@ -116,18 +116,18 @@
 
     <!-- Foto de perfil -->
     <div class="mb-3">
-      <label class="form-label mb-2">Foto de perfil</label>
+      <label class="form-label mb-2">{{ 'form.personalInfo.photo' | translate }}</label>
       <div class="d-flex align-items-center gap-4 flex-wrap">
         <!-- Preview -->
         <div class="profile-photo-wrapper">
           <div class="profile-photo-circle">
             <ng-container *ngIf="photoPreview; else photoPlaceholder">
-              <img [src]="photoPreview" alt="Foto de perfil" class="profile-photo-img">
+              <img [src]="photoPreview" [attr.alt]="'cv.photoAlt' | translate" class="profile-photo-img">
             </ng-container>
             <ng-template #photoPlaceholder>
               <div class="profile-photo-placeholder">
                 <i class="material-icons mb-1">person</i>
-                <small>Sin foto</small>
+                <small>{{ 'form.personalInfo.noPhoto' | translate }}</small>
               </div>
             </ng-template>
           </div>
@@ -136,7 +136,7 @@
             type="button"
             class="btn btn-danger btn-sm profile-photo-remove"
             (click)="removePhoto()"
-            title="Quitar foto">
+            [title]="'form.personalInfo.removePhoto' | translate">
             <i class="material-icons" style="font-size: 18px;">close</i>
           </button>
         </div>
@@ -153,9 +153,9 @@
             for="photoUpload"
             class="btn btn-outline-primary d-inline-flex align-items-center gap-2 mb-0">
             <i class="material-icons" style="font-size: 20px;">add_a_photo</i>
-            <span>{{ photoPreview ? 'Cambiar foto' : 'Agregar foto' }}</span>
+            <span>{{ (photoPreview ? 'form.personalInfo.changePhoto' : 'form.personalInfo.addPhoto') | translate }}</span>
           </label>
-          <small class="text-muted">Formatos: JPG, PNG. Tamaño máximo: 5MB</small>
+          <small class="text-muted">{{ 'form.personalInfo.photoHint' | translate }}</small>
         </div>
       </div>
     </div>

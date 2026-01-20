@@ -2,10 +2,10 @@
   <div class="section-header mb-4">
     <h2 class="section-title">
       <i class="material-icons">badge</i>
-      Tu información
+      {{ 'sectionTabs.title' | translate }}
     </h2>
     <p class="section-subtitle">
-      Completa los campos que quieras mostrar. Los vacíos no aparecerán.
+      {{ 'sectionTabs.subtitle' | translate }}
     </p>
   </div>
 
@@ -16,7 +16,7 @@
       class="section-icon-btn"
       [class.active]="activeSection === section.id"
       (click)="selectSection(section.id)"
-      [title]="section.label"
+      [title]="section.labelKey | translate"
       type="button">
       <i class="material-icons">{{ section.icon }}</i>
     </button>

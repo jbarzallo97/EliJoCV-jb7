@@ -22,7 +22,7 @@
                 (click)="selectTab(tab.id)"
                 type="button">
                 <i class="material-icons">{{ tab.icon }}</i>
-                <span>{{ tab.label }}</span>
+                <span>{{ tab.labelKey | translate }}</span>
               </button>
             </li>
           </ul>
@@ -40,11 +40,22 @@
           -->
         </div>
 
+        <!-- Language -->
+        <select
+          class="form-select form-select-sm lang-select"
+          [ngModel]="currentLang"
+          (ngModelChange)="setLanguage($event)"
+          [attr.aria-label]="'header.language' | translate">
+          <option *ngFor="let l of languages" [ngValue]="l.code">
+            {{ l.label }}
+          </option>
+        </select>
+
         <!-- Dark Mode Toggle -->
         <button
           class="btn btn-link dark-mode-btn"
           type="button"
-          title="Modo oscuro"
+          [title]="'header.darkMode' | translate"
           (click)="toggleDarkMode()">
           <i class="material-icons">{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</i>
         </button>

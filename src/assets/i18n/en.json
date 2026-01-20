@@ -1,0 +1,92 @@
+{
+  "nav": {
+    "data": "Data",
+    "templates": "Templates",
+    "customize": "Customize"
+  },
+  "header": {
+    "darkMode": "Dark mode",
+    "language": "Language"
+  },
+  "sectionTabs": {
+    "title": "Your information",
+    "subtitle": "Fill in the fields you want to show. Empty fields won't appear."
+  },
+  "sections": {
+    "personalInfo": "Personal information",
+    "workExperience": "Work experience",
+    "education": "Education",
+    "courses": "Courses",
+    "skills": "Skills",
+    "languages": "Languages",
+    "projects": "Projects",
+    "references": "References"
+  },
+  "preview": {
+    "title": "Preview",
+    "subtitle": "Fill in your data and you'll see the information here.",
+    "empty": "Fill in the form to see your CV preview",
+    "downloadPdf": "Download PDF",
+    "generatingPdf": "Generating PDF...",
+    "noFallback": "No visual fallback"
+  },
+  "cv": {
+    "photoAlt": "Profile photo",
+    "years": "years",
+    "current": "Present",
+    "currentlyStudying": "Currently studying",
+    "gpa": "GPA"
+  },
+  "design": {
+    "title": "Design",
+    "subtitle": "Choose a template, customize the primary color, and adjust typography.",
+    "templates": {
+      "title": "Templates",
+      "galleryAria": "Template gallery",
+      "selected": "Selected"
+    },
+    "primaryColor": {
+      "title": "Primary color",
+      "badge": "Accent",
+      "customHint": "Not convinced? Pick any color you like",
+      "colorPickerAria": "Color picker",
+      "hexPlaceholder": "#RRGGBB",
+      "hexAria": "HEX color"
+    }
+  }
+  ,
+  "common": {
+    "dash": "—"
+  },
+  "form": {
+    "personalInfo": {
+      "title": "Basic information",
+      "firstName": "First name(s)",
+      "firstNamePh": "E.g.: Your name",
+      "lastName": "Last name(s)",
+      "lastNamePh": "E.g.: Your last name",
+      "birthDate": "Birth date",
+      "age": "Age",
+      "email": "Email",
+      "emailPh": "example@email.com",
+      "address": "Address",
+      "addressPh": "City, Country",
+      "jobTitle": "Job title",
+      "jobTitlePh": "E.g.: Your role / title",
+      "phone": "Phone number",
+      "phonePh": "+1234567890",
+      "nationality": "Nationality",
+      "nationalityPh": "Nationality",
+      "profile": "Profile",
+      "profilePh": "Write a short summary of your experience and career goals...",
+      "profileMaxWords": "Max. {{max}} words",
+      "photo": "Profile photo",
+      "noPhoto": "No photo",
+      "removePhoto": "Remove photo",
+      "addPhoto": "Add photo",
+      "changePhoto": "Change photo",
+      "photoHint": "Formats: JPG, PNG. Max size: 5MB"
+    }
+  }
+}
+

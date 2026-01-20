@@ -3,10 +3,10 @@
     <div>
       <h3 class="form-section-title d-flex align-items-center gap-2 mb-1">
         <i class="material-icons">palette</i>
-        Diseño
+        {{ 'design.title' | translate }}
       </h3>
       <p class="text-muted mb-0">
-        Elige una <strong>plantilla</strong>, personaliza el <strong>color principal</strong> y ajusta la <strong>tipografía</strong>.
+        {{ 'design.subtitle' | translate }}
       </p>
     </div>
   </div>
@@ -15,13 +15,13 @@
     <div class="template-card-header">
       <div class="d-flex align-items-center gap-2">
         <i class="material-icons">view_quilt</i>
-        <h4 class="group-title mb-0">Plantillas</h4>
+        <h4 class="group-title mb-0">{{ 'design.templates.title' | translate }}</h4>
       </div>
       <!-- <span class="badge text-bg-light">Actual: {{ selectedTemplateId }}</span> -->
     </div>
 
     <div class="template-card-body">
-      <div class="templates-strip" aria-label="Galería de plantillas">
+      <div class="templates-strip" [attr.aria-label]="'design.templates.galleryAria' | translate">
         <button
           *ngFor="let t of templateGallery; trackBy: trackByTemplateId"
           type="button"
@@ -46,7 +46,7 @@
               <div class="template-mini-name">{{ t.nombre }}</div>
               <span class="template-badge-selected" *ngIf="selectedTemplateId === t.id">
                 <i class="material-icons">check_circle</i>
-                Seleccionada
+                {{ 'design.templates.selected' | translate }}
               </span>
             </div>
             <div class="template-mini-sub text-muted">
@@ -65,9 +65,9 @@
     <div class="template-card-header">
       <div class="d-flex align-items-center gap-2">
         <i class="material-icons">format_paint</i>
-        <h4 class="group-title mb-0">Color principal</h4>
+        <h4 class="group-title mb-0">{{ 'design.primaryColor.title' | translate }}</h4>
       </div>
-      <span class="badge text-bg-light">Acento</span>
+      <span class="badge text-bg-light">{{ 'design.primaryColor.badge' | translate }}</span>
     </div>
 
     <div class="template-card-body">
@@ -95,22 +95,22 @@
       </div> -->
 
       <div class="custom-color-row mt-3">
-        <div class="text-muted mb-2">¿No te convence? Elige el color que quieras</div>
+        <div class="text-muted mb-2">{{ 'design.primaryColor.customHint' | translate }}</div>
         <div class="custom-color-controls">
           <input
             class="color-picker"
             type="color"
             [value]="selectedColor"
             (input)="selectColor($any($event.target).value)"
-            aria-label="Selector de color">
+            [attr.aria-label]="'design.primaryColor.colorPickerAria' | translate">
 
           <input
             class="form-control hex-input"
             type="text"
             [value]="selectedColor"
             (change)="onHexChange($any($event.target).value)"
-            placeholder="#RRGGBB"
-            aria-label="Color en HEX">
+            [placeholder]="'design.primaryColor.hexPlaceholder' | translate"
+            [attr.aria-label]="'design.primaryColor.hexAria' | translate">
         </div>
       </div>
     </div>

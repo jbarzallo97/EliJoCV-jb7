@@ -1,0 +1,92 @@
+{
+  "nav": {
+    "data": "Datos",
+    "templates": "Plantillas",
+    "customize": "Personalizar"
+  },
+  "header": {
+    "darkMode": "Modo oscuro",
+    "language": "Idioma"
+  },
+  "sectionTabs": {
+    "title": "Tu información",
+    "subtitle": "Completa los campos que quieras mostrar. Los vacíos no aparecerán."
+  },
+  "sections": {
+    "personalInfo": "Información personal",
+    "workExperience": "Experiencia laboral",
+    "education": "Educación",
+    "courses": "Cursos",
+    "skills": "Habilidades",
+    "languages": "Idiomas",
+    "projects": "Proyectos",
+    "references": "Referencias"
+  },
+  "preview": {
+    "title": "Vista previa",
+    "subtitle": "Completa tus datos y verás la información acá.",
+    "empty": "Completa el formulario para ver la vista previa de tu CV",
+    "downloadPdf": "Descargar PDF",
+    "generatingPdf": "Generando PDF...",
+    "noFallback": "Sin fallback visual"
+  },
+  "cv": {
+    "photoAlt": "Foto de perfil",
+    "years": "años",
+    "current": "Actual",
+    "currentlyStudying": "Actualmente estudiando",
+    "gpa": "Promedio (GPA)"
+  },
+  "design": {
+    "title": "Diseño",
+    "subtitle": "Elige una plantilla, personaliza el color principal y ajusta la tipografía.",
+    "templates": {
+      "title": "Plantillas",
+      "galleryAria": "Galería de plantillas",
+      "selected": "Seleccionada"
+    },
+    "primaryColor": {
+      "title": "Color principal",
+      "badge": "Acento",
+      "customHint": "¿No te convence? Elige el color que quieras",
+      "colorPickerAria": "Selector de color",
+      "hexPlaceholder": "#RRGGBB",
+      "hexAria": "Color en HEX"
+    }
+  }
+  ,
+  "common": {
+    "dash": "—"
+  },
+  "form": {
+    "personalInfo": {
+      "title": "Información básica",
+      "firstName": "Nombre(s)",
+      "firstNamePh": "Ej: Tu nombre",
+      "lastName": "Apellido(s)",
+      "lastNamePh": "Ej: Tu apellido",
+      "birthDate": "Fecha de nacimiento",
+      "age": "Edad",
+      "email": "Email",
+      "emailPh": "ejemplo@email.com",
+      "address": "Dirección",
+      "addressPh": "Ciudad, País",
+      "jobTitle": "Profesión",
+      "jobTitlePh": "Ej: Tu profesión / rol",
+      "phone": "Número de teléfono",
+      "phonePh": "+1234567890",
+      "nationality": "Nacionalidad",
+      "nationalityPh": "Nacionalidad",
+      "profile": "Perfil",
+      "profilePh": "Escribe un breve resumen de tu experiencia y objetivos profesionales...",
+      "profileMaxWords": "Máx. {{max}} palabras",
+      "photo": "Foto de perfil",
+      "noPhoto": "Sin foto",
+      "removePhoto": "Quitar foto",
+      "addPhoto": "Agregar foto",
+      "changePhoto": "Cambiar foto",
+      "photoHint": "Formatos: JPG, PNG. Tamaño máximo: 5MB"
+    }
+  }
+}
+

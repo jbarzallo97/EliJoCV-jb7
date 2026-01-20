@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { I18nService } from './core/services/i18n.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'EliJoCV-jb7';
+
+  constructor(private i18n: I18nService) {}
+
+  ngOnInit(): void {
+    this.i18n.init();
+  }
 }
