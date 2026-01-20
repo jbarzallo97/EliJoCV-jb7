@@ -15,15 +15,15 @@ export class SkillsComponent implements OnInit {
   editingIndex: number | null = null;
 
   niveles = [
-    { value: 'basico', label: 'Básico' },
-    { value: 'intermedio', label: 'Intermedio' },
-    { value: 'avanzado', label: 'Avanzado' },
-    { value: 'experto', label: 'Experto' }
+    { value: 'basico', labelKey: 'levels.basic' },
+    { value: 'intermedio', labelKey: 'levels.intermediate' },
+    { value: 'avanzado', labelKey: 'levels.advanced' },
+    { value: 'experto', labelKey: 'levels.expert' }
   ];
 
   categorias = [
-    { value: 'tecnica', label: 'Técnica' },
-    { value: 'blanda', label: 'Blanda' }
+    { value: 'tecnica', labelKey: 'skillCategory.technical' },
+    { value: 'blanda', labelKey: 'skillCategory.soft' }
   ];
 
   constructor(

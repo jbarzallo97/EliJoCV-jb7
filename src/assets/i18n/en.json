@@ -4,6 +4,119 @@
     "templates": "Templates",
     "customize": "Customize"
   },
+  "customize": {
+    "title": "Customize",
+    "subtitle": "Change CV titles and labels. Changes apply when you press Save.",
+    "badges": {
+      "mainColumn": "Main column",
+      "sidebarColumn": "Side column",
+      "sidebarShort": "Sidebar",
+      "header": "Header",
+      "titles": "Titles"
+    },
+    "actions": {
+      "save": "Save",
+      "resetDefault": "Reset to default"
+    },
+    "sectionTitles": {
+      "title": "Section titles"
+    },
+    "sidebarTitles": {
+      "title": "Sidebar titles"
+    },
+    "contactLabels": {
+      "title": "Contact labels",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "nationality": "Nationality",
+      "birthDate": "Birth date",
+      "age": "Age"
+    },
+    "sectionIcons": {
+      "title": "Section icons"
+    },
+    "sectionOrder": {
+      "title": "Section order",
+      "badge": "Drag and drop",
+      "description": {
+        "beforeSave": "You can change the order and also move sections between Main column and Sidebar. It applies when you press"
+      },
+      "note": "Note: if a section has no content, it won't show in the preview (even if it's in the order)."
+    },
+    "section": {
+      "profile": "Profile",
+      "workExperience": "Experience",
+      "workExperienceProfessional": "Work experience",
+      "education": "Education",
+      "references": "References",
+      "languages": "Languages",
+      "skills": "Skills",
+      "courses": "Courses",
+      "projects": "Projects"
+    },
+    "iconOptions": {
+      "profile": {
+        "person": "Person",
+        "account_circle": "Profile",
+        "badge": "Badge",
+        "contact_page": "Contact",
+        "assignment_ind": "ID",
+        "verified_user": "Verified"
+      },
+      "workExperience": {
+        "work": "Work",
+        "work_outline": "Portfolio",
+        "business_center": "Briefcase",
+        "domain": "Company",
+        "work_history": "History",
+        "cases": "Cases"
+      },
+      "education": {
+        "school": "School",
+        "local_library": "Library",
+        "workspace_premium": "Diploma",
+        "history_edu": "Education history",
+        "auto_stories": "Books"
+      },
+      "references": {
+        "groups": "People",
+        "supervisor_account": "Users",
+        "recommend": "Recommendation",
+        "handshake": "Handshake",
+        "contact_mail": "Contact"
+      },
+      "languages": {
+        "translate": "Translate",
+        "language": "Language",
+        "public": "World",
+        "record_voice_over": "Voice"
+      },
+      "skills": {
+        "psychology": "Skills",
+        "build": "Tools",
+        "engineering": "Engineering",
+        "star": "Star",
+        "checklist": "Checklist",
+        "auto_fix_high": "Auto-fix"
+      },
+      "courses": {
+        "menu_book": "Book",
+        "library_books": "Courses",
+        "local_library": "Library",
+        "auto_stories": "Stories",
+        "import_contacts": "Open book"
+      },
+      "projects": {
+        "folder": "Folder",
+        "folder_open": "Open folder",
+        "code": "Code",
+        "terminal": "Terminal",
+        "laptop_mac": "Laptop",
+        "construction": "Construction"
+      }
+    }
+  },
   "header": {
     "darkMode": "Dark mode",
     "language": "Language"
@@ -52,11 +165,121 @@
       "colorPickerAria": "Color picker",
       "hexPlaceholder": "#RRGGBB",
       "hexAria": "HEX color"
+    },
+    "secondaryColor": {
+      "title": "Secondary color",
+      "badge": "Paper",
+      "description": "Change the CV paper background (the A4 page).",
+      "customHint": "Customize the background if you want",
+      "colorPickerAria": "Background color picker",
+      "hexPlaceholder": "#RRGGBB",
+      "hexAria": "Background HEX color"
+    },
+    "typography": {
+      "title": "Typography",
+      "badge": "Text",
+      "font": {
+        "label": "Font",
+        "searchPlaceholder": "Search font…",
+        "searchAria": "Search font",
+        "listAria": "Font list"
+      },
+      "size": {
+        "label": "Size",
+        "groupAria": "Font size",
+        "previewTitle": "Title example",
+        "previewBody": "Sample text to check readability and density."
+      },
+      "sizeHints": {
+        "xxs": "Very compact",
+        "xs": "Compact",
+        "s": "Slightly compact",
+        "m": "Recommended",
+        "l": "Larger",
+        "xl": "Large"
+      }
+    },
+    "templateTags": {
+      "ats": "ATS",
+      "default": "Default",
+      "new": "New",
+      "modern": "Modern",
+      "minimal": "Minimal",
+      "leftSidebar": "Left sidebar",
+      "twoColumns": "Two columns",
+      "timeline": "Timeline"
+    },
+    "palette": {
+      "primary": {
+        "classicBlue": { "name": "Classic blue", "hint": "Formal and standard" },
+        "navy": { "name": "Navy", "hint": "Executive" },
+        "slate": { "name": "Slate", "hint": "Sober" },
+        "teal": { "name": "Teal", "hint": "Modern" },
+        "emerald": { "name": "Emerald", "hint": "Warm and professional" },
+        "burgundy": { "name": "Burgundy", "hint": "Premium" },
+        "indigo": { "name": "Indigo", "hint": "Tech / product" },
+        "graphite": { "name": "Graphite", "hint": "Minimal" },
+        "petrolBlue": { "name": "Petrol blue", "hint": "Modern and serious" },
+        "deepPurple": { "name": "Deep purple", "hint": "Creative (subtle)" },
+        "plum": { "name": "Plum", "hint": "Personal brand (subtle)" },
+        "oldGold": { "name": "Old gold", "hint": "Warm and elegant" },
+        "olive": { "name": "Olive", "hint": "Natural and sober" }
+      },
+      "paper": {
+        "white": "White",
+        "ivory": "Ivory",
+        "pearl": "Pearl",
+        "mist": "Mist",
+        "sand": "Sand",
+        "ice": "Ice"
+      }
     }
   }
   ,
   "common": {
-    "dash": "—"
+    "dash": "—",
+    "level": "Level",
+    "category": "Category",
+    "date": "Date",
+    "url": "URL",
+    "urlPh": "https://...",
+    "description": "Description",
+    "dragToReorder": "Drag to reorder",
+    "sortByDate": "Sort by date (most recent first)",
+    "visibility": {
+      "show": "Show in preview",
+      "hide": "Hide from preview"
+    },
+    "list": {
+      "added": "Added"
+    },
+    "actions": {
+      "addWorkExperience": "Add experience",
+      "saveWorkExperience": "Save experience",
+      "addEducation": "Add education",
+      "saveEducation": "Save education",
+      "addSkill": "Add skill",
+      "saveSkill": "Save skill",
+      "addLanguage": "Add language",
+      "saveLanguage": "Save language",
+      "addProject": "Add project",
+      "saveProject": "Save project",
+      "addCourse": "Add course",
+      "saveCourse": "Save course",
+      "addReference": "Add reference",
+      "saveReference": "Save reference"
+    }
+  },
+  "levels": {
+    "basic": "Basic",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "expert": "Expert",
+    "native": "Native"
+  },
+  "skillCategory": {
+    "technical": "Technical",
+    "soft": "Soft"
   },
   "form": {
     "personalInfo": {
@@ -86,6 +309,75 @@
       "addPhoto": "Add photo",
       "changePhoto": "Change photo",
       "photoHint": "Formats: JPG, PNG. Max size: 5MB"
+    },
+    "workExperience": {
+      "company": "Company",
+      "companyPh": "E.g.: Company name",
+      "role": "Role",
+      "rolePh": "E.g.: Your position / title",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "currentlyWorking": "Currently working here",
+      "description": "Description",
+      "descriptionPh": "E.g.: Responsibilities, achievements and results (you can use bullet points)",
+      "errors": {
+        "onlyOneCurrent": "You can't mark 2 experiences as \"Currently working here\". Uncheck the other one first."
+      }
+    },
+    "education": {
+      "currentlyStudying": "Currently studying",
+      "institution": "Institution",
+      "institutionPh": "Institution name",
+      "degree": "Degree",
+      "degreePh": "E.g.: Degree / Certification",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "location": "Location",
+      "locationPh": "City, Country",
+      "gpaPh": "E.g.: 3.8 / 4.0",
+      "description": "Description",
+      "descriptionPh": "Additional description...",
+      "errors": {
+        "onlyOneCurrent": "You can't mark 2 studies as \"Currently studying\". Uncheck the other one first."
+      }
+    },
+    "skills": {
+      "skill": "Skill",
+      "skillPh": "E.g.: Skill (leadership, analysis, programming)"
+    },
+    "languages": {
+      "language": "Language",
+      "languagePh": "E.g.: English"
+    },
+    "projects": {
+      "name": "Project name",
+      "namePh": "E.g.: Project name",
+      "datePh": "E.g.: 2026 / 2026-01 / Jan 2026",
+      "tech": "Technologies (comma-separated)",
+      "techPh": "E.g.: Tech 1, Tech 2, Tech 3",
+      "descriptionPh": "E.g.: Briefly describe what you did and the impact (you can use bullet points)"
+    },
+    "courses": {
+      "name": "Course name",
+      "namePh": "E.g.: Course name",
+      "datePh": "E.g.: 2025 · Jan 2025 · 2023-2024",
+      "institution": "Institution / Platform",
+      "institutionPh": "E.g.: Institution / platform",
+      "descriptionPh": "E.g.: What you learned or achieved (optional)"
+    },
+    "references": {
+      "name": "Name",
+      "namePh": "E.g.: Full name",
+      "role": "Role",
+      "rolePh": "E.g.: Role",
+      "company": "Company",
+      "companyPh": "E.g.: Company",
+      "relationship": "Relationship",
+      "relationshipPh": "E.g.: Relationship",
+      "phone": "Phone",
+      "phonePh": "+1...",
+      "email": "Email",
+      "emailPh": "email@..."
     }
   }
 }

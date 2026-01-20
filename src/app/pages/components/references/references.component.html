@@ -1,37 +1,37 @@
 <div class="form-section">
-  <h3 class="form-section-title">Referencias</h3>
+  <h3 class="form-section-title">{{ 'sections.references' | translate }}</h3>
 
   <form [formGroup]="form">
     <div class="reference-item mb-3 p-3 border rounded">
       <div class="row g-2">
         <div class="col-md-6">
-          <label class="form-label mb-1">Nombre <span class="required-asterisk">*</span></label>
-          <input type="text" class="form-control" formControlName="nombre" placeholder="Ej: Nombre completo">
+          <label class="form-label mb-1">{{ 'form.references.name' | translate }} <span class="required-asterisk">*</span></label>
+          <input type="text" class="form-control" formControlName="nombre" [placeholder]="'form.references.namePh' | translate">
         </div>
 
         <div class="col-md-6">
-          <label class="form-label mb-1">Cargo</label>
-          <input type="text" class="form-control" formControlName="cargo" placeholder="Ej: Cargo">
+          <label class="form-label mb-1">{{ 'form.references.role' | translate }}</label>
+          <input type="text" class="form-control" formControlName="cargo" [placeholder]="'form.references.rolePh' | translate">
         </div>
 
         <div class="col-md-6">
-          <label class="form-label mb-1">Empresa</label>
-          <input type="text" class="form-control" formControlName="empresa" placeholder="Ej: Empresa">
+          <label class="form-label mb-1">{{ 'form.references.company' | translate }}</label>
+          <input type="text" class="form-control" formControlName="empresa" [placeholder]="'form.references.companyPh' | translate">
         </div>
 
         <div class="col-md-6">
-          <label class="form-label mb-1">Relación</label>
-          <input type="text" class="form-control" formControlName="relacion" placeholder="Ej: Relación">
+          <label class="form-label mb-1">{{ 'form.references.relationship' | translate }}</label>
+          <input type="text" class="form-control" formControlName="relacion" [placeholder]="'form.references.relationshipPh' | translate">
         </div>
 
         <div class="col-md-6">
-          <label class="form-label mb-1">Teléfono</label>
-          <input type="text" class="form-control" formControlName="telefono" placeholder="+593...">
+          <label class="form-label mb-1">{{ 'form.references.phone' | translate }}</label>
+          <input type="text" class="form-control" formControlName="telefono" [placeholder]="'form.references.phonePh' | translate">
         </div>
 
         <div class="col-md-6">
-          <label class="form-label mb-1">Email</label>
-          <input type="email" class="form-control" formControlName="email" placeholder="correo@...">
+          <label class="form-label mb-1">{{ 'form.references.email' | translate }}</label>
+          <input type="email" class="form-control" formControlName="email" [placeholder]="'form.references.emailPh' | translate">
         </div>
       </div>
     </div>
@@ -45,14 +45,14 @@
         <i class="material-icons" style="font-size: 20px;">
           {{ editingIndex !== null ? 'save' : 'add' }}
         </i>
-        {{ editingIndex !== null ? 'Guardar referencia' : 'Agregar referencia' }}
+        {{ (editingIndex !== null ? 'common.actions.saveReference' : 'common.actions.addReference') | translate }}
       </button>
     </div>
   </form>
 
   <div class="mt-4" *ngIf="references.length > 0">
     <div class="list-header">
-      <h4 class="list-title mb-0">Agregadas</h4>
+      <h4 class="list-title mb-0">{{ 'common.list.added' | translate }}</h4>
     </div>
 
     <div
@@ -63,7 +63,7 @@
       <div class="reference-card" *ngFor="let r of references; let i = index" cdkDrag>
         <div class="d-flex justify-content-between align-items-start">
           <div>
-            <div class="drag-handle" cdkDragHandle title="Arrastra para reordenar">
+            <div class="drag-handle" cdkDragHandle [title]="'common.dragToReorder' | translate">
               <i class="material-icons">drag_indicator</i>
             </div>
             <div class="fw-semibold">{{ r.nombre }}</div>
@@ -83,7 +83,7 @@
               type="button"
               class="btn btn-sm btn-outline-secondary icon-btn"
               (click)="toggleReferenceVisibility(i)"
-              [title]="r.visible === false ? 'Mostrar en el preview' : 'Ocultar del preview'">
+              [title]="r.visible === false ? ('common.visibility.show' | translate) : ('common.visibility.hide' | translate)">
               <i class="material-icons">
                 {{ r.visible === false ? 'visibility_off' : 'visibility' }}
               </i>

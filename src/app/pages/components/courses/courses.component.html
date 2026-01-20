@@ -1,26 +1,26 @@
 <div class="form-section">
-  <h3 class="form-section-title">Cursos</h3>
+  <h3 class="form-section-title">{{ 'sections.courses' | translate }}</h3>
 
   <form [formGroup]="form">
     <div class="course-item mb-3 p-3 border rounded">
       <div class="row g-2">
         <div class="col-md-7">
-          <label class="form-label mb-1">Nombre del curso <span class="required-asterisk">*</span></label>
+          <label class="form-label mb-1">{{ 'form.courses.name' | translate }} <span class="required-asterisk">*</span></label>
           <input
             type="text"
             class="form-control"
             formControlName="nombre"
-            placeholder="Ej: Nombre del curso">
+            [placeholder]="'form.courses.namePh' | translate">
         </div>
 
         <div class="col-md-5">
-          <label class="form-label mb-1">Fecha</label>
+          <label class="form-label mb-1">{{ 'common.date' | translate }}</label>
           <div class="input-group">
             <input
               type="text"
               class="form-control"
               formControlName="fecha"
-              placeholder="Ej: 2025 · Ene 2025 · 2023-2024">
+              [placeholder]="'form.courses.datePh' | translate">
             <!-- <span class="input-group-text">
               <i class="material-icons">calendar_today</i>
             </span> -->
@@ -28,30 +28,30 @@
         </div>
 
         <div class="col-12">
-          <label class="form-label mb-1">Institución / Plataforma</label>
+          <label class="form-label mb-1">{{ 'form.courses.institution' | translate }}</label>
           <input
             type="text"
             class="form-control"
             formControlName="institucion"
-            placeholder="Ej: Institución / plataforma">
+            [placeholder]="'form.courses.institutionPh' | translate">
         </div>
 
         <div class="col-12">
-          <label class="form-label mb-1">URL</label>
+          <label class="form-label mb-1">{{ 'common.url' | translate }}</label>
           <input
             type="url"
             class="form-control"
             formControlName="url"
-            placeholder="https://...">
+            [placeholder]="'common.urlPh' | translate">
         </div>
 
         <div class="col-12">
-          <label class="form-label mb-1">Descripción</label>
+          <label class="form-label mb-1">{{ 'common.description' | translate }}</label>
           <textarea
             class="form-control"
             formControlName="descripcion"
             rows="3"
-            placeholder="Ej: Qué aprendiste o qué lograste (opcional)"></textarea>
+            [placeholder]="'form.courses.descriptionPh' | translate"></textarea>
         </div>
       </div>
     </div>
@@ -65,14 +65,14 @@
         <i class="material-icons" style="font-size: 20px;">
           {{ editingIndex !== null ? 'save' : 'add' }}
         </i>
-        {{ editingIndex !== null ? 'Guardar curso' : 'Agregar curso' }}
+        {{ (editingIndex !== null ? 'common.actions.saveCourse' : 'common.actions.addCourse') | translate }}
       </button>
     </div>
   </form>
 
   <div class="mt-4" *ngIf="courses.length > 0">
     <div class="list-header">
-      <h4 class="list-title mb-0">Agregados</h4>
+      <h4 class="list-title mb-0">{{ 'common.list.added' | translate }}</h4>
     </div>
 
     <div
@@ -83,7 +83,7 @@
       <div class="course-card" *ngFor="let c of courses; let i = index" cdkDrag>
         <div class="d-flex justify-content-between align-items-start">
           <div>
-            <div class="drag-handle" cdkDragHandle title="Arrastra para reordenar">
+            <div class="drag-handle" cdkDragHandle [title]="'common.dragToReorder' | translate">
               <i class="material-icons">drag_indicator</i>
             </div>
             <div class="fw-semibold">{{ c.nombre }}</div>
@@ -99,7 +99,7 @@
               type="button"
               class="btn btn-sm btn-outline-secondary icon-btn"
               (click)="toggleCourseVisibility(i)"
-              [title]="c.visible === false ? 'Mostrar en el preview' : 'Ocultar del preview'">
+              [title]="c.visible === false ? ('common.visibility.show' | translate) : ('common.visibility.hide' | translate)">
               <i class="material-icons">
                 {{ c.visible === false ? 'visibility_off' : 'visibility' }}
               </i>

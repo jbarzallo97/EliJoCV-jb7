@@ -1,29 +1,29 @@
 <div class="form-section">
-  <h3 class="form-section-title">Experiencia profesional</h3>
+  <h3 class="form-section-title">{{ 'sections.workExperience' | translate }}</h3>
 
   <form [formGroup]="form">
     <div class="experience-item mb-4 p-3 border rounded">
       <div class="row g-3">
         <div class="col-md-6">
-          <label class="form-label">Empresa <span class="required-asterisk">*</span></label>
+          <label class="form-label">{{ 'form.workExperience.company' | translate }} <span class="required-asterisk">*</span></label>
           <input
             type="text"
             class="form-control"
             formControlName="empresa"
-            placeholder="Ej: Nombre de la empresa">
+            [placeholder]="'form.workExperience.companyPh' | translate">
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Puesto <span class="required-asterisk">*</span></label>
+          <label class="form-label">{{ 'form.workExperience.role' | translate }} <span class="required-asterisk">*</span></label>
           <input
             type="text"
             class="form-control"
             formControlName="puesto"
-            placeholder="Ej: Tu puesto / cargo">
+            [placeholder]="'form.workExperience.rolePh' | translate">
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Fecha de inicio <span class="required-asterisk">*</span></label>
+          <label class="form-label">{{ 'form.workExperience.startDate' | translate }} <span class="required-asterisk">*</span></label>
           <div class="input-group">
             <input
               type="date"
@@ -36,7 +36,7 @@
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Fecha de finalización</label>
+          <label class="form-label">{{ 'form.workExperience.endDate' | translate }}</label>
           <div class="input-group">
             <input
               type="date"
@@ -53,21 +53,21 @@
               formControlName="actualmenteTrabajando"
               id="trabajandoDraft">
             <label class="form-check-label" for="trabajandoDraft">
-              Actualmente trabajando aquí
+              {{ 'form.workExperience.currentlyWorking' | translate }}
             </label>
-            <div class="text-danger small mt-1" *ngIf="currentJobError">
-              {{ currentJobError }}
+            <div class="text-danger small mt-1" *ngIf="currentJobErrorKey">
+              {{ currentJobErrorKey | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-12">
-          <label class="form-label">Descripción</label>
+          <label class="form-label">{{ 'form.workExperience.description' | translate }}</label>
           <textarea
             class="form-control"
             formControlName="descripcion"
             rows="4"
-            placeholder="Ej: Responsabilidades, logros y resultados (puedes usar viñetas si quieres)"></textarea>
+            [placeholder]="'form.workExperience.descriptionPh' | translate"></textarea>
         </div>
       </div>
     </div>
@@ -81,14 +81,14 @@
         <i class="material-icons" style="font-size: 20px;">
           {{ editingIndex !== null ? 'save' : 'add' }}
         </i>
-        {{ editingIndex !== null ? 'Guardar experiencia' : 'Agregar experiencia' }}
+        {{ (editingIndex !== null ? 'common.actions.saveWorkExperience' : 'common.actions.addWorkExperience') | translate }}
       </button>
     </div>
   </form>
 
   <div class="mt-4" *ngIf="experiences.length > 0">
     <div class="list-header">
-      <h4 class="list-title mb-0">Agregadas</h4>
+      <h4 class="list-title mb-0">{{ 'common.list.added' | translate }}</h4>
       <div class="form-check mb-0">
         <input
           class="form-check-input"
@@ -97,7 +97,7 @@
           [checked]="autoSortByDate"
           (change)="toggleAutoSortByDate($any($event.target).checked)">
         <label class="form-check-label" for="autoSortByDate">
-          Ordenar por fecha (más reciente primero)
+          {{ 'common.sortByDate' | translate }}
         </label>
       </div>
     </div>
@@ -110,14 +110,14 @@
       <div class="experience-card" *ngFor="let exp of experiences; let i = index" cdkDrag [cdkDragDisabled]="autoSortByDate">
         <div class="d-flex justify-content-between align-items-start">
           <div>
-            <div class="drag-handle" cdkDragHandle title="Arrastra para reordenar" [class.drag-disabled]="autoSortByDate">
+            <div class="drag-handle" cdkDragHandle [title]="'common.dragToReorder' | translate" [class.drag-disabled]="autoSortByDate">
               <i class="material-icons">drag_indicator</i>
             </div>
             <div class="fw-semibold">
               {{ exp.empresa }} <span class="text-muted">·</span> {{ exp.puesto }}
             </div>
             <div class="text-muted small">
-              {{ exp.fechaInicio }} - {{ exp.actualmenteTrabajando ? 'Actual' : (exp.fechaFin || '') }}
+              {{ exp.fechaInicio }} - {{ exp.actualmenteTrabajando ? ('cv.current' | translate) : (exp.fechaFin || '') }}
             </div>
           </div>
 
@@ -126,7 +126,7 @@
               type="button"
               class="btn btn-sm btn-outline-secondary icon-btn"
               (click)="toggleExperienceVisibility(i)"
-              [title]="exp.visible === false ? 'Mostrar en el preview' : 'Ocultar del preview'">
+              [title]="exp.visible === false ? ('common.visibility.show' | translate) : ('common.visibility.hide' | translate)">
               <i class="material-icons">
                 {{ exp.visible === false ? 'visibility_off' : 'visibility' }}
               </i>

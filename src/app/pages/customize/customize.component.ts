@@ -16,93 +16,93 @@ export class CustomizeComponent implements OnInit, OnDestroy {
   mainSections: CvSectionId[] = [];
   sidebarSections: CvSectionId[] = [];
 
-  readonly sectionMeta: Record<CvSectionId, { label: string; controlName: string }> = {
-    profile: { label: 'Perfil', controlName: 'iconProfile' },
-    workExperience: { label: 'Experiencia', controlName: 'iconWorkExperience' },
-    education: { label: 'Educación', controlName: 'iconEducation' },
-    references: { label: 'Referencias', controlName: 'iconReferences' },
-    languages: { label: 'Idiomas', controlName: 'iconLanguages' },
-    skills: { label: 'Habilidades', controlName: 'iconSkills' },
-    courses: { label: 'Cursos', controlName: 'iconCourses' },
-    projects: { label: 'Proyectos', controlName: 'iconProjects' }
+  readonly sectionMeta: Record<CvSectionId, { labelKey: string; controlName: string }> = {
+    profile: { labelKey: 'customize.section.profile', controlName: 'iconProfile' },
+    workExperience: { labelKey: 'customize.section.workExperience', controlName: 'iconWorkExperience' },
+    education: { labelKey: 'customize.section.education', controlName: 'iconEducation' },
+    references: { labelKey: 'customize.section.references', controlName: 'iconReferences' },
+    languages: { labelKey: 'customize.section.languages', controlName: 'iconLanguages' },
+    skills: { labelKey: 'customize.section.skills', controlName: 'iconSkills' },
+    courses: { labelKey: 'customize.section.courses', controlName: 'iconCourses' },
+    projects: { labelKey: 'customize.section.projects', controlName: 'iconProjects' }
   };
   iconOptionsBySection: Record<
     keyof CvIcons,
-    Array<{ label: string; value: string }>
+    Array<{ labelKey: string; value: string }>
   > = {
     // Perfil
     profile: [
-      { label: 'Persona', value: 'person' },
-      { label: 'Perfil', value: 'account_circle' },
-      { label: 'Credencial', value: 'badge' },
-      { label: 'Contacto', value: 'contact_page' },
-      { label: 'ID', value: 'assignment_ind' },
-      { label: 'Verificado', value: 'verified_user' }
+      { labelKey: 'customize.iconOptions.profile.person', value: 'person' },
+      { labelKey: 'customize.iconOptions.profile.account_circle', value: 'account_circle' },
+      { labelKey: 'customize.iconOptions.profile.badge', value: 'badge' },
+      { labelKey: 'customize.iconOptions.profile.contact_page', value: 'contact_page' },
+      { labelKey: 'customize.iconOptions.profile.assignment_ind', value: 'assignment_ind' },
+      { labelKey: 'customize.iconOptions.profile.verified_user', value: 'verified_user' }
     ],
 
     // Experiencia
     workExperience: [
-      { label: 'Trabajo', value: 'work' },
-      { label: 'Portafolio', value: 'work_outline' },
-      { label: 'Maletín', value: 'business_center' },
-      { label: 'Empresa', value: 'domain' },
-      { label: 'Historial', value: 'work_history' },
-      { label: 'Casos', value: 'cases' }
+      { labelKey: 'customize.iconOptions.workExperience.work', value: 'work' },
+      { labelKey: 'customize.iconOptions.workExperience.work_outline', value: 'work_outline' },
+      { labelKey: 'customize.iconOptions.workExperience.business_center', value: 'business_center' },
+      { labelKey: 'customize.iconOptions.workExperience.domain', value: 'domain' },
+      { labelKey: 'customize.iconOptions.workExperience.work_history', value: 'work_history' },
+      { labelKey: 'customize.iconOptions.workExperience.cases', value: 'cases' }
     ],
 
     // Educación
     education: [
-      { label: 'Escuela', value: 'school' },
-      { label: 'Biblioteca', value: 'local_library' },
-      { label: 'Diploma', value: 'workspace_premium' },
-      { label: 'Historia', value: 'history_edu' },
-      { label: 'Libros', value: 'auto_stories' }
+      { labelKey: 'customize.iconOptions.education.school', value: 'school' },
+      { labelKey: 'customize.iconOptions.education.local_library', value: 'local_library' },
+      { labelKey: 'customize.iconOptions.education.workspace_premium', value: 'workspace_premium' },
+      { labelKey: 'customize.iconOptions.education.history_edu', value: 'history_edu' },
+      { labelKey: 'customize.iconOptions.education.auto_stories', value: 'auto_stories' }
     ],
 
     // Referencias
     references: [
-      { label: 'Personas', value: 'groups' },
-      { label: 'Usuarios', value: 'supervisor_account' },
-      { label: 'Recomendación', value: 'recommend' },
-      { label: 'Manos', value: 'handshake' },
-      { label: 'Contacto', value: 'contact_mail' }
+      { labelKey: 'customize.iconOptions.references.groups', value: 'groups' },
+      { labelKey: 'customize.iconOptions.references.supervisor_account', value: 'supervisor_account' },
+      { labelKey: 'customize.iconOptions.references.recommend', value: 'recommend' },
+      { labelKey: 'customize.iconOptions.references.handshake', value: 'handshake' },
+      { labelKey: 'customize.iconOptions.references.contact_mail', value: 'contact_mail' }
     ],
 
     // Idiomas
     languages: [
-      { label: 'Traducir', value: 'translate' },
-      { label: 'Idioma', value: 'language' },
-      { label: 'Mundo', value: 'public' },
-      { label: 'Voz', value: 'record_voice_over' }
+      { labelKey: 'customize.iconOptions.languages.translate', value: 'translate' },
+      { labelKey: 'customize.iconOptions.languages.language', value: 'language' },
+      { labelKey: 'customize.iconOptions.languages.public', value: 'public' },
+      { labelKey: 'customize.iconOptions.languages.record_voice_over', value: 'record_voice_over' }
     ],
 
     // Habilidades
     skills: [
-      { label: 'Habilidades', value: 'psychology' },
-      { label: 'Herramientas', value: 'build' },
-      { label: 'Ingeniería', value: 'engineering' },
-      { label: 'Estrella', value: 'star' },
-      { label: 'Checklist', value: 'checklist' },
-      { label: 'Auto-fix', value: 'auto_fix_high' }
+      { labelKey: 'customize.iconOptions.skills.psychology', value: 'psychology' },
+      { labelKey: 'customize.iconOptions.skills.build', value: 'build' },
+      { labelKey: 'customize.iconOptions.skills.engineering', value: 'engineering' },
+      { labelKey: 'customize.iconOptions.skills.star', value: 'star' },
+      { labelKey: 'customize.iconOptions.skills.checklist', value: 'checklist' },
+      { labelKey: 'customize.iconOptions.skills.auto_fix_high', value: 'auto_fix_high' }
     ],
 
     // Cursos
     courses: [
-      { label: 'Libro', value: 'menu_book' },
-      { label: 'Cursos', value: 'library_books' },
-      { label: 'Biblioteca', value: 'local_library' },
-      { label: 'Historias', value: 'auto_stories' },
-      { label: 'Libro abierto', value: 'import_contacts' }
+      { labelKey: 'customize.iconOptions.courses.menu_book', value: 'menu_book' },
+      { labelKey: 'customize.iconOptions.courses.library_books', value: 'library_books' },
+      { labelKey: 'customize.iconOptions.courses.local_library', value: 'local_library' },
+      { labelKey: 'customize.iconOptions.courses.auto_stories', value: 'auto_stories' },
+      { labelKey: 'customize.iconOptions.courses.import_contacts', value: 'import_contacts' }
     ],
 
     // Proyectos
     projects: [
-      { label: 'Carpeta', value: 'folder' },
-      { label: 'Carpeta abierta', value: 'folder_open' },
-      { label: 'Código', value: 'code' },
-      { label: 'Terminal', value: 'terminal' },
-      { label: 'Laptop', value: 'laptop_mac' },
-      { label: 'Construcción', value: 'construction' }
+      { labelKey: 'customize.iconOptions.projects.folder', value: 'folder' },
+      { labelKey: 'customize.iconOptions.projects.folder_open', value: 'folder_open' },
+      { labelKey: 'customize.iconOptions.projects.code', value: 'code' },
+      { labelKey: 'customize.iconOptions.projects.terminal', value: 'terminal' },
+      { labelKey: 'customize.iconOptions.projects.laptop_mac', value: 'laptop_mac' },
+      { labelKey: 'customize.iconOptions.projects.construction', value: 'construction' }
     ]
   };
 

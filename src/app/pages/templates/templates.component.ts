@@ -29,31 +29,31 @@ export class TemplatesComponent implements OnInit, OnDestroy {
   private sub = new Subscription();
 
   // Paleta de acentos profesionales (CV)
-  colors: Array<{ name: string; value: string; hint: string }> = [
-    { name: 'Azul clásico', value: '#1976d2', hint: 'Formal y estándar' },
-    { name: 'Navy', value: '#1e3a8a', hint: 'Ejecutivo' },
-    { name: 'Slate', value: '#334155', hint: 'Sobrio' },
-    { name: 'Teal', value: '#0f766e', hint: 'Moderno' },
-    { name: 'Esmeralda', value: '#047857', hint: 'Cálido y profesional' },
-    { name: 'Borgoña', value: '#7f1d1d', hint: 'Premium' },
-    { name: 'Índigo', value: '#4f46e5', hint: 'Tech / producto' },
-    { name: 'Grafito', value: '#111827', hint: 'Minimal' },
-    { name: 'Azul petróleo', value: '#155e75', hint: 'Moderno y serio' },
-    { name: 'Púrpura profundo', value: '#5b21b6', hint: 'Creativo (sobrio)' },
-    { name: 'Ciruela', value: '#9d174d', hint: 'Marca personal (discreta)' },
-    { name: 'Oro viejo', value: '#b45309', hint: 'Cálido y elegante' },
-    // { name: 'Naranja', value: '#ea580c', hint: 'Dinámico' },
-    { name: 'Oliva', value: '#3f6212', hint: 'Natural y sobrio' }
+  colors: Array<{ nameKey: string; value: string; hintKey?: string }> = [
+    { nameKey: 'design.palette.primary.classicBlue.name', value: '#1976d2', hintKey: 'design.palette.primary.classicBlue.hint' },
+    { nameKey: 'design.palette.primary.navy.name', value: '#1e3a8a', hintKey: 'design.palette.primary.navy.hint' },
+    { nameKey: 'design.palette.primary.slate.name', value: '#334155', hintKey: 'design.palette.primary.slate.hint' },
+    { nameKey: 'design.palette.primary.teal.name', value: '#0f766e', hintKey: 'design.palette.primary.teal.hint' },
+    { nameKey: 'design.palette.primary.emerald.name', value: '#047857', hintKey: 'design.palette.primary.emerald.hint' },
+    { nameKey: 'design.palette.primary.burgundy.name', value: '#7f1d1d', hintKey: 'design.palette.primary.burgundy.hint' },
+    { nameKey: 'design.palette.primary.indigo.name', value: '#4f46e5', hintKey: 'design.palette.primary.indigo.hint' },
+    { nameKey: 'design.palette.primary.graphite.name', value: '#111827', hintKey: 'design.palette.primary.graphite.hint' },
+    { nameKey: 'design.palette.primary.petrolBlue.name', value: '#155e75', hintKey: 'design.palette.primary.petrolBlue.hint' },
+    { nameKey: 'design.palette.primary.deepPurple.name', value: '#5b21b6', hintKey: 'design.palette.primary.deepPurple.hint' },
+    { nameKey: 'design.palette.primary.plum.name', value: '#9d174d', hintKey: 'design.palette.primary.plum.hint' },
+    { nameKey: 'design.palette.primary.oldGold.name', value: '#b45309', hintKey: 'design.palette.primary.oldGold.hint' },
+    // { nameKey: 'design.palette.primary.orange.name', value: '#ea580c', hintKey: 'design.palette.primary.orange.hint' },
+    { nameKey: 'design.palette.primary.olive.name', value: '#3f6212', hintKey: 'design.palette.primary.olive.hint' }
   ];
 
   // Fondo de hoja (sutiles y elegantes)
-  paperColors: Array<{ name: string; value: string }> = [
-    { name: 'Blanco', value: '#ffffff' },
-    { name: 'Marfil', value: '#fffaf0' },
-    { name: 'Perla', value: '#f8fafc' },
-    { name: 'Niebla', value: '#f3f4f6' },
-    { name: 'Arena', value: '#faf5ef' },
-    { name: 'Hielo', value: '#f1f5f9' }
+  paperColors: Array<{ nameKey: string; value: string }> = [
+    { nameKey: 'design.palette.paper.white', value: '#ffffff' },
+    { nameKey: 'design.palette.paper.ivory', value: '#fffaf0' },
+    { nameKey: 'design.palette.paper.pearl', value: '#f8fafc' },
+    { nameKey: 'design.palette.paper.mist', value: '#f3f4f6' },
+    { nameKey: 'design.palette.paper.sand', value: '#faf5ef' },
+    { nameKey: 'design.palette.paper.ice', value: '#f1f5f9' }
   ];
 
   fontFamilies: Array<{ name: string; value: string }> = [
@@ -191,13 +191,13 @@ export class TemplatesComponent implements OnInit, OnDestroy {
     }
   ];
 
-  fontSizes: Array<{ label: string; value: string; hint: string }> = [
-    { label: 'XXS', value: 'xxs', hint: 'Muy compacto' },
-    { label: 'XS', value: 'xs', hint: 'Compacto' },
-    { label: 'S', value: 's', hint: 'Un poco compacto' },
-    { label: 'M', value: 'm', hint: 'Recomendado' },
-    { label: 'L', value: 'l', hint: 'Más grande' },
-    { label: 'XL', value: 'xl', hint: 'Grande' }
+  fontSizes: Array<{ label: string; value: string; hintKey: string }> = [
+    { label: 'XXS', value: 'xxs', hintKey: 'design.typography.sizeHints.xxs' },
+    { label: 'XS', value: 'xs', hintKey: 'design.typography.sizeHints.xs' },
+    { label: 'S', value: 's', hintKey: 'design.typography.sizeHints.s' },
+    { label: 'M', value: 'm', hintKey: 'design.typography.sizeHints.m' },
+    { label: 'L', value: 'l', hintKey: 'design.typography.sizeHints.l' },
+    { label: 'XL', value: 'xl', hintKey: 'design.typography.sizeHints.xl' }
   ];
 
   get filteredFontFamilies(): Array<{ name: string; value: string }> {
@@ -206,7 +206,7 @@ export class TemplatesComponent implements OnInit, OnDestroy {
     return this.fontFamilies.filter(f => f.name.toLowerCase().includes(q));
   }
 
-  get selectedFontSizeMeta(): { label: string; value: string; hint: string } | null {
+  get selectedFontSizeMeta(): { label: string; value: string; hintKey: string } | null {
     return this.fontSizes.find(s => s.value === this.selectedFontSize) || null;
   }
 
@@ -224,33 +224,33 @@ export class TemplatesComponent implements OnInit, OnDestroy {
       'template-1': {
         previewBase: 'assets/image/plantillas/plantilla1-1.jpg',
         previewHover: 'assets/image/plantillas/plantilla1-2.jpg',
-        tags: ['ATS', 'Por defecto'],
+        tags: ['design.templateTags.ats', 'design.templateTags.default'],
         isDefault: true
       },
       'template-2': {
         previewBase: 'assets/image/plantillas/plantilla2-1.png',
         previewHover: 'assets/image/plantillas/plantilla2-2.png',
-        tags: ['Moderno', 'Nuevo']
+        tags: ['design.templateTags.modern', 'design.templateTags.new']
       },
       'template-3': {
         previewBase: 'assets/image/plantillas/plantilla3-1.png',
         previewHover: 'assets/image/plantillas/plantilla3-2.png',
-        tags: ['Minimalista', 'Nuevo']
+        tags: ['design.templateTags.minimal', 'design.templateTags.new']
       },
       'template-4': {
         previewBase: 'assets/image/plantillas/plantilla4-1.svg',
         previewHover: 'assets/image/plantillas/plantilla4-2.svg',
-        tags: ['Sidebar izquierda', 'Nuevo']
+        tags: ['design.templateTags.leftSidebar', 'design.templateTags.new']
       },
       'template-5': {
         previewBase: 'assets/image/plantillas/plantilla5-1.svg',
         previewHover: 'assets/image/plantillas/plantilla5-2.svg',
-        tags: ['Dos columnas', 'Nuevo']
+        tags: ['design.templateTags.twoColumns', 'design.templateTags.new']
       },
       'template-6': {
         previewBase: 'assets/image/plantillas/plantilla6-1.svg',
         previewHover: 'assets/image/plantillas/plantilla6-2.svg',
-        tags: ['Timeline', 'Nuevo']
+        tags: ['design.templateTags.timeline', 'design.templateTags.new']
       }
     };
 

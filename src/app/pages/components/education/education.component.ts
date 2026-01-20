@@ -13,7 +13,7 @@ export class EducationComponent implements OnInit {
   form!: FormGroup;
   educations: Education[] = [];
   editingIndex: number | null = null;
-  currentStudyError: string | null = null;
+  currentStudyErrorKey: string | null = null;
   autoSortByDate = false;
   private manualOrderBackup: Education[] | null = null;
 
@@ -38,7 +38,7 @@ export class EducationComponent implements OnInit {
     });
 
     this.form.get('enCurso')?.valueChanges.subscribe((checked: boolean) => {
-      this.currentStudyError = null;
+      this.currentStudyErrorKey = null;
       const fechaFin = this.form.get('fechaFin');
       if (!fechaFin) return;
       if (checked) {
@@ -51,7 +51,7 @@ export class EducationComponent implements OnInit {
   }
 
   addEducation(): void {
-    this.currentStudyError = null;
+    this.currentStudyErrorKey = null;
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -76,7 +76,7 @@ export class EducationComponent implements OnInit {
     if (edu.enCurso) {
       const otherCurrent = this.educations.some(e => e.enCurso && e.id !== edu.id);
       if (otherCurrent) {
-        this.currentStudyError = 'No puedes marcar 2 estudios como "Actualmente estudiando". Desmarca el otro primero.';
+        this.currentStudyErrorKey = 'form.education.errors.onlyOneCurrent';
         return;
       }
       edu.fechaFin = '';
@@ -108,7 +108,7 @@ export class EducationComponent implements OnInit {
 
   editEducation(index: number): void {
     const edu = this.educations[index];
-    this.currentStudyError = null;
+    this.currentStudyErrorKey = null;
     this.editingIndex = index;
     this.form.reset({
       institucion: edu.institucion || '',
@@ -130,7 +130,7 @@ export class EducationComponent implements OnInit {
     }
     if (this.editingIndex === index) {
       this.editingIndex = null;
-      this.currentStudyError = null;
+      this.currentStudyErrorKey = null;
       this.form.reset({
         institucion: '',
         titulo: '',

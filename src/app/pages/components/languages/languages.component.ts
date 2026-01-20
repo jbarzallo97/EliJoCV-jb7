@@ -15,10 +15,10 @@ export class LanguagesComponent implements OnInit {
   editingIndex: number | null = null;
 
   niveles = [
-    { value: 'basico', label: 'Básico' },
-    { value: 'intermedio', label: 'Intermedio' },
-    { value: 'avanzado', label: 'Avanzado' },
-    { value: 'nativo', label: 'Nativo' }
+    { value: 'basico', labelKey: 'levels.basic' },
+    { value: 'intermedio', labelKey: 'levels.intermediate' },
+    { value: 'avanzado', labelKey: 'levels.advanced' },
+    { value: 'nativo', labelKey: 'levels.native' }
   ];
 
   constructor(

@@ -1,23 +1,23 @@
 <div class="form-section">
-  <h3 class="form-section-title">Idiomas</h3>
+  <h3 class="form-section-title">{{ 'sections.languages' | translate }}</h3>
 
   <form [formGroup]="form">
     <div class="language-item mb-3">
       <div class="row g-2 align-items-center">
         <div class="col-md-8">
-          <label class="form-label mb-1">Idioma <span class="required-asterisk">*</span></label>
+          <label class="form-label mb-1">{{ 'form.languages.language' | translate }} <span class="required-asterisk">*</span></label>
           <input
             type="text"
             class="form-control"
             formControlName="idioma"
-            placeholder="Ej: Idioma">
+            [placeholder]="'form.languages.languagePh' | translate">
         </div>
 
         <div class="col-md-4">
-          <label class="form-label mb-1">Nivel</label>
+          <label class="form-label mb-1">{{ 'common.level' | translate }}</label>
           <select class="form-select" formControlName="nivel">
             <option *ngFor="let nivel of niveles" [value]="nivel.value">
-              {{ nivel.label }}
+              {{ nivel.labelKey | translate }}
             </option>
           </select>
         </div>
@@ -33,14 +33,14 @@
         <i class="material-icons" style="font-size: 20px;">
           {{ editingIndex !== null ? 'save' : 'add' }}
         </i>
-        {{ editingIndex !== null ? 'Guardar idioma' : 'Agregar idioma' }}
+        {{ (editingIndex !== null ? 'common.actions.saveLanguage' : 'common.actions.addLanguage') | translate }}
       </button>
     </div>
   </form>
 
   <div class="mt-4" *ngIf="languages.length > 0">
     <div class="list-header">
-      <h4 class="list-title mb-0">Agregados</h4>
+      <h4 class="list-title mb-0">{{ 'common.list.added' | translate }}</h4>
     </div>
 
     <div
@@ -51,7 +51,7 @@
       <div class="language-card" *ngFor="let l of languages; let i = index" cdkDrag>
         <div class="d-flex justify-content-between align-items-start">
           <div>
-            <div class="drag-handle" cdkDragHandle title="Arrastra para reordenar">
+            <div class="drag-handle" cdkDragHandle [title]="'common.dragToReorder' | translate">
               <i class="material-icons">drag_indicator</i>
             </div>
             <div class="fw-semibold">{{ l.idioma }}</div>
@@ -63,7 +63,7 @@
               type="button"
               class="btn btn-sm btn-outline-secondary icon-btn"
               (click)="toggleLanguageVisibility(i)"
-              [title]="l.visible === false ? 'Mostrar en el preview' : 'Ocultar del preview'">
+              [title]="l.visible === false ? ('common.visibility.show' | translate) : ('common.visibility.hide' | translate)">
               <i class="material-icons">
                 {{ l.visible === false ? 'visibility_off' : 'visibility' }}
               </i>

@@ -1,5 +1,5 @@
 <div class="form-section">
-  <h3 class="form-section-title">Educación</h3>
+  <h3 class="form-section-title">{{ 'sections.education' | translate }}</h3>
 
   <form [formGroup]="form">
     <div class="education-item mb-4 p-3 border rounded">
@@ -12,34 +12,34 @@
               formControlName="enCurso"
               id="enCursoDraft">
             <label class="form-check-label" for="enCursoDraft">
-              Actualmente estudiando
+              {{ 'form.education.currentlyStudying' | translate }}
             </label>
-            <div class="text-danger small mt-1" *ngIf="currentStudyError">
-              {{ currentStudyError }}
+            <div class="text-danger small mt-1" *ngIf="currentStudyErrorKey">
+              {{ currentStudyErrorKey | translate }}
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Institución <span class="required-asterisk">*</span></label>
+          <label class="form-label">{{ 'form.education.institution' | translate }} <span class="required-asterisk">*</span></label>
           <input
             type="text"
             class="form-control"
             formControlName="institucion"
-            placeholder="Nombre de la institución">
+            [placeholder]="'form.education.institutionPh' | translate">
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Título obtenido <span class="required-asterisk">*</span></label>
+          <label class="form-label">{{ 'form.education.degree' | translate }} <span class="required-asterisk">*</span></label>
           <input
             type="text"
             class="form-control"
             formControlName="titulo"
-            placeholder="Ej: Título / Certificación">
+            [placeholder]="'form.education.degreePh' | translate">
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Fecha de inicio <span class="required-asterisk">*</span></label>
+          <label class="form-label">{{ 'form.education.startDate' | translate }} <span class="required-asterisk">*</span></label>
           <div class="input-group">
             <input
               type="date"
@@ -52,7 +52,7 @@
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Fecha de finalización</label>
+          <label class="form-label">{{ 'form.education.endDate' | translate }}</label>
           <div class="input-group">
             <input
               type="date"
@@ -65,30 +65,30 @@
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Ubicación</label>
+          <label class="form-label">{{ 'form.education.location' | translate }}</label>
           <input
             type="text"
             class="form-control"
             formControlName="ubicacion"
-            placeholder="Ciudad, País">
+            [placeholder]="'form.education.locationPh' | translate">
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Promedio (GPA)</label>
+          <label class="form-label">{{ 'cv.gpa' | translate }}</label>
           <input
             type="text"
             class="form-control"
             formControlName="promedio"
-            placeholder="Ej: 9.5 / 10">
+            [placeholder]="'form.education.gpaPh' | translate">
         </div>
 
         <div class="col-md-12">
-          <label class="form-label">Descripción</label>
+          <label class="form-label">{{ 'form.education.description' | translate }}</label>
           <textarea
             class="form-control"
             formControlName="descripcion"
             rows="3"
-            placeholder="Descripción adicional..."></textarea>
+            [placeholder]="'form.education.descriptionPh' | translate"></textarea>
         </div>
       </div>
     </div>
@@ -102,14 +102,14 @@
         <i class="material-icons" style="font-size: 20px;">
           {{ editingIndex !== null ? 'save' : 'add' }}
         </i>
-        {{ editingIndex !== null ? 'Guardar educación' : 'Agregar educación' }}
+        {{ (editingIndex !== null ? 'common.actions.saveEducation' : 'common.actions.addEducation') | translate }}
       </button>
     </div>
   </form>
 
   <div class="mt-4" *ngIf="educations.length > 0">
     <div class="list-header">
-      <h4 class="list-title mb-0">Agregadas</h4>
+      <h4 class="list-title mb-0">{{ 'common.list.added' | translate }}</h4>
       <div class="form-check mb-0">
         <input
           class="form-check-input"
@@ -118,7 +118,7 @@
           [checked]="autoSortByDate"
           (change)="toggleAutoSortByDate($any($event.target).checked)">
         <label class="form-check-label" for="autoSortEduByDate">
-          Ordenar por fecha (más reciente primero)
+          {{ 'common.sortByDate' | translate }}
         </label>
       </div>
     </div>
@@ -132,14 +132,14 @@
       <div class="education-card" *ngFor="let edu of educations; let i = index" cdkDrag [cdkDragDisabled]="autoSortByDate">
         <div class="d-flex justify-content-between align-items-start">
           <div>
-            <div class="drag-handle" cdkDragHandle title="Arrastra para reordenar" [class.drag-disabled]="autoSortByDate">
+            <div class="drag-handle" cdkDragHandle [title]="'common.dragToReorder' | translate" [class.drag-disabled]="autoSortByDate">
               <i class="material-icons">drag_indicator</i>
             </div>
             <div class="fw-semibold">
               {{ edu.institucion }} <span class="text-muted">·</span> {{ edu.titulo }}
             </div>
             <div class="text-muted small">
-              {{ edu.fechaInicio }} - {{ edu.enCurso ? 'Actual' : (edu.fechaFin || '') }}
+              {{ edu.fechaInicio }} - {{ edu.enCurso ? ('cv.current' | translate) : (edu.fechaFin || '') }}
             </div>
           </div>
 
@@ -148,7 +148,7 @@
               type="button"
               class="btn btn-sm btn-outline-secondary icon-btn"
               (click)="toggleEducationVisibility(i)"
-              [title]="edu.visible === false ? 'Mostrar en el preview' : 'Ocultar del preview'">
+              [title]="edu.visible === false ? ('common.visibility.show' | translate) : ('common.visibility.hide' | translate)">
               <i class="material-icons">
                 {{ edu.visible === false ? 'visibility_off' : 'visibility' }}
               </i>

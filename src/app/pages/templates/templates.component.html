@@ -51,7 +51,7 @@
             </div>
             <div class="template-mini-sub text-muted">
               <ng-container *ngFor="let tag of t.tags; let last = last">
-                <span class="tag">{{ tag }}</span>
+                <span class="tag">{{ tag | translate }}</span>
                 <span class="dot" *ngIf="!last">·</span>
               </ng-container>
             </div>
@@ -79,8 +79,8 @@
           (click)="selectColor(c.value)"
           [class.selected]="selectedColor === c.value"
           [attr.aria-pressed]="selectedColor === c.value"
-          [attr.aria-label]="c.name + ' (' + c.value + ')'"
-          [attr.title]="c.name + (c.hint ? ' · ' + c.hint : '')">
+          [attr.aria-label]="(c.nameKey | translate) + ' (' + c.value + ')'"
+          [attr.title]="(c.nameKey | translate) + (c.hintKey ? ' · ' + (c.hintKey | translate) : '')">
           <span class="swatch" [style.background]="c.value"></span>
           <i class="material-icons check" *ngIf="selectedColor === c.value">check_circle</i>
         </button>
@@ -120,14 +120,14 @@
     <div class="template-card-header">
       <div class="d-flex align-items-center gap-2">
         <i class="material-icons">layers</i>
-        <h4 class="group-title mb-0">Color secundario</h4>
+        <h4 class="group-title mb-0">{{ 'design.secondaryColor.title' | translate }}</h4>
       </div>
-      <span class="badge text-bg-light">Hoja</span>
+      <span class="badge text-bg-light">{{ 'design.secondaryColor.badge' | translate }}</span>
     </div>
 
     <div class="template-card-body">
       <p class="text-muted mb-3">
-        Cambia el <strong>fondo de la hoja</strong> del CV (la página A4).
+        {{ 'design.secondaryColor.description' | translate }}
       </p>
 
       <div class="color-grid">
@@ -138,29 +138,29 @@
           (click)="selectPaperColor(c.value)"
           [class.selected]="selectedPaperColor === c.value"
           [attr.aria-pressed]="selectedPaperColor === c.value"
-          [attr.aria-label]="c.name + ' (' + c.value + ')'">
+          [attr.aria-label]="(c.nameKey | translate) + ' (' + c.value + ')'">
           <span class="swatch" [style.background]="c.value"></span>
           <i class="material-icons check" *ngIf="selectedPaperColor === c.value">check_circle</i>
         </button>
       </div>
 
       <div class="custom-color-row mt-3">
-        <div class="text-muted mb-2">Personaliza el fondo si quieres</div>
+        <div class="text-muted mb-2">{{ 'design.secondaryColor.customHint' | translate }}</div>
         <div class="custom-color-controls">
           <input
             class="color-picker"
             type="color"
             [value]="selectedPaperColor"
             (input)="selectPaperColor($any($event.target).value)"
-            aria-label="Selector de color de fondo">
+            [attr.aria-label]="'design.secondaryColor.colorPickerAria' | translate">
 
           <input
             class="form-control hex-input"
             type="text"
             [value]="selectedPaperColor"
             (change)="onPaperHexChange($any($event.target).value)"
-            placeholder="#RRGGBB"
-            aria-label="Color de fondo en HEX">
+            [placeholder]="'design.secondaryColor.hexPlaceholder' | translate"
+            [attr.aria-label]="'design.secondaryColor.hexAria' | translate">
         </div>
       </div>
     </div>
@@ -170,26 +170,26 @@
     <div class="template-card-header">
       <div class="d-flex align-items-center gap-2">
         <i class="material-icons">text_fields</i>
-        <h4 class="group-title mb-0">Tipografía</h4>
+        <h4 class="group-title mb-0">{{ 'design.typography.title' | translate }}</h4>
       </div>
-      <span class="badge text-bg-light">Texto</span>
+      <span class="badge text-bg-light">{{ 'design.typography.badge' | translate }}</span>
     </div>
 
     <div class="template-card-body">
       <div class="typography-controls">
         <div class="typography-field">
           <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
-            <label class="form-label mb-0">Fuente</label>
+            <label class="form-label mb-0">{{ 'design.typography.font.label' | translate }}</label>
             <input
               class="form-control form-control-sm font-search"
               type="search"
               [value]="fontQuery"
               (input)="fontQuery = $any($event.target).value"
-              placeholder="Buscar fuente…"
-              aria-label="Buscar fuente">
+              [placeholder]="'design.typography.font.searchPlaceholder' | translate"
+              [attr.aria-label]="'design.typography.font.searchAria' | translate">
           </div>
 
-          <div class="font-grid" role="list" aria-label="Lista de fuentes">
+          <div class="font-grid" role="list" [attr.aria-label]="'design.typography.font.listAria' | translate">
             <button
               type="button"
               class="font-option"
@@ -206,9 +206,9 @@
         </div>
 
         <div class="typography-field">
-          <label class="form-label mb-2">Tamaño</label>
+          <label class="form-label mb-2">{{ 'design.typography.size.label' | translate }}</label>
 
-          <div class="size-row" role="group" aria-label="Tamaño de fuente">
+          <div class="size-row" role="group" [attr.aria-label]="'design.typography.size.groupAria' | translate">
             <button
               type="button"
               class="size-pill"
@@ -221,12 +221,12 @@
           </div>
 
           <div class="text-muted small mt-2" *ngIf="selectedFontSizeMeta">
-            {{ selectedFontSizeMeta.label }} — {{ selectedFontSizeMeta.hint }}
+            {{ selectedFontSizeMeta.label }} — {{ selectedFontSizeMeta.hintKey | translate }}
           </div>
 
           <div class="size-preview mt-2" [style.font-family]="selectedFontFamily">
-            <div class="size-preview-title">Ejemplo de título</div>
-            <div class="size-preview-body">Texto de ejemplo para ver legibilidad y densidad.</div>
+            <div class="size-preview-title">{{ 'design.typography.size.previewTitle' | translate }}</div>
+            <div class="size-preview-body">{{ 'design.typography.size.previewBody' | translate }}</div>
           </div>
         </div>
       </div>

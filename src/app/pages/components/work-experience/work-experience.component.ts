@@ -13,7 +13,7 @@ export class WorkExperienceComponent implements OnInit {
   form!: FormGroup;
   experiences: WorkExperience[] = [];
   editingIndex: number | null = null;
-  currentJobError: string | null = null;
+  currentJobErrorKey: string | null = null;
   autoSortByDate = false;
   private manualOrderBackup: WorkExperience[] | null = null;
 
@@ -36,7 +36,7 @@ export class WorkExperienceComponent implements OnInit {
 
     // Toggle fecha fin
     this.form.get('actualmenteTrabajando')?.valueChanges.subscribe((checked: boolean) => {
-      this.currentJobError = null;
+      this.currentJobErrorKey = null;
       const fechaFin = this.form.get('fechaFin');
       if (!fechaFin) return;
       if (checked) {
@@ -49,7 +49,7 @@ export class WorkExperienceComponent implements OnInit {
   }
 
   addExperience(): void {
-    this.currentJobError = null;
+    this.currentJobErrorKey = null;
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -73,7 +73,7 @@ export class WorkExperienceComponent implements OnInit {
     if (exp.actualmenteTrabajando) {
       const otherCurrent = this.experiences.some(e => e.actualmenteTrabajando && e.id !== exp.id);
       if (otherCurrent) {
-        this.currentJobError = 'No puedes marcar 2 experiencias como "Actualmente trabajando aquí". Desmarca la otra experiencia primero.';
+        this.currentJobErrorKey = 'form.workExperience.errors.onlyOneCurrent';
         return;
       }
       exp.fechaFin = '';
@@ -102,7 +102,7 @@ export class WorkExperienceComponent implements OnInit {
 
   editExperience(index: number): void {
     const exp = this.experiences[index];
-    this.currentJobError = null;
+    this.currentJobErrorKey = null;
     this.editingIndex = index;
     this.form.reset({
       empresa: exp.empresa || '',
@@ -122,7 +122,7 @@ export class WorkExperienceComponent implements OnInit {
     }
     if (this.editingIndex === index) {
       this.editingIndex = null;
-      this.currentJobError = null;
+      this.currentJobErrorKey = null;
       this.form.reset({
         empresa: '',
         puesto: '',

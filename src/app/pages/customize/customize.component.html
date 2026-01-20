@@ -3,10 +3,10 @@
     <div>
       <h3 class="form-section-title d-flex align-items-center gap-2 mb-1">
         <i class="material-icons">tune</i>
-        Personalizar
+        {{ 'customize.title' | translate }}
       </h3>
       <p class="text-muted mb-0">
-        Cambia títulos y etiquetas del CV. Los cambios se aplican cuando presionas <strong>Guardar</strong>.
+        {{ 'customize.subtitle' | translate }}
       </p>
     </div>
   </div>
@@ -19,14 +19,14 @@
           <div class="customize-card-header">
             <div class="d-flex align-items-center gap-2">
               <i class="material-icons">view_list</i>
-              <h4 class="group-title mb-0">Títulos de secciones</h4>
+              <h4 class="group-title mb-0">{{ 'customize.sectionTitles.title' | translate }}</h4>
             </div>
-            <span class="badge text-bg-light">Columna principal</span>
+            <span class="badge text-bg-light">{{ 'customize.badges.mainColumn' | translate }}</span>
           </div>
 
           <div class="customize-card-body">
             <div class="mb-3">
-              <label class="form-label">Perfil</label>
+              <label class="form-label">{{ 'customize.section.profile' | translate }}</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="material-icons">account_circle</i></span>
                 <input class="form-control" type="text" formControlName="sectionProfile">
@@ -34,7 +34,7 @@
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Experiencia profesional</label>
+              <label class="form-label">{{ 'customize.section.workExperienceProfessional' | translate }}</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="material-icons">work</i></span>
                 <input class="form-control" type="text" formControlName="sectionWorkExperience">
@@ -42,7 +42,7 @@
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Educación</label>
+              <label class="form-label">{{ 'customize.section.education' | translate }}</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="material-icons">school</i></span>
                 <input class="form-control" type="text" formControlName="sectionEducation">
@@ -50,7 +50,7 @@
             </div>
 
             <div class="mb-0">
-              <label class="form-label">Referencias</label>
+              <label class="form-label">{{ 'customize.section.references' | translate }}</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="material-icons">groups</i></span>
                 <input class="form-control" type="text" formControlName="sectionReferences">
@@ -65,14 +65,14 @@
           <div class="customize-card-header">
             <div class="d-flex align-items-center gap-2">
               <i class="material-icons">dashboard</i>
-              <h4 class="group-title mb-0">Títulos del sidebar</h4>
+              <h4 class="group-title mb-0">{{ 'customize.sidebarTitles.title' | translate }}</h4>
             </div>
-            <span class="badge text-bg-light">Columna lateral</span>
+            <span class="badge text-bg-light">{{ 'customize.badges.sidebarColumn' | translate }}</span>
           </div>
 
           <div class="customize-card-body">
             <div class="mb-3">
-              <label class="form-label">Idiomas</label>
+              <label class="form-label">{{ 'customize.section.languages' | translate }}</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="material-icons">translate</i></span>
                 <input class="form-control" type="text" formControlName="sectionLanguages">
@@ -80,7 +80,7 @@
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Habilidades</label>
+              <label class="form-label">{{ 'customize.section.skills' | translate }}</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="material-icons">psychology</i></span>
                 <input class="form-control" type="text" formControlName="sectionSkills">
@@ -88,7 +88,7 @@
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Cursos</label>
+              <label class="form-label">{{ 'customize.section.courses' | translate }}</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="material-icons">library_books</i></span>
                 <input class="form-control" type="text" formControlName="sectionCourses">
@@ -96,7 +96,7 @@
             </div>
 
             <div class="mb-0">
-              <label class="form-label">Proyectos</label>
+              <label class="form-label">{{ 'customize.section.projects' | translate }}</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="material-icons">folder</i></span>
                 <input class="form-control" type="text" formControlName="sectionProjects">
@@ -111,50 +111,50 @@
           <div class="customize-card-header">
             <div class="d-flex align-items-center gap-2">
               <i class="material-icons">contact_mail</i>
-              <h4 class="group-title mb-0">Etiquetas de contacto</h4>
+              <h4 class="group-title mb-0">{{ 'customize.contactLabels.title' | translate }}</h4>
             </div>
-            <span class="badge text-bg-light">Encabezado</span>
+            <span class="badge text-bg-light">{{ 'customize.badges.header' | translate }}</span>
           </div>
 
           <div class="customize-card-body">
             <div class="row g-3">
               <div class="col-md-6">
-                <label class="form-label">Email</label>
+                <label class="form-label">{{ 'customize.contactLabels.email' | translate }}</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">mail</i></span>
                   <input class="form-control" type="text" formControlName="labelEmail">
                 </div>
               </div>
               <div class="col-md-6">
-                <label class="form-label">Teléfono</label>
+                <label class="form-label">{{ 'customize.contactLabels.phone' | translate }}</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">call</i></span>
                   <input class="form-control" type="text" formControlName="labelPhone">
                 </div>
               </div>
               <div class="col-md-6">
-                <label class="form-label">Dirección</label>
+                <label class="form-label">{{ 'customize.contactLabels.address' | translate }}</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">home</i></span>
                   <input class="form-control" type="text" formControlName="labelAddress">
                 </div>
               </div>
               <div class="col-md-6">
-                <label class="form-label">Nacionalidad</label>
+                <label class="form-label">{{ 'customize.contactLabels.nationality' | translate }}</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">flag</i></span>
                   <input class="form-control" type="text" formControlName="labelNationality">
                 </div>
               </div>
               <div class="col-md-6">
-                <label class="form-label">Fecha de nacimiento</label>
+                <label class="form-label">{{ 'customize.contactLabels.birthDate' | translate }}</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">calendar_today</i></span>
                   <input class="form-control" type="text" formControlName="labelBirthDate">
                 </div>
               </div>
               <div class="col-md-6">
-                <label class="form-label">Edad</label>
+                <label class="form-label">{{ 'customize.contactLabels.age' | translate }}</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">cake</i></span>
                   <input class="form-control" type="text" formControlName="labelAge">
@@ -170,89 +170,89 @@
           <div class="customize-card-header">
             <div class="d-flex align-items-center gap-2">
               <i class="material-icons">emoji_symbols</i>
-              <h4 class="group-title mb-0">Iconos de secciones</h4>
+              <h4 class="group-title mb-0">{{ 'customize.sectionIcons.title' | translate }}</h4>
             </div>
-            <span class="badge text-bg-light">Títulos</span>
+            <span class="badge text-bg-light">{{ 'customize.badges.titles' | translate }}</span>
           </div>
 
           <div class="customize-card-body">
             <div class="row g-3">
               <div class="col-md-6">
-                <label class="form-label">Perfil</label>
+                <label class="form-label">{{ 'customize.section.profile' | translate }}</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconProfile')?.value }}</i></span>
                   <select class="form-select" formControlName="iconProfile">
-                    <option *ngFor="let o of iconOptionsBySection.profile" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.profile" [value]="o.value">{{ o.labelKey | translate }}</option>
                   </select>
                 </div>
               </div>
 
               <div class="col-md-6">
-                <label class="form-label">Experiencia</label>
+                <label class="form-label">{{ 'customize.section.workExperience' | translate }}</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconWorkExperience')?.value }}</i></span>
                   <select class="form-select" formControlName="iconWorkExperience">
-                    <option *ngFor="let o of iconOptionsBySection.workExperience" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.workExperience" [value]="o.value">{{ o.labelKey | translate }}</option>
                   </select>
                 </div>
               </div>
 
               <div class="col-md-6">
-                <label class="form-label">Educación</label>
+                <label class="form-label">{{ 'customize.section.education' | translate }}</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconEducation')?.value }}</i></span>
                   <select class="form-select" formControlName="iconEducation">
-                    <option *ngFor="let o of iconOptionsBySection.education" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.education" [value]="o.value">{{ o.labelKey | translate }}</option>
                   </select>
                 </div>
               </div>
 
               <div class="col-md-6">
-                <label class="form-label">Referencias</label>
+                <label class="form-label">{{ 'customize.section.references' | translate }}</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconReferences')?.value }}</i></span>
                   <select class="form-select" formControlName="iconReferences">
-                    <option *ngFor="let o of iconOptionsBySection.references" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.references" [value]="o.value">{{ o.labelKey | translate }}</option>
                   </select>
                 </div>
               </div>
 
               <div class="col-md-6">
-                <label class="form-label">Idiomas</label>
+                <label class="form-label">{{ 'customize.section.languages' | translate }}</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconLanguages')?.value }}</i></span>
                   <select class="form-select" formControlName="iconLanguages">
-                    <option *ngFor="let o of iconOptionsBySection.languages" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.languages" [value]="o.value">{{ o.labelKey | translate }}</option>
                   </select>
                 </div>
               </div>
 
               <div class="col-md-6">
-                <label class="form-label">Habilidades</label>
+                <label class="form-label">{{ 'customize.section.skills' | translate }}</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconSkills')?.value }}</i></span>
                   <select class="form-select" formControlName="iconSkills">
-                    <option *ngFor="let o of iconOptionsBySection.skills" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.skills" [value]="o.value">{{ o.labelKey | translate }}</option>
                   </select>
                 </div>
               </div>
 
               <div class="col-md-6">
-                <label class="form-label">Cursos</label>
+                <label class="form-label">{{ 'customize.section.courses' | translate }}</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconCourses')?.value }}</i></span>
                   <select class="form-select" formControlName="iconCourses">
-                    <option *ngFor="let o of iconOptionsBySection.courses" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.courses" [value]="o.value">{{ o.labelKey | translate }}</option>
                   </select>
                 </div>
               </div>
 
               <div class="col-md-6">
-                <label class="form-label">Proyectos</label>
+                <label class="form-label">{{ 'customize.section.projects' | translate }}</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="material-icons">{{ form.get('iconProjects')?.value }}</i></span>
                   <select class="form-select" formControlName="iconProjects">
-                    <option *ngFor="let o of iconOptionsBySection.projects" [value]="o.value">{{ o.label }}</option>
+                    <option *ngFor="let o of iconOptionsBySection.projects" [value]="o.value">{{ o.labelKey | translate }}</option>
                   </select>
                 </div>
               </div>
@@ -270,20 +270,20 @@
           <div class="customize-card-header">
             <div class="d-flex align-items-center gap-2">
               <i class="material-icons">swap_vert</i>
-              <h4 class="group-title mb-0">Orden de secciones</h4>
+              <h4 class="group-title mb-0">{{ 'customize.sectionOrder.title' | translate }}</h4>
             </div>
-            <span class="badge text-bg-light">Arrastra y suelta</span>
+            <span class="badge text-bg-light">{{ 'customize.sectionOrder.badge' | translate }}</span>
           </div>
 
           <div class="customize-card-body">
             <div class="text-muted small mb-3">
-              Puedes cambiar el <strong>orden</strong> y también mover secciones entre <strong>Columna principal</strong> y <strong>Sidebar</strong>.
-              Se aplica cuando presionas <strong>Guardar</strong>.
+              {{ 'customize.sectionOrder.description.beforeSave' | translate }}
+              <strong>{{ 'customize.actions.save' | translate }}</strong>.
             </div>
 
             <div class="row g-3">
               <div class="col-12 col-lg-6">
-                <div class="layout-col-title">Columna principal</div>
+                <div class="layout-col-title">{{ 'customize.badges.mainColumn' | translate }}</div>
                 <div
                   class="section-dnd-list"
                   cdkDropList
@@ -293,18 +293,18 @@
                   (cdkDropListDropped)="dropSection($event)">
                   <div class="section-dnd-item" *ngFor="let id of mainSections" cdkDrag>
                     <div class="d-flex align-items-center gap-2">
-                      <span class="drag-handle" cdkDragHandle title="Arrastra para reordenar">
+                      <span class="drag-handle" cdkDragHandle [attr.title]="'common.dragToReorder' | translate">
                         <i class="material-icons">drag_indicator</i>
                       </span>
                       <i class="material-icons section-dnd-icon">{{ getSectionIcon(id) }}</i>
-                      <div class="section-dnd-label">{{ sectionMeta[id].label }}</div>
+                      <div class="section-dnd-label">{{ sectionMeta[id].labelKey | translate }}</div>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div class="col-12 col-lg-6">
-                <div class="layout-col-title">Sidebar</div>
+                <div class="layout-col-title">{{ 'customize.badges.sidebarShort' | translate }}</div>
                 <div
                   class="section-dnd-list"
                   cdkDropList
@@ -314,11 +314,11 @@
                   (cdkDropListDropped)="dropSection($event)">
                   <div class="section-dnd-item" *ngFor="let id of sidebarSections" cdkDrag>
                     <div class="d-flex align-items-center gap-2">
-                      <span class="drag-handle" cdkDragHandle title="Arrastra para reordenar">
+                      <span class="drag-handle" cdkDragHandle [attr.title]="'common.dragToReorder' | translate">
                         <i class="material-icons">drag_indicator</i>
                       </span>
                       <i class="material-icons section-dnd-icon">{{ getSectionIcon(id) }}</i>
-                      <div class="section-dnd-label">{{ sectionMeta[id].label }}</div>
+                      <div class="section-dnd-label">{{ sectionMeta[id].labelKey | translate }}</div>
                     </div>
                   </div>
                 </div>
@@ -326,7 +326,7 @@
             </div>
 
             <div class="text-muted small mt-3">
-              Nota: si una sección no tiene contenido, no se mostrará en el preview (aunque esté en el orden).
+              {{ 'customize.sectionOrder.note' | translate }}
             </div>
           </div>
         </div>
@@ -336,11 +336,11 @@
     <div class="d-flex justify-content-end gap-2 mt-4">
       <button type="button" class="btn btn-outline-secondary d-inline-flex align-items-center gap-2" (click)="resetToDefault()">
         <i class="material-icons">restart_alt</i>
-        Restaurar por defecto
+        {{ 'customize.actions.resetDefault' | translate }}
       </button>
       <button type="button" class="btn btn-primary d-inline-flex align-items-center gap-2" [disabled]="form.invalid" (click)="save()">
         <i class="material-icons">save</i>
-        Guardar
+        {{ 'customize.actions.save' | translate }}
       </button>
     </div>
   </form>

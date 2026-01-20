@@ -4,6 +4,119 @@
     "templates": "Plantillas",
     "customize": "Personalizar"
   },
+  "customize": {
+    "title": "Personalizar",
+    "subtitle": "Cambia títulos y etiquetas del CV. Los cambios se aplican cuando presionas Guardar.",
+    "badges": {
+      "mainColumn": "Columna principal",
+      "sidebarColumn": "Columna lateral",
+      "sidebarShort": "Sidebar",
+      "header": "Encabezado",
+      "titles": "Títulos"
+    },
+    "actions": {
+      "save": "Guardar",
+      "resetDefault": "Restaurar por defecto"
+    },
+    "sectionTitles": {
+      "title": "Títulos de secciones"
+    },
+    "sidebarTitles": {
+      "title": "Títulos del sidebar"
+    },
+    "contactLabels": {
+      "title": "Etiquetas de contacto",
+      "email": "Email",
+      "phone": "Teléfono",
+      "address": "Dirección",
+      "nationality": "Nacionalidad",
+      "birthDate": "Fecha de nacimiento",
+      "age": "Edad"
+    },
+    "sectionIcons": {
+      "title": "Iconos de secciones"
+    },
+    "sectionOrder": {
+      "title": "Orden de secciones",
+      "badge": "Arrastra y suelta",
+      "description": {
+        "beforeSave": "Puedes cambiar el orden y también mover secciones entre Columna principal y Sidebar. Se aplica cuando presionas"
+      },
+      "note": "Nota: si una sección no tiene contenido, no se mostrará en el preview (aunque esté en el orden)."
+    },
+    "section": {
+      "profile": "Perfil",
+      "workExperience": "Experiencia",
+      "workExperienceProfessional": "Experiencia profesional",
+      "education": "Educación",
+      "references": "Referencias",
+      "languages": "Idiomas",
+      "skills": "Habilidades",
+      "courses": "Cursos",
+      "projects": "Proyectos"
+    },
+    "iconOptions": {
+      "profile": {
+        "person": "Persona",
+        "account_circle": "Perfil",
+        "badge": "Credencial",
+        "contact_page": "Contacto",
+        "assignment_ind": "ID",
+        "verified_user": "Verificado"
+      },
+      "workExperience": {
+        "work": "Trabajo",
+        "work_outline": "Portafolio",
+        "business_center": "Maletín",
+        "domain": "Empresa",
+        "work_history": "Historial",
+        "cases": "Casos"
+      },
+      "education": {
+        "school": "Escuela",
+        "local_library": "Biblioteca",
+        "workspace_premium": "Diploma",
+        "history_edu": "Historia",
+        "auto_stories": "Libros"
+      },
+      "references": {
+        "groups": "Personas",
+        "supervisor_account": "Usuarios",
+        "recommend": "Recomendación",
+        "handshake": "Manos",
+        "contact_mail": "Contacto"
+      },
+      "languages": {
+        "translate": "Traducir",
+        "language": "Idioma",
+        "public": "Mundo",
+        "record_voice_over": "Voz"
+      },
+      "skills": {
+        "psychology": "Habilidades",
+        "build": "Herramientas",
+        "engineering": "Ingeniería",
+        "star": "Estrella",
+        "checklist": "Checklist",
+        "auto_fix_high": "Auto-fix"
+      },
+      "courses": {
+        "menu_book": "Libro",
+        "library_books": "Cursos",
+        "local_library": "Biblioteca",
+        "auto_stories": "Historias",
+        "import_contacts": "Libro abierto"
+      },
+      "projects": {
+        "folder": "Carpeta",
+        "folder_open": "Carpeta abierta",
+        "code": "Código",
+        "terminal": "Terminal",
+        "laptop_mac": "Laptop",
+        "construction": "Construcción"
+      }
+    }
+  },
   "header": {
     "darkMode": "Modo oscuro",
     "language": "Idioma"
@@ -52,11 +165,121 @@
       "colorPickerAria": "Selector de color",
       "hexPlaceholder": "#RRGGBB",
       "hexAria": "Color en HEX"
+    },
+    "secondaryColor": {
+      "title": "Color secundario",
+      "badge": "Hoja",
+      "description": "Cambia el fondo de la hoja del CV (la página A4).",
+      "customHint": "Personaliza el fondo si quieres",
+      "colorPickerAria": "Selector de color de fondo",
+      "hexPlaceholder": "#RRGGBB",
+      "hexAria": "Color de fondo en HEX"
+    },
+    "typography": {
+      "title": "Tipografía",
+      "badge": "Texto",
+      "font": {
+        "label": "Fuente",
+        "searchPlaceholder": "Buscar fuente…",
+        "searchAria": "Buscar fuente",
+        "listAria": "Lista de fuentes"
+      },
+      "size": {
+        "label": "Tamaño",
+        "groupAria": "Tamaño de fuente",
+        "previewTitle": "Ejemplo de título",
+        "previewBody": "Texto de ejemplo para ver legibilidad y densidad."
+      },
+      "sizeHints": {
+        "xxs": "Muy compacto",
+        "xs": "Compacto",
+        "s": "Un poco compacto",
+        "m": "Recomendado",
+        "l": "Más grande",
+        "xl": "Grande"
+      }
+    },
+    "templateTags": {
+      "ats": "ATS",
+      "default": "Por defecto",
+      "new": "Nuevo",
+      "modern": "Moderno",
+      "minimal": "Minimalista",
+      "leftSidebar": "Sidebar izquierda",
+      "twoColumns": "Dos columnas",
+      "timeline": "Timeline"
+    },
+    "palette": {
+      "primary": {
+        "classicBlue": { "name": "Azul clásico", "hint": "Formal y estándar" },
+        "navy": { "name": "Navy", "hint": "Ejecutivo" },
+        "slate": { "name": "Slate", "hint": "Sobrio" },
+        "teal": { "name": "Teal", "hint": "Moderno" },
+        "emerald": { "name": "Esmeralda", "hint": "Cálido y profesional" },
+        "burgundy": { "name": "Borgoña", "hint": "Premium" },
+        "indigo": { "name": "Índigo", "hint": "Tech / producto" },
+        "graphite": { "name": "Grafito", "hint": "Minimal" },
+        "petrolBlue": { "name": "Azul petróleo", "hint": "Moderno y serio" },
+        "deepPurple": { "name": "Púrpura profundo", "hint": "Creativo (sobrio)" },
+        "plum": { "name": "Ciruela", "hint": "Marca personal (discreta)" },
+        "oldGold": { "name": "Oro viejo", "hint": "Cálido y elegante" },
+        "olive": { "name": "Oliva", "hint": "Natural y sobrio" }
+      },
+      "paper": {
+        "white": "Blanco",
+        "ivory": "Marfil",
+        "pearl": "Perla",
+        "mist": "Niebla",
+        "sand": "Arena",
+        "ice": "Hielo"
+      }
     }
   }
   ,
   "common": {
-    "dash": "—"
+    "dash": "—",
+    "level": "Nivel",
+    "category": "Categoría",
+    "date": "Fecha",
+    "url": "URL",
+    "urlPh": "https://...",
+    "description": "Descripción",
+    "dragToReorder": "Arrastra para reordenar",
+    "sortByDate": "Ordenar por fecha (más reciente primero)",
+    "visibility": {
+      "show": "Mostrar en el preview",
+      "hide": "Ocultar del preview"
+    },
+    "list": {
+      "added": "Agregados"
+    },
+    "actions": {
+      "addWorkExperience": "Agregar experiencia",
+      "saveWorkExperience": "Guardar experiencia",
+      "addEducation": "Agregar educación",
+      "saveEducation": "Guardar educación",
+      "addSkill": "Agregar habilidad",
+      "saveSkill": "Guardar habilidad",
+      "addLanguage": "Agregar idioma",
+      "saveLanguage": "Guardar idioma",
+      "addProject": "Agregar proyecto",
+      "saveProject": "Guardar proyecto",
+      "addCourse": "Agregar curso",
+      "saveCourse": "Guardar curso",
+      "addReference": "Agregar referencia",
+      "saveReference": "Guardar referencia"
+    }
+  },
+  "levels": {
+    "basic": "Básico",
+    "intermediate": "Intermedio",
+    "advanced": "Avanzado",
+    "expert": "Experto",
+    "native": "Nativo"
+  },
+  "skillCategory": {
+    "technical": "Técnica",
+    "soft": "Blanda"
   },
   "form": {
     "personalInfo": {
@@ -86,6 +309,75 @@
       "addPhoto": "Agregar foto",
       "changePhoto": "Cambiar foto",
       "photoHint": "Formatos: JPG, PNG. Tamaño máximo: 5MB"
+    },
+    "workExperience": {
+      "company": "Empresa",
+      "companyPh": "Ej: Nombre de la empresa",
+      "role": "Puesto",
+      "rolePh": "Ej: Tu puesto / cargo",
+      "startDate": "Fecha de inicio",
+      "endDate": "Fecha de finalización",
+      "currentlyWorking": "Actualmente trabajando aquí",
+      "description": "Descripción",
+      "descriptionPh": "Ej: Responsabilidades, logros y resultados (puedes usar viñetas si quieres)",
+      "errors": {
+        "onlyOneCurrent": "No puedes marcar 2 experiencias como \"Actualmente trabajando aquí\". Desmarca la otra experiencia primero."
+      }
+    },
+    "education": {
+      "currentlyStudying": "Actualmente estudiando",
+      "institution": "Institución",
+      "institutionPh": "Nombre de la institución",
+      "degree": "Título obtenido",
+      "degreePh": "Ej: Título / Certificación",
+      "startDate": "Fecha de inicio",
+      "endDate": "Fecha de finalización",
+      "location": "Ubicación",
+      "locationPh": "Ciudad, País",
+      "gpaPh": "Ej: 9.5 / 10",
+      "description": "Descripción",
+      "descriptionPh": "Descripción adicional...",
+      "errors": {
+        "onlyOneCurrent": "No puedes marcar 2 estudios como \"Actualmente estudiando\". Desmarca el otro primero."
+      }
+    },
+    "skills": {
+      "skill": "Habilidad",
+      "skillPh": "Ej: Habilidad (p. ej. liderazgo, análisis, programación)"
+    },
+    "languages": {
+      "language": "Idioma",
+      "languagePh": "Ej: Idioma"
+    },
+    "projects": {
+      "name": "Nombre del proyecto",
+      "namePh": "Ej: Nombre del proyecto",
+      "datePh": "Ej: 2026 / 2026-01 / Ene 2026",
+      "tech": "Tecnologías (separadas por comas)",
+      "techPh": "Ej: Tecnología 1, Tecnología 2, Tecnología 3",
+      "descriptionPh": "Ej: Describe brevemente qué hiciste y el impacto (puedes usar viñetas si quieres)"
+    },
+    "courses": {
+      "name": "Nombre del curso",
+      "namePh": "Ej: Nombre del curso",
+      "datePh": "Ej: 2025 · Ene 2025 · 2023-2024",
+      "institution": "Institución / Plataforma",
+      "institutionPh": "Ej: Institución / plataforma",
+      "descriptionPh": "Ej: Qué aprendiste o qué lograste (opcional)"
+    },
+    "references": {
+      "name": "Nombre",
+      "namePh": "Ej: Nombre completo",
+      "role": "Cargo",
+      "rolePh": "Ej: Cargo",
+      "company": "Empresa",
+      "companyPh": "Ej: Empresa",
+      "relationship": "Relación",
+      "relationshipPh": "Ej: Relación",
+      "phone": "Teléfono",
+      "phonePh": "+593...",
+      "email": "Email",
+      "emailPh": "correo@..."
     }
   }
 }
