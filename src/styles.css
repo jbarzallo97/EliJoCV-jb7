@@ -101,6 +101,24 @@ body.dark-mode .btn-link:hover {
   color: #64b5f6;
 }
 
+/* Language selector (Header) - dark mode */
+body.dark-mode .lang-select {
+  background-color: #2a2a2a;
+  border-color: #444;
+  color: #e0e0e0;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23e0e0e0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+body.dark-mode .lang-select:focus {
+  border-color: #64b5f6;
+  box-shadow: 0 0 0 0.2rem rgba(100, 181, 246, 0.25);
+}
+
+body.dark-mode .lang-select option {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+}
+
 body.dark-mode .social-icon:hover {
   background: rgba(100, 181, 246, 0.2);
 }
