@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CvData, CvIcons, CvLabels, PersonalInfo, WorkExperience, Education, Course, Skill, Language, Project, Reference } from '../models/cv-data.model';
+import { CvData, CvIcons, CvLabels, CvSectionId, CvSectionLayout, PersonalInfo, WorkExperience, Education, Course, Skill, Language, Project, Reference } from '../models/cv-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,8 @@ export class CvDataService {
       projects: [],
       references: [],
       labels: this.getDefaultLabels(),
-      icons: this.getDefaultIcons()
+      icons: this.getDefaultIcons(),
+      sectionLayout: this.getDefaultSectionLayout()
     };
   }
 
@@ -71,6 +72,72 @@ export class CvDataService {
       courses: 'menu_book',
       projects: 'folder'
     };
+  }
+
+  private getDefaultSectionLayout(): CvSectionLayout {
+    return {
+      main: ['profile', 'workExperience', 'education', 'references'],
+      sidebar: ['languages', 'skills', 'courses', 'projects']
+    };
+  }
+
+  private sanitizeSectionLayout(layout: CvSectionLayout | null | undefined): CvSectionLayout {
+    const defaults = this.getDefaultSectionLayout();
+    const all: CvSectionId[] = [
+      'profile',
+      'workExperience',
+      'education',
+      'references',
+      'languages',
+      'skills',
+      'courses',
+      'projects'
+    ];
+
+    const main = Array.isArray(layout?.main) ? (layout!.main as CvSectionId[]) : [];
+    const sidebar = Array.isArray(layout?.sidebar) ? (layout!.sidebar as CvSectionId[]) : [];
+    const seen = new Set<CvSectionId>();
+
+    const cleanMain: CvSectionId[] = [];
+    const cleanSidebar: CvSectionId[] = [];
+
+    for (const id of main) {
+      if (all.includes(id) && !seen.has(id)) {
+        seen.add(id);
+        cleanMain.push(id);
+      }
+    }
+
+    for (const id of sidebar) {
+      if (all.includes(id) && !seen.has(id)) {
+        seen.add(id);
+        cleanSidebar.push(id);
+      }
+    }
+
+    // Completar faltantes en el mismo orden default (prioridad: main primero, luego sidebar)
+    for (const id of defaults.main) {
+      if (!seen.has(id)) {
+        seen.add(id);
+        cleanMain.push(id);
+      }
+    }
+    for (const id of defaults.sidebar) {
+      if (!seen.has(id)) {
+        seen.add(id);
+        cleanSidebar.push(id);
+      }
+    }
+
+    // Si aún faltara algo (por cambios futuros), completar con la lista total
+    for (const id of all) {
+      if (!seen.has(id)) {
+        seen.add(id);
+        cleanSidebar.push(id);
+      }
+    }
+
+    return { main: cleanMain, sidebar: cleanSidebar };
   }
 
   // Personal Info
@@ -344,6 +411,26 @@ export class CvDataService {
     this.saveToStorage();
   }
 
+  // Section layout (Customize)
+  setSectionLayout(layout: CvSectionLayout): void {
+    const current = this.cvDataSubject.value;
+    const sanitized = this.sanitizeSectionLayout(layout);
+    this.cvDataSubject.next({
+      ...current,
+      sectionLayout: sanitized
+    });
+    this.saveToStorage();
+  }
+
+  resetSectionLayout(): void {
+    const current = this.cvDataSubject.value;
+    this.cvDataSubject.next({
+      ...current,
+      sectionLayout: this.getDefaultSectionLayout()
+    });
+    this.saveToStorage();
+  }
+
   updateProject(id: string, project: Partial<Project>): void {
     const current = this.cvDataSubject.value;
     this.cvDataSubject.next({
@@ -408,7 +495,8 @@ export class CvDataService {
           icons: {
             ...initial.icons,
             ...(data?.icons || {})
-          }
+          },
+          sectionLayout: this.sanitizeSectionLayout(data?.sectionLayout)
         };
         this.cvDataSubject.next(merged);
       }

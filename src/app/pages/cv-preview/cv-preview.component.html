@@ -340,7 +340,7 @@
           <div class="cv-layout cv-layout-flow" [ngClass]="'cv-layout-' + selectedTemplateId">
             <!-- Template 2: Perfil (Resumen profesional) en bloque 100% antes de las columnas -->
             <div class="cv-flow-top" *ngIf="selectedTemplateId === 'template-2'" #flowTop>
-              <div class="cv-section" *ngIf="cvData.personalInfo.resumenProfesional" data-key="100">
+              <div class="cv-section" *ngIf="cvData.personalInfo.resumenProfesional" data-key="100" data-section="profile" data-role="block">
                 <h3 class="cv-section-title">
                   <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.profile }}</i>
                   <span>{{ cvData.labels.sectionProfile }}</span>
@@ -354,7 +354,7 @@
                 <div class="col-lg-8 cv-flow-left" #flowLeft>
                   <!-- Resumen Profesional -->
                   <ng-container *ngIf="selectedTemplateId !== 'template-2'">
-                    <div class="cv-section" *ngIf="cvData.personalInfo.resumenProfesional" data-key="100">
+                    <div class="cv-section" *ngIf="cvData.personalInfo.resumenProfesional" data-key="100" data-section="profile" data-role="block">
                       <h3 class="cv-section-title">
                         <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.profile }}</i>
                         <span>{{ cvData.labels.sectionProfile }}</span>
@@ -399,7 +399,7 @@
                   </ng-container>
                 </div>
 
-                <div class="cv-section-spacer" data-key="299"></div>
+                <div class="cv-section-spacer" data-key="299" data-section="workExperience" data-role="spacer"></div>
               </ng-container>
 
               <!-- Educación (paginable por item) -->
@@ -444,7 +444,7 @@
                   </ng-container>
                 </div>
 
-                <div class="cv-section-spacer" data-key="359"></div>
+                <div class="cv-section-spacer" data-key="359" data-section="education" data-role="spacer"></div>
               </ng-container>
 
               <!-- Referencias (paginable por item) -->
@@ -476,7 +476,7 @@
                   </p>
                 </div>
 
-                <div class="cv-section-spacer" data-key="399"></div>
+                <div class="cv-section-spacer" data-key="399" data-section="references" data-role="spacer"></div>
               </ng-container>
 
                 </div>
@@ -488,7 +488,7 @@
                 <!-- ========================= -->
                 <ng-container *ngSwitchCase="'template-2'">
                   <!-- Proyectos -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0" data-section="projects" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.projects }}</i>
                       <span>{{ cvData.labels.sectionProjects }}</span>
@@ -515,7 +515,7 @@
                   </div>
 
                   <!-- Habilidades -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleSkills().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleSkills().length > 0" data-section="skills" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.skills }}</i>
                       <span>{{ cvData.labels.sectionSkills }}</span>
@@ -571,7 +571,7 @@
                   </div>
 
                   <!-- Cursos -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0" data-section="courses" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.courses }}</i>
                       <span>{{ cvData.labels.sectionCourses }}</span>
@@ -590,7 +590,7 @@
                   </div>
 
                   <!-- Idiomas -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0" data-section="languages" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.languages }}</i>
                       <span>{{ cvData.labels.sectionLanguages }}</span>
@@ -607,7 +607,7 @@
                 <!-- ========================= -->
                 <ng-container *ngSwitchCase="'template-3'">
                   <!-- Idiomas -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0" data-section="languages" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.languages }}</i>
                       <span>{{ cvData.labels.sectionLanguages }}</span>
@@ -621,7 +621,7 @@
                   </div>
 
                   <!-- Habilidades -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleSkills().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleSkills().length > 0" data-section="skills" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.skills }}</i>
                       <span>{{ cvData.labels.sectionSkills }}</span>
@@ -683,7 +683,7 @@
                   </div>
 
                   <!-- Cursos -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0" data-section="courses" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.courses }}</i>
                       <span>{{ cvData.labels.sectionCourses }}</span>
@@ -704,7 +704,7 @@
                   </div>
 
                   <!-- Proyectos -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0" data-section="projects" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.projects }}</i>
                       <span>{{ cvData.labels.sectionProjects }}</span>
@@ -733,7 +733,7 @@
                 <ng-container *ngSwitchCase="'template-4'">
                   <!-- Lado izquierdo: sin estilos extra, solo cards como antes -->
                   <!-- Idiomas -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0" data-section="languages" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.languages }}</i>
                       <span>{{ cvData.labels.sectionLanguages }}</span>
@@ -745,7 +745,7 @@
                   </div>
 
                   <!-- Habilidades -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleSkills().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleSkills().length > 0" data-section="skills" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.skills }}</i>
                       <span>{{ cvData.labels.sectionSkills }}</span>
@@ -790,7 +790,7 @@
                   </div>
 
                   <!-- Cursos -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0" data-section="courses" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.courses }}</i>
                       <span>{{ cvData.labels.sectionCourses }}</span>
@@ -809,7 +809,7 @@
                   </div>
 
                   <!-- Proyectos -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0" data-section="projects" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.projects }}</i>
                       <span>{{ cvData.labels.sectionProjects }}</span>
@@ -832,7 +832,7 @@
                 <!-- ========================= -->
                 <ng-container *ngSwitchCase="'template-5'">
                   <!-- Idiomas -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0" data-section="languages" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.languages }}</i>
                       <span>{{ cvData.labels.sectionLanguages }}</span>
@@ -844,7 +844,7 @@
                   </div>
 
                   <!-- Habilidades -->
-                  <div class="cv-sidebar-section cv-t5-skill-section" *ngIf="getVisibleSkills().length > 0">
+                  <div class="cv-sidebar-section cv-t5-skill-section" *ngIf="getVisibleSkills().length > 0" data-section="skills" data-role="block">
                     <h3 class="cv-sidebar-title">{{ cvData.labels.sectionSkills }}</h3>
                     <ng-container *ngIf="getVisibleSkillsByCategory('tecnica') as techSkills">
                       <ng-container *ngIf="getVisibleSkillsByCategory('blanda') as softSkills">
@@ -879,7 +879,7 @@
                   </div>
 
                   <!-- Cursos -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0" data-section="courses" data-role="block">
                     <h3 class="cv-sidebar-title">{{ cvData.labels.sectionCourses }}</h3>
                     <div *ngFor="let c of getVisibleCourses(); trackBy: trackById" class="cv-sidebar-item">
                       <div class="d-flex justify-content-between gap-2">
@@ -895,7 +895,7 @@
                   </div>
 
                   <!-- Proyectos -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0" data-section="projects" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.projects }}</i>
                       <span>{{ cvData.labels.sectionProjects }}</span>
@@ -958,7 +958,7 @@
                   </div>
 
                   <!-- Idiomas -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0" data-section="languages" data-role="block">
                     <h3 class="cv-sidebar-title">{{ cvData.labels.sectionLanguages }}</h3>
                     <div *ngFor="let lang of getVisibleLanguages(); trackBy: trackById" class="cv-sidebar-item d-flex justify-content-between">
                       <span>{{ lang.idioma }}</span>
@@ -967,7 +967,7 @@
                   </div>
 
                   <!-- Habilidades -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleSkills().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleSkills().length > 0" data-section="skills" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.skills }}</i>
                       <span>{{ cvData.labels.sectionSkills }}</span>
@@ -1012,7 +1012,7 @@
                   </div>
 
                   <!-- Cursos -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0" data-section="courses" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.courses }}</i>
                       <span>{{ cvData.labels.sectionCourses }}</span>
@@ -1031,7 +1031,7 @@
                   </div>
 
                   <!-- Proyectos -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0" data-section="projects" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.projects }}</i>
                       <span>{{ cvData.labels.sectionProjects }}</span>
@@ -1051,7 +1051,7 @@
                 <!-- ========================= -->
                 <ng-container *ngSwitchCase="'template-1'">
                   <!-- Idiomas -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleLanguages().length > 0" data-section="languages" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.languages }}</i>
                       <span>{{ cvData.labels.sectionLanguages }}</span>
@@ -1063,7 +1063,7 @@
                   </div>
 
                   <!-- Habilidades -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleSkills().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleSkills().length > 0" data-section="skills" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.skills }}</i>
                       <span>{{ cvData.labels.sectionSkills }}</span>
@@ -1108,7 +1108,7 @@
                   </div>
 
                   <!-- Cursos -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleCourses().length > 0" data-section="courses" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.courses }}</i>
                       <span>{{ cvData.labels.sectionCourses }}</span>
@@ -1127,7 +1127,7 @@
                   </div>
 
                   <!-- Proyectos -->
-                  <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0">
+                  <div class="cv-sidebar-section" *ngIf="getVisibleProjects().length > 0" data-section="projects" data-role="block">
                     <h3 class="cv-sidebar-title">
                       <i class="material-icons cv-title-icon" aria-hidden="true">{{ cvData.icons.projects }}</i>
                       <span>{{ cvData.labels.sectionProjects }}</span>

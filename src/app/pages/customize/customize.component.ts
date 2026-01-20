@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CvDataService } from 'src/app/core/services/cv-data.service';
-import { CvIcons, CvLabels } from 'src/app/core/models/cv-data.model';
+import { CvIcons, CvLabels, CvSectionId } from 'src/app/core/models/cv-data.model';
+import { CdkDragDrop, transferArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-customize',
@@ -12,6 +13,19 @@ import { CvIcons, CvLabels } from 'src/app/core/models/cv-data.model';
 export class CustomizeComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   private sub?: Subscription;
+  mainSections: CvSectionId[] = [];
+  sidebarSections: CvSectionId[] = [];
+
+  readonly sectionMeta: Record<CvSectionId, { label: string; controlName: string }> = {
+    profile: { label: 'Perfil', controlName: 'iconProfile' },
+    workExperience: { label: 'Experiencia', controlName: 'iconWorkExperience' },
+    education: { label: 'Educación', controlName: 'iconEducation' },
+    references: { label: 'Referencias', controlName: 'iconReferences' },
+    languages: { label: 'Idiomas', controlName: 'iconLanguages' },
+    skills: { label: 'Habilidades', controlName: 'iconSkills' },
+    courses: { label: 'Cursos', controlName: 'iconCourses' },
+    projects: { label: 'Proyectos', controlName: 'iconProjects' }
+  };
   iconOptionsBySection: Record<
     keyof CvIcons,
     Array<{ label: string; value: string }>
@@ -101,6 +115,8 @@ export class CustomizeComponent implements OnInit, OnDestroy {
     const data = this.cvDataService.getCvData();
     const labels = data.labels;
     const icons = data.icons;
+    this.mainSections = [...(data.sectionLayout?.main || [])];
+    this.sidebarSections = [...(data.sectionLayout?.sidebar || [])];
     this.form = this.fb.group({
       // Section titles
       sectionProfile: [labels.sectionProfile, [Validators.required, Validators.maxLength(40)]],
@@ -136,6 +152,10 @@ export class CustomizeComponent implements OnInit, OnDestroy {
     // Si en otro lugar cambian labels (por storage/merge), reflejar en el form sin auto-guardar
     this.sub = this.cvDataService.cvData$.subscribe(d => {
       if (!this.form) return;
+      if (d.sectionLayout) {
+        this.mainSections = [...(d.sectionLayout.main || [])];
+        this.sidebarSections = [...(d.sectionLayout.sidebar || [])];
+      }
       this.form.patchValue(
         {
           ...d.labels,
@@ -162,6 +182,12 @@ export class CustomizeComponent implements OnInit, OnDestroy {
       this.form.markAllAsTouched();
       return;
     }
+    // IMPORTANTE: capturar el orden actual ANTES de emitir setLabels/setIcons,
+    // porque esos métodos disparan cvData$ y el subscribe puede rehidratar el layout anterior.
+    const sectionLayout = {
+      main: [...this.mainSections],
+      sidebar: [...this.sidebarSections]
+    };
     const raw = this.form.getRawValue() as any;
     const labels: CvLabels = {
       sectionProfile: raw.sectionProfile,
@@ -191,11 +217,33 @@ export class CustomizeComponent implements OnInit, OnDestroy {
     };
     this.cvDataService.setLabels(labels);
     this.cvDataService.setIcons(icons);
+    this.cvDataService.setSectionLayout(sectionLayout);
   }
 
   resetToDefault(): void {
     this.cvDataService.resetLabels();
     this.cvDataService.resetIcons();
+    this.cvDataService.resetSectionLayout();
+  }
+
+  getSectionIcon(id: CvSectionId): string {
+    if (!this.form) return '';
+    const meta = this.sectionMeta[id];
+    const v = this.form.get(meta.controlName)?.value;
+    return typeof v === 'string' ? v : '';
+  }
+
+  dropSection(event: CdkDragDrop<CvSectionId[]>): void {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
   }
 }
 

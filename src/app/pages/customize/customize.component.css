@@ -97,4 +97,88 @@
   color: #64b5f6;
 }
 
+.layout-col-title {
+  font-weight: 800;
+  color: #212121;
+  margin-bottom: 0.5rem;
+}
+
+.section-dnd-list {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background: #fff;
+  padding: 0.5rem;
+  min-height: 120px;
+}
+
+.section-dnd-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: linear-gradient(180deg, #fafafa 0%, #fff 100%);
+  margin-bottom: 0.5rem;
+}
+
+.section-dnd-item:last-child {
+  margin-bottom: 0;
+}
+
+.section-dnd-icon {
+  color: #1976d2;
+  font-size: 20px;
+}
+
+.section-dnd-label {
+  font-weight: 700;
+  color: #212121;
+}
+
+.drag-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  cursor: grab;
+}
+
+.cdk-drag-preview {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  border-radius: 12px;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.25;
+}
+
+/* Dark mode */
+::host-context(body.dark-mode) .layout-col-title {
+  color: #e0e0e0;
+}
+
+::host-context(body.dark-mode) .section-dnd-list {
+  background: #1e1e1e;
+  border-color: #444;
+}
+
+::host-context(body.dark-mode) .section-dnd-item {
+  background: #242424;
+  border-color: #333;
+}
+
+::host-context(body.dark-mode) .section-dnd-label {
+  color: #e0e0e0;
+}
+
+::host-context(body.dark-mode) .section-dnd-icon {
+  color: #64b5f6;
+}
+
+::host-context(body.dark-mode) .drag-handle {
+  color: #64748b;
+}
+
 

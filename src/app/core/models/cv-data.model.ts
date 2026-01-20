@@ -112,6 +112,21 @@ export interface Reference {
   visible?: boolean;
 }
 
+export type CvSectionId =
+  | 'profile'
+  | 'workExperience'
+  | 'education'
+  | 'references'
+  | 'languages'
+  | 'skills'
+  | 'courses'
+  | 'projects';
+
+export interface CvSectionLayout {
+  main: CvSectionId[];
+  sidebar: CvSectionId[];
+}
+
 export interface CvData {
   personalInfo: PersonalInfo;
   workExperience: WorkExperience[];
@@ -123,6 +138,7 @@ export interface CvData {
   references: Reference[];
   labels: CvLabels;
   icons: CvIcons;
+  sectionLayout: CvSectionLayout;
 }
 
 export interface CvIcons {

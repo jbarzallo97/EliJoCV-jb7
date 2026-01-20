@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { CvDataService } from '../../core/services/cv-data.service';
-import { CvData } from '../../core/models/cv-data.model';
+import { CvData, CvSectionId } from '../../core/models/cv-data.model';
 import { TemplateService } from '../../core/services/template.service';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -453,20 +453,72 @@ export class CvPreviewComponent implements OnInit {
       pageEl.innerHTML = '';
     });
 
-    // Reorden determinístico en el flujo izquierdo: Resumen(100) -> Experiencia(200) -> Educación(300)
-    const reorderByKey = (container: HTMLElement) => {
-      const els = Array.from(container.children);
-      els
-        .map((el, idx) => ({
-          el,
-          idx,
-          key: Number((el as HTMLElement).dataset?.['key'] ?? Number.POSITIVE_INFINITY)
-        }))
-        .sort((a, b) => (a.key - b.key) || (a.idx - b.idx))
-        .forEach(x => container.appendChild(x.el));
+    // Aplicar orden personalizado de secciones (y mover entre columnas) antes de paginar
+    this.applySectionLayoutToFlows(flowTop, flowLeft, flowRight);
+  }
+
+  private applySectionLayoutToFlows(
+    flowTop: HTMLElement | null,
+    flowLeft: HTMLElement,
+    flowRight: HTMLElement
+  ): void {
+    const layout = this.cvData?.sectionLayout;
+    if (!layout) return;
+
+    const mainOrder = (Array.isArray(layout.main) ? layout.main : []) as CvSectionId[];
+    const sidebarOrder = (Array.isArray(layout.sidebar) ? layout.sidebar : []) as CvSectionId[];
+
+    const bySection = new Map<string, HTMLElement[]>();
+    const stash: HTMLElement[] = [];
+
+    const collectFrom = (root: HTMLElement | null) => {
+      if (!root) return;
+      const kids = Array.from(root.children) as HTMLElement[];
+      for (const el of kids) {
+        const section = el.dataset?.['section'] || '';
+        if (section) {
+          const arr = bySection.get(section) || [];
+          arr.push(el);
+          bySection.set(section, arr);
+        } else {
+          stash.push(el);
+        }
+      }
+      root.innerHTML = '';
     };
 
-    reorderByKey(flowLeft);
+    collectFrom(flowTop);
+    collectFrom(flowLeft);
+    collectFrom(flowRight);
+
+    const isTemplate2 = this.selectedTemplateId === 'template-2';
+    const profileInSidebar = sidebarOrder.includes('profile');
+
+    // Perfil en template 2: si está en "main", va al bloque superior; si está en sidebar, se va al sidebar.
+    const appendSection = (target: HTMLElement, id: CvSectionId) => {
+      const nodes = bySection.get(id) || [];
+      nodes.forEach(n => target.appendChild(n));
+      bySection.delete(id);
+    };
+
+    if (isTemplate2 && flowTop && !profileInSidebar) {
+      appendSection(flowTop, 'profile');
+    }
+
+    for (const id of mainOrder) {
+      if (isTemplate2 && id === 'profile') continue; // ya se ubicó arriba en template-2 (si aplica)
+      appendSection(flowLeft, id);
+    }
+
+    for (const id of sidebarOrder) {
+      appendSection(flowRight, id);
+    }
+
+    // Cualquier sección/elemento que no esté en el layout: al final de la columna izquierda
+    for (const [_k, nodes] of bySection.entries()) {
+      nodes.forEach(n => flowLeft.appendChild(n));
+    }
+    stash.forEach(n => flowLeft.appendChild(n));
   }
 
   private fillColumnFromFlow(

@@ -264,6 +264,73 @@
           </div>
         </div>
       </div>
+
+      <div class="col-12">
+        <div class="customize-card">
+          <div class="customize-card-header">
+            <div class="d-flex align-items-center gap-2">
+              <i class="material-icons">swap_vert</i>
+              <h4 class="group-title mb-0">Orden de secciones</h4>
+            </div>
+            <span class="badge text-bg-light">Arrastra y suelta</span>
+          </div>
+
+          <div class="customize-card-body">
+            <div class="text-muted small mb-3">
+              Puedes cambiar el <strong>orden</strong> y también mover secciones entre <strong>Columna principal</strong> y <strong>Sidebar</strong>.
+              Se aplica cuando presionas <strong>Guardar</strong>.
+            </div>
+
+            <div class="row g-3">
+              <div class="col-12 col-lg-6">
+                <div class="layout-col-title">Columna principal</div>
+                <div
+                  class="section-dnd-list"
+                  cdkDropList
+                  [cdkDropListData]="mainSections"
+                  [cdkDropListConnectedTo]="['sidebarSectionsList']"
+                  id="mainSectionsList"
+                  (cdkDropListDropped)="dropSection($event)">
+                  <div class="section-dnd-item" *ngFor="let id of mainSections" cdkDrag>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="drag-handle" cdkDragHandle title="Arrastra para reordenar">
+                        <i class="material-icons">drag_indicator</i>
+                      </span>
+                      <i class="material-icons section-dnd-icon">{{ getSectionIcon(id) }}</i>
+                      <div class="section-dnd-label">{{ sectionMeta[id].label }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-lg-6">
+                <div class="layout-col-title">Sidebar</div>
+                <div
+                  class="section-dnd-list"
+                  cdkDropList
+                  [cdkDropListData]="sidebarSections"
+                  [cdkDropListConnectedTo]="['mainSectionsList']"
+                  id="sidebarSectionsList"
+                  (cdkDropListDropped)="dropSection($event)">
+                  <div class="section-dnd-item" *ngFor="let id of sidebarSections" cdkDrag>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="drag-handle" cdkDragHandle title="Arrastra para reordenar">
+                        <i class="material-icons">drag_indicator</i>
+                      </span>
+                      <i class="material-icons section-dnd-icon">{{ getSectionIcon(id) }}</i>
+                      <div class="section-dnd-label">{{ sectionMeta[id].label }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-muted small mt-3">
+              Nota: si una sección no tiene contenido, no se mostrará en el preview (aunque esté en el orden).
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="d-flex justify-content-end gap-2 mt-4">
