@@ -13,6 +13,7 @@ export class PersonalInfoComponent implements OnInit {
   photoPreview: string | null = null;
   age: number | null = null;
   readonly resumenWordLimit = 80;
+  readonly phoneMaxLen = 18;
   resumenWordCount = 0;
 
   constructor(
@@ -61,6 +62,13 @@ export class PersonalInfoComponent implements OnInit {
 
     this.form.valueChanges.subscribe(values => {
       this.cvDataService.updatePersonalInfo(values);
+    });
+
+    const phoneCtrl = this.form.get('celular');
+    phoneCtrl?.valueChanges.subscribe((v) => {
+      const s = (v ?? '').toString();
+      if (s.length <= this.phoneMaxLen) return;
+      phoneCtrl.setValue(s.slice(0, this.phoneMaxLen), { emitEvent: false });
     });
   }
 

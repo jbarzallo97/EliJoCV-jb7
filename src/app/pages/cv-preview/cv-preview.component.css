@@ -228,6 +228,13 @@
   border-bottom: 1px solid #e0e0e0;
 }
 
+/* Perfil: justificar solo el párrafo del resumen (no afecta bullets ni otros textos) */
+.cv-section[data-section="profile"] > p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
+}
+
 .cv-title-icon {
   font-size: 1.05em;
   line-height: 1;
@@ -1415,6 +1422,49 @@
   padding-bottom: 0.9rem;
   border-bottom: 1px solid rgba(15, 23, 42, 0.10);
   width: 100%;
+  max-width: 62mm;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.cv-layout-template-6 .cv-t6-sidebar-contact .cv-t6-kv {
+  width: 100%;
+  display: block;
+  min-width: 0;
+}
+
+.cv-layout-template-6 .cv-t6-sidebar-contact .cv-t6-contact-lines {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 0.45rem;
+  align-items: baseline;
+  min-width: 0;
+}
+
+/* En contacto: etiqueta discreta (sin look de “título”) + ":" automático */
+.cv-layout-template-6 .cv-t6-sidebar-contact .cv-t6-kv .k {
+  font-size: 0.72em;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: #64748b;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.cv-layout-template-6 .cv-t6-sidebar-contact .cv-t6-kv .k::after {
+  content: ':';
+}
+
+.cv-layout-template-6 .cv-t6-sidebar-contact .cv-t6-kv .v {
+  font-size: 0.85em;
+  font-weight: 700;
+  color: #0f172a;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  min-width: 0;
+  line-height: 1.2;
 }
 
 .cv-layout-template-6 .cv-t6-sidebar-contact .cv-t6-kv + .cv-t6-kv {

@@ -479,9 +479,11 @@ export class CvPreviewComponent implements OnInit {
     const sidebarOrder = (Array.isArray(layout.sidebar) ? layout.sidebar : []) as CvSectionId[];
 
     const bySection = new Map<string, HTMLElement[]>();
-    const stash: HTMLElement[] = [];
+    const stashTop: HTMLElement[] = [];
+    const stashLeft: HTMLElement[] = [];
+    const stashRight: HTMLElement[] = [];
 
-    const collectFrom = (root: HTMLElement | null) => {
+    const collectFrom = (root: HTMLElement | null, stash: HTMLElement[]) => {
       if (!root) return;
       const kids = Array.from(root.children) as HTMLElement[];
       for (const el of kids) {
@@ -497,9 +499,15 @@ export class CvPreviewComponent implements OnInit {
       root.innerHTML = '';
     };
 
-    collectFrom(flowTop);
-    collectFrom(flowLeft);
-    collectFrom(flowRight);
+    collectFrom(flowTop, stashTop);
+    collectFrom(flowLeft, stashLeft);
+    collectFrom(flowRight, stashRight);
+
+    // Mantener elementos “fijos” (sin data-section) en su columna original, antes del contenido reordenable.
+    // Esto evita que headers/identidad (p.ej. Template 6) se vayan al final o a otra columna.
+    if (flowTop) stashTop.forEach(n => flowTop.appendChild(n));
+    stashLeft.forEach(n => flowLeft.appendChild(n));
+    stashRight.forEach(n => flowRight.appendChild(n));
 
     const isTemplate2 = this.selectedTemplateId === 'template-2';
     const profileInSidebar = sidebarOrder.includes('profile');
@@ -528,7 +536,6 @@ export class CvPreviewComponent implements OnInit {
     for (const [_k, nodes] of bySection.entries()) {
       nodes.forEach(n => flowLeft.appendChild(n));
     }
-    stash.forEach(n => flowLeft.appendChild(n));
   }
 
   private fillColumnFromFlow(
