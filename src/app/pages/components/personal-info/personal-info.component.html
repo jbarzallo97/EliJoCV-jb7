@@ -3,7 +3,7 @@
 
   <form [formGroup]="form">
     <div class="row g-3">
-      <!-- Columna Izquierda -->
+      <!-- Nombre + Apellido (en mobile quedan seguidos) -->
       <div class="col-md-6">
         <div class="mb-3">
           <label class="form-label">{{ 'form.personalInfo.firstName' | translate }} <span class="required-asterisk">*</span></label>
@@ -13,7 +13,20 @@
             formControlName="nombres"
             [placeholder]="'form.personalInfo.firstNamePh' | translate">
         </div>
+      </div>
 
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label">{{ 'form.personalInfo.lastName' | translate }} <span class="required-asterisk">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="apellidos"
+            [placeholder]="'form.personalInfo.lastNamePh' | translate">
+        </div>
+      </div>
+
+      <div class="col-md-6">
         <div class="mb-3">
           <label class="form-label">{{ 'form.personalInfo.birthDate' | translate }}</label>
           <div class="input-group">
@@ -26,7 +39,20 @@
             </span>
           </div>
         </div>
+      </div>
 
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label">{{ 'form.personalInfo.jobTitle' | translate }}</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="puesto"
+            [placeholder]="'form.personalInfo.jobTitlePh' | translate">
+        </div>
+      </div>
+
+      <div class="col-md-6">
         <div class="mb-3">
           <label class="form-label">{{ 'form.personalInfo.age' | translate }}</label>
           <input
@@ -36,46 +62,9 @@
             [placeholder]="'common.dash' | translate"
             disabled>
         </div>
-
-        <div class="mb-3">
-          <label class="form-label">{{ 'form.personalInfo.email' | translate }} <span class="required-asterisk">*</span></label>
-          <input
-            type="email"
-            class="form-control"
-            formControlName="email"
-            [placeholder]="'form.personalInfo.emailPh' | translate">
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">{{ 'form.personalInfo.address' | translate }}</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="ubicacion"
-            [placeholder]="'form.personalInfo.addressPh' | translate">
-        </div>
       </div>
 
-      <!-- Columna Derecha -->
       <div class="col-md-6">
-        <div class="mb-3">
-          <label class="form-label">{{ 'form.personalInfo.lastName' | translate }} <span class="required-asterisk">*</span></label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="apellidos"
-            [placeholder]="'form.personalInfo.lastNamePh' | translate">
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">{{ 'form.personalInfo.jobTitle' | translate }}</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="puesto"
-            [placeholder]="'form.personalInfo.jobTitlePh' | translate">
-        </div>
-
         <div class="mb-3">
           <label class="form-label">{{ 'form.personalInfo.phone' | translate }}</label>
           <input
@@ -84,7 +73,20 @@
             formControlName="celular"
             [placeholder]="'form.personalInfo.phonePh' | translate">
         </div>
+      </div>
 
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label">{{ 'form.personalInfo.email' | translate }} <span class="required-asterisk">*</span></label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            [placeholder]="'form.personalInfo.emailPh' | translate">
+        </div>
+      </div>
+
+      <div class="col-md-6">
         <div class="mb-3">
           <label class="form-label">{{ 'form.personalInfo.nationality' | translate }}</label>
           <input
@@ -92,6 +94,17 @@
             class="form-control"
             formControlName="nacionalidad"
             [placeholder]="'form.personalInfo.nationalityPh' | translate">
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="mb-3">
+          <label class="form-label">{{ 'form.personalInfo.address' | translate }}</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="ubicacion"
+            [placeholder]="'form.personalInfo.addressPh' | translate">
         </div>
       </div>
     </div>

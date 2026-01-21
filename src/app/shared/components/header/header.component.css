@@ -92,6 +92,39 @@
   .tabs-nav { grid-area: tabs; }
 }
 
+/* Mobile: botón Descargar PDF solo icono */
+@media (max-width: 600px) {
+  .btn-download-header span {
+    display: none;
+  }
+
+  .btn-download-header {
+    width: 44px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  /* Tabs: más compactos (manteniendo texto visible) */
+  .tabs-pill {
+    padding: 0.25rem;
+    gap: 0.2rem;
+  }
+
+  .tab-pill {
+    padding: 0.35rem 0.6rem;
+    gap: 0.35rem;
+  }
+
+  .tab-pill i {
+    font-size: 16px;
+  }
+
+  .tab-pill span {
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+}
+
 .tab-pill i {
   font-size: 18px;
   line-height: 1;
@@ -329,4 +362,20 @@
 
 :host-context(body.dark-mode) .flag {
   border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* Mobile: selector de idioma solo con icono (bandera) */
+@media (max-width: 600px) {
+  .lang-btn {
+    width: 44px;
+    min-width: 44px;
+    padding: 0;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .lang-btn .lang-label,
+  .lang-btn .caret {
+    display: none;
+  }
 }

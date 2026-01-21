@@ -16,6 +16,8 @@
             type="button"
             class="tab-pill"
             [class.active]="activeTab === tab.id"
+            [attr.aria-label]="tab.labelKey | translate"
+            [attr.title]="tab.labelKey | translate"
             (click)="selectTab(tab.id)">
             <i class="material-icons">{{ tab.icon }}</i>
             <span>{{ tab.labelKey | translate }}</span>
@@ -67,6 +69,8 @@
         <button
           class="btn-download-header"
           type="button"
+          [attr.aria-label]="'preview.downloadPdf' | translate"
+          [attr.title]="'preview.downloadPdf' | translate"
           (click)="downloadPdf()">
           <i class="material-icons">download</i>
           <span>{{ 'preview.downloadPdf' | translate }}</span>

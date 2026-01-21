@@ -75,3 +75,26 @@
   min-height: 400px;
 }
 
+@media (max-width: 600px) {
+  /* En mobile: NO queremos barra/scroll al final. Los iconos deben envolver en filas. */
+  .section-tabs-container {
+    padding: 1.25rem;
+    overflow-x: hidden;
+  }
+
+  .section-icons-nav {
+    gap: 0.6rem;
+    row-gap: 0.6rem;
+    padding: 0.75rem 0;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* sin overflow-x:auto => no aparece scrollbar al final */
+  }
+
+  .section-icon-btn {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 auto;
+  }
+}
