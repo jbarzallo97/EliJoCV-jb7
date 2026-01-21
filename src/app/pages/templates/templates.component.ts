@@ -43,8 +43,21 @@ export class TemplatesComponent implements OnInit, OnDestroy {
     { nameKey: 'design.palette.primary.plum.name', value: '#9d174d', hintKey: 'design.palette.primary.plum.hint' },
     { nameKey: 'design.palette.primary.oldGold.name', value: '#b45309', hintKey: 'design.palette.primary.oldGold.hint' },
     // { nameKey: 'design.palette.primary.orange.name', value: '#ea580c', hintKey: 'design.palette.primary.orange.hint' },
-    { nameKey: 'design.palette.primary.olive.name', value: '#3f6212', hintKey: 'design.palette.primary.olive.hint' }
+    // (quitamos 1 color fijo para que el selector arcoíris quede en la primera fila)
+    // { nameKey: 'design.palette.primary.olive.name', value: '#3f6212', hintKey: 'design.palette.primary.olive.hint' }
   ];
+
+  get isCustomPrimarySelected(): boolean {
+    const v = (this.selectedColor || '').trim().toLowerCase();
+    if (!v) return false;
+    return !this.colors.some(c => (c.value || '').trim().toLowerCase() === v);
+  }
+
+  get isCustomPaperSelected(): boolean {
+    const v = (this.selectedPaperColor || '').trim().toLowerCase();
+    if (!v) return false;
+    return !this.paperColors.some(c => (c.value || '').trim().toLowerCase() === v);
+  }
 
   // Fondo de hoja (sutiles y elegantes)
   paperColors: Array<{ nameKey: string; value: string }> = [

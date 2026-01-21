@@ -84,6 +84,24 @@
           <span class="swatch" [style.background]="c.value"></span>
           <i class="material-icons check" *ngIf="selectedColor === c.value">check_circle</i>
         </button>
+
+        <!-- Custom color (rainbow) -->
+        <label
+          class="color-option rainbow"
+          [class.selected]="isCustomPrimarySelected"
+          [attr.aria-label]="'design.primaryColor.colorPickerAria' | translate"
+          [attr.title]="'design.primaryColor.colorPickerAria' | translate">
+          <span class="swatch swatch-rainbow-strong" aria-hidden="true">
+            <i class="material-icons swatch-plus">add</i>
+          </span>
+          <i class="material-icons check" *ngIf="isCustomPrimarySelected">check_circle</i>
+          <input
+            class="color-input-overlay"
+            type="color"
+            [value]="selectedColor"
+            (input)="selectColor($any($event.target).value)"
+            [attr.aria-label]="'design.primaryColor.colorPickerAria' | translate">
+        </label>
       </div>
 
       <!-- <div class="selected-row mt-3">
@@ -94,6 +112,7 @@
         </span>
       </div> -->
 
+      <!--
       <div class="custom-color-row mt-3">
         <div class="text-muted mb-2">{{ 'design.primaryColor.customHint' | translate }}</div>
         <div class="custom-color-controls">
@@ -113,6 +132,7 @@
             [attr.aria-label]="'design.primaryColor.hexAria' | translate">
         </div>
       </div>
+      -->
     </div>
   </div>
 
@@ -126,9 +146,9 @@
     </div>
 
     <div class="template-card-body">
-      <p class="text-muted mb-3">
+      <!-- <p class="text-muted mb-3">
         {{ 'design.secondaryColor.description' | translate }}
-      </p>
+      </p> -->
 
       <div class="color-grid">
         <button
@@ -142,8 +162,27 @@
           <span class="swatch" [style.background]="c.value"></span>
           <i class="material-icons check" *ngIf="selectedPaperColor === c.value">check_circle</i>
         </button>
+
+        <!-- Custom color (rainbow) -->
+        <label
+          class="color-option rainbow"
+          [class.selected]="isCustomPaperSelected"
+          [attr.aria-label]="'design.secondaryColor.colorPickerAria' | translate"
+          [attr.title]="'design.secondaryColor.colorPickerAria' | translate">
+          <span class="swatch swatch-rainbow-soft" aria-hidden="true">
+            <i class="material-icons swatch-plus">add</i>
+          </span>
+          <i class="material-icons check" *ngIf="isCustomPaperSelected">check_circle</i>
+          <input
+            class="color-input-overlay"
+            type="color"
+            [value]="selectedPaperColor"
+            (input)="selectPaperColor($any($event.target).value)"
+            [attr.aria-label]="'design.secondaryColor.colorPickerAria' | translate">
+        </label>
       </div>
 
+      <!--
       <div class="custom-color-row mt-3">
         <div class="text-muted mb-2">{{ 'design.secondaryColor.customHint' | translate }}</div>
         <div class="custom-color-controls">
@@ -163,6 +202,7 @@
             [attr.aria-label]="'design.secondaryColor.hexAria' | translate">
         </div>
       </div>
+      -->
     </div>
   </div>
 

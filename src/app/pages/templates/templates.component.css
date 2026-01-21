@@ -366,6 +366,62 @@
   border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
+.color-input-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.swatch-rainbow-strong {
+  /* Rainbow fuerte (Color principal) */
+  background: conic-gradient(
+    #ff004c,
+    #ff7a00,
+    #ffd000,
+    #00c853,
+    #00b0ff,
+    #8e24aa,
+    #ff004c
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swatch-rainbow-soft {
+  /* Rainbow suave/pastel (Color secundario) */
+  background: conic-gradient(
+    #ff9aa2,
+    #ffb7b2,
+    #ffeaa7,
+    #b5ead7,
+    #a0e7ff,
+    #c7a3ff,
+    #ff9aa2
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.swatch-rainbow-soft::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.22);
+  pointer-events: none;
+}
+
+.swatch-plus {
+  font-size: 20px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
 .meta {
   display: none;
 }
