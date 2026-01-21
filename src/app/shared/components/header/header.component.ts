@@ -15,8 +15,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentLang: AppLang = 'es';
   isDarkMode = false;
   langOpen = false;
+  isPdfDownloading = false;
   private routerSub?: Subscription;
   private unlistenDoc?: () => void;
+  private pdfSub?: Subscription;
 
   tabs = [
     { id: 'datos' as MainTab, labelKey: 'nav.data', icon: 'person' },
@@ -66,10 +68,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.routerSub = this.router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
       .subscribe(e => this.syncActiveTabFromUrl(e.urlAfterRedirects));
+
+    this.pdfSub = this.pdfExport.downloading$.subscribe(v => (this.isPdfDownloading = v));
   }
 
   ngOnDestroy(): void {
     this.routerSub?.unsubscribe();
+    this.pdfSub?.unsubscribe();
     this.unlistenDoc?.();
   }
 
@@ -116,6 +121,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   downloadPdf(): void {
+    if (this.isPdfDownloading) return;
     this.pdfExport.requestDownload();
   }
 }

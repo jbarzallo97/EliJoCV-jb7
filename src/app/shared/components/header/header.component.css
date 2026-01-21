@@ -199,6 +199,22 @@
   font-size: 20px;
 }
 
+.btn-download-header[disabled] {
+  opacity: 0.75;
+  cursor: not-allowed;
+  transform: none;
+  filter: none;
+}
+
+.btn-download-header .material-icons.spin {
+  animation: headerSpin 900ms linear infinite;
+}
+
+@keyframes headerSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .lang-dropdown {
   position: relative;
 }

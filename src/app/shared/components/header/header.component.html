@@ -69,11 +69,14 @@
         <button
           class="btn-download-header"
           type="button"
+          [disabled]="isPdfDownloading"
           [attr.aria-label]="'preview.downloadPdf' | translate"
           [attr.title]="'preview.downloadPdf' | translate"
           (click)="downloadPdf()">
-          <i class="material-icons">download</i>
-          <span>{{ 'preview.downloadPdf' | translate }}</span>
+          <i class="material-icons" [class.spin]="isPdfDownloading">
+            {{ isPdfDownloading ? 'autorenew' : 'download' }}
+          </i>
+          <span>{{ (isPdfDownloading ? 'preview.generatingPdf' : 'preview.downloadPdf') | translate }}</span>
         </button>
       </div>
     </div>

@@ -90,6 +90,7 @@ export class CvPreviewComponent implements OnInit {
   async downloadCV(): Promise<void> {
     if (this.isDownloading) return;
     this.isDownloading = true;
+    this.pdfExport.setDownloading(true);
 
     // Asegura que la paginación esté lista antes de capturar
     this.paginate();
@@ -98,6 +99,7 @@ export class CvPreviewComponent implements OnInit {
     const pageEls = Array.from(document.querySelectorAll('.cv-pages .a4-page')) as HTMLElement[];
     if (!pageEls.length) {
       this.isDownloading = false;
+      this.pdfExport.setDownloading(false);
       return;
     }
 
@@ -159,6 +161,7 @@ export class CvPreviewComponent implements OnInit {
     } finally {
       body.classList.remove('pdf-export');
       this.isDownloading = false;
+      this.pdfExport.setDownloading(false);
     }
   }
 
