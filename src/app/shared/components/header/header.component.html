@@ -1,46 +1,30 @@
 <header class="header-container">
   <div class="container-fluid">
-    <div class="row align-items-center">
-      <!-- Logo -->
-      <div class="col-auto">
-        <div class="logo mb-0">
-          <img
-            class="logo-img"
-            src="assets/image/logo.png"
-            alt="EliJoCV">
+    <div class="header-inner">
+      <!-- Brand -->
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <img class="logo-img" src="assets/image/logo.png" alt="EliJo">
         </div>
       </div>
 
-      <!-- Tabs Navigation -->
-      <div class="col">
-        <nav class="tabs-nav">
-          <ul class="nav nav-tabs border-0">
-            <li class="nav-item" *ngFor="let tab of tabs">
-              <button
-                class="nav-link"
-                [class.active]="activeTab === tab.id"
-                (click)="selectTab(tab.id)"
-                type="button">
-                <i class="material-icons">{{ tab.icon }}</i>
-                <span>{{ tab.labelKey | translate }}</span>
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </div>
-
-      <!-- Right Actions -->
-      <div class="col-auto d-flex align-items-center">
-        <!-- Social Icons Group -->
-        <div class="social-icons-group d-flex align-items-center">
-          <!--
-          Comentado (social):
-          - GitHub
-          - LinkedIn
-          -->
+      <!-- Tabs -->
+      <nav class="tabs-nav" aria-label="Main navigation">
+        <div class="tabs-pill" role="tablist">
+          <button
+            *ngFor="let tab of tabs"
+            type="button"
+            class="tab-pill"
+            [class.active]="activeTab === tab.id"
+            (click)="selectTab(tab.id)">
+            <i class="material-icons">{{ tab.icon }}</i>
+            <span>{{ tab.labelKey | translate }}</span>
+          </button>
         </div>
+      </nav>
 
-        <!-- Language -->
+      <!-- Actions -->
+      <div class="header-actions">
         <select
           class="form-select form-select-sm lang-select"
           [ngModel]="currentLang"
@@ -51,13 +35,20 @@
           </option>
         </select>
 
-        <!-- Dark Mode Toggle -->
         <button
-          class="btn btn-link dark-mode-btn"
+          class="icon-btn"
           type="button"
           [title]="'header.darkMode' | translate"
           (click)="toggleDarkMode()">
           <i class="material-icons">{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</i>
+        </button>
+
+        <button
+          class="btn-download-header"
+          type="button"
+          (click)="downloadPdf()">
+          <i class="material-icons">download</i>
+          <span>{{ 'preview.downloadPdf' | translate }}</span>
         </button>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { MainTab } from '../../../core/models/cv-data.model';
 import { filter, Subscription } from 'rxjs';
 import { I18nService, AppLang } from '../../../core/services/i18n.service';
+import { PdfExportService } from '../../../core/services/pdf-export.service';
 
 @Component({
   selector: 'app-header',
@@ -26,7 +27,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private renderer: Renderer2,
     private router: Router,
-    private i18n: I18nService
+    private i18n: I18nService,
+    private pdfExport: PdfExportService
   ) {}
 
   ngOnInit(): void {
@@ -88,6 +90,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   setLanguage(lang: AppLang): void {
     this.i18n.use(lang);
+  }
+
+  downloadPdf(): void {
+    this.pdfExport.requestDownload();
   }
 }
 

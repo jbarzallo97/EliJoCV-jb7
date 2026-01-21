@@ -4,6 +4,8 @@ import { CvData, CvSectionId } from '../../core/models/cv-data.model';
 import { TemplateService } from '../../core/services/template.service';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { Subscription } from 'rxjs';
+import { PdfExportService } from '../../core/services/pdf-export.service';
 
 @Component({
   selector: 'app-cv-preview',
@@ -27,6 +29,7 @@ export class CvPreviewComponent implements OnInit {
 
   private paginateRaf: number | null = null;
   private destroyed = false;
+  private sub = new Subscription();
   // Margen de seguridad para paginar un poco antes del borde inferior (en px)
   private readonly pageBottomReservePx =30;
 
@@ -34,35 +37,41 @@ export class CvPreviewComponent implements OnInit {
     private cvDataService: CvDataService,
     private templateService: TemplateService,
     private cdr: ChangeDetectorRef,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private pdfExport: PdfExportService
   ) {}
 
   ngOnInit(): void {
-    this.cvDataService.cvData$.subscribe(data => {
+    this.sub.add(this.cvDataService.cvData$.subscribe(data => {
       this.cvData = data;
       this.hasCvData = true;
       this.rebuildPreviewThenPaginate();
-    });
+    }));
 
-    this.templateService.selectedTemplate$.subscribe(t => {
+    this.sub.add(this.templateService.selectedTemplate$.subscribe(t => {
       this.selectedTemplateId = t?.id || 'template-1';
       if (this.hasCvData) {
         this.rebuildPreviewThenPaginate();
       }
-    });
+    }));
 
     // Tipografía: al cambiar tamaño/fuente, recalcular paginación
-    this.templateService.selectedFontFamily$.subscribe(() => {
+    this.sub.add(this.templateService.selectedFontFamily$.subscribe(() => {
       if (this.hasCvData) {
         this.rebuildPreviewThenPaginate();
       }
-    });
+    }));
 
-    this.templateService.selectedFontSize$.subscribe(() => {
+    this.sub.add(this.templateService.selectedFontSize$.subscribe(() => {
       if (this.hasCvData) {
         this.rebuildPreviewThenPaginate();
       }
-    });
+    }));
+
+    // Descarga solicitada desde el Header
+    this.sub.add(this.pdfExport.downloadRequested$.subscribe(() => {
+      void this.downloadCV();
+    }));
   }
 
   ngAfterViewInit(): void {
@@ -71,6 +80,7 @@ export class CvPreviewComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.destroyed = true;
+    this.sub.unsubscribe();
     if (this.paginateRaf) {
       cancelAnimationFrame(this.paginateRaf);
       this.paginateRaf = null;

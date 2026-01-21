@@ -14,6 +14,35 @@
 }
 
 :root {
+  /* =========================
+     UI (plataforma) - Slate (HSL)
+     ========================= */
+  --ui-bg: hsl(210 40% 98%);
+  --ui-text: hsl(222 47% 11%);
+  --ui-primary: hsl(221 83% 53%);
+  --ui-surface: hsl(0 0% 100%);
+  --ui-border: hsl(214 32% 91%);
+
+  /* Muted: el color que pediste (usado como fondo secundario) */
+  --ui-muted-bg: hsl(210 40% 96.1%);
+  /* Muted text: para textos secundarios (slate-like) */
+  --ui-muted: hsl(215 16% 47%);
+
+  /* Helpers (derivados del primario) */
+  --ui-shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --ui-primary-bg-05: hsl(221 83% 53% / 0.05);
+  --ui-primary-bg-10: hsl(221 83% 53% / 0.10);
+  --ui-primary-bg-20: hsl(221 83% 53% / 0.20);
+  --ui-primary-shadow-15: hsl(221 83% 53% / 0.18);
+  --ui-primary-shadow-30: hsl(221 83% 53% / 0.30);
+
+  /* Header (Light) */
+  --ui-header-bg: var(--ui-surface);
+  --ui-header-fg: var(--ui-text);
+
+  /* =========================
+     CV (plantillas) - variables
+     ========================= */
   /* Color principal del CV (accent). Se puede cambiar desde "Plantillas" */
   --cv-primary: #1976d2;
   /* Fondo (hoja) del CV */
@@ -26,9 +55,52 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: var(--ui-bg);
+  color: var(--ui-text);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Header - Light mode (forzar visibilidad: tabs / iconos / idioma) */
+body:not(.dark-mode) .header-container {
+  background: var(--ui-surface) !important;
+  border-bottom: 1px solid var(--ui-border) !important;
+  box-shadow: var(--ui-shadow-sm) !important;
+}
+
+body:not(.dark-mode) .header-container .brand {
+  color: var(--ui-text) !important;
+}
+
+body:not(.dark-mode) .header-container .brand-name {
+  color: var(--ui-primary) !important;
+}
+
+body:not(.dark-mode) .header-container .tabs-pill {
+  background: var(--ui-muted-bg) !important;
+  border-color: var(--ui-border) !important;
+}
+
+body:not(.dark-mode) .header-container .tab-pill {
+  color: var(--ui-muted) !important;
+}
+
+body:not(.dark-mode) .header-container .tab-pill:hover,
+body:not(.dark-mode) .header-container .tab-pill.active {
+  color: var(--ui-text) !important;
+}
+
+body:not(.dark-mode) .header-container .icon-btn,
+body:not(.dark-mode) .header-container .lang-select {
+  background: var(--ui-muted-bg) !important;
+  border-color: var(--ui-border) !important;
+  color: var(--ui-text) !important;
+}
+
+body:not(.dark-mode) .header-container .lang-select option {
+  color: var(--ui-text) !important;
+  background: var(--ui-surface) !important;
 }
 
 /* Títulos con Montserrat (más “CV / branding”) */
@@ -66,39 +138,58 @@ h1, h2, h3,
 
 /* Dark Mode Styles */
 body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
+  --ui-bg: hsl(222 47% 11%);
+  --ui-text: hsl(210 40% 98%);
+  --ui-primary: hsl(217 91% 60%);
+  --ui-surface: hsl(222 47% 11%);
+  --ui-border: hsl(217 33% 17.5%);
+  --ui-muted-bg: hsl(217 33% 17.5%);
+  --ui-muted: hsl(215 20% 65%);
+
+  --ui-shadow-sm: 0 2px 4px rgba(0,0,0,0.30);
+  --ui-primary-bg-05: hsl(217 91% 60% / 0.10);
+  --ui-primary-bg-10: hsl(217 91% 60% / 0.12);
+  --ui-primary-bg-20: hsl(217 91% 60% / 0.20);
+  --ui-primary-shadow-15: hsl(217 91% 60% / 0.25);
+  --ui-primary-shadow-30: hsl(217 91% 60% / 0.35);
+
+  /* Header (Dark) */
+  --ui-header-bg: hsl(222 47% 11%);
+  --ui-header-fg: hsl(210 40% 98%);
+
+  background-color: var(--ui-bg);
+  color: var(--ui-text);
 }
 
 body.dark-mode .header-container {
-  background: #1e1e1e;
-  border-bottom-color: #333;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  background: var(--ui-surface);
+  border-bottom-color: var(--ui-border);
+  box-shadow: var(--ui-shadow-sm);
 }
 
 body.dark-mode .logo {
-  color: #64b5f6;
+  color: var(--ui-primary);
 }
 
 body.dark-mode .nav-tabs .nav-link {
-  color: #b0b0b0;
+  color: var(--ui-muted);
 }
 
 body.dark-mode .nav-tabs .nav-link:hover {
-  color: #64b5f6;
-  background: rgba(100, 181, 246, 0.1);
+  color: var(--ui-primary);
+  background: var(--ui-primary-bg-05);
 }
 
 body.dark-mode .nav-tabs .nav-link.active {
-  color: #64b5f6;
+  color: var(--ui-primary);
 }
 
 body.dark-mode .btn-link {
-  color: #b0b0b0;
+  color: var(--ui-muted);
 }
 
 body.dark-mode .btn-link:hover {
-  color: #64b5f6;
+  color: var(--ui-primary);
 }
 
 /* Language selector (Header) - dark mode */
@@ -110,8 +201,8 @@ body.dark-mode .lang-select {
 }
 
 body.dark-mode .lang-select:focus {
-  border-color: #64b5f6;
-  box-shadow: 0 0 0 0.2rem rgba(100, 181, 246, 0.25);
+  border-color: var(--ui-primary);
+  box-shadow: 0 0 0 0.2rem var(--ui-primary-shadow-15);
 }
 
 body.dark-mode .lang-select option {
@@ -120,7 +211,7 @@ body.dark-mode .lang-select option {
 }
 
 body.dark-mode .social-icon:hover {
-  background: rgba(100, 181, 246, 0.2);
+  background: var(--ui-primary-bg-20);
 }
 
 body.dark-mode .form-section {
@@ -144,7 +235,7 @@ body.dark-mode .form-control {
 }
 
 body.dark-mode .form-control:focus {
-  border-color: #64b5f6;
+  border-color: var(--ui-primary);
   background: #2a2a2a;
   color: #e0e0e0;
 }
@@ -173,7 +264,7 @@ body.dark-mode app-templates .font-option-sample {
 }
 
 body.dark-mode app-templates .font-option-check {
-  color: #64b5f6;
+  color: var(--ui-primary);
 }
 
 body.dark-mode app-templates .size-preview {
@@ -191,7 +282,7 @@ body.dark-mode .preview-content {
 }
 
 body.dark-mode .cv-header {
-  border-bottom-color: #64b5f6;
+  border-bottom-color: var(--cv-primary);
 }
 
 body.dark-mode .cv-name h1 {
@@ -207,7 +298,7 @@ body.dark-mode .cv-contact {
 }
 
 body.dark-mode .cv-section-title {
-  color: #64b5f6;
+  color: var(--cv-primary);
   border-bottom-color: #444;
 }
 
@@ -242,14 +333,14 @@ body.dark-mode .section-icon-btn {
 }
 
 body.dark-mode .section-icon-btn:hover {
-  border-color: #64b5f6;
-  background: rgba(100, 181, 246, 0.1);
-  color: #64b5f6;
+  border-color: var(--ui-primary);
+  background: var(--ui-primary-bg-10);
+  color: var(--ui-primary);
 }
 
 body.dark-mode .section-icon-btn.active {
-  background: #64b5f6;
-  border-color: #64b5f6;
+  background: var(--ui-primary);
+  border-color: var(--ui-primary);
   color: #fff;
 }
 
@@ -259,12 +350,12 @@ body.dark-mode .education-item {
 }
 
 body.dark-mode .education-item:hover {
-  border-color: #64b5f6 !important;
+  border-color: var(--ui-primary) !important;
 }
 
 body.dark-mode .btn-primary {
-  background: #64b5f6;
-  color: #121212;
+  background: var(--ui-primary);
+  color: #fff;
 }
 
 body.dark-mode .btn-primary:hover {
