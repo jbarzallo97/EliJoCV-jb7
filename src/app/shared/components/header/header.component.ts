@@ -14,7 +14,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   activeTab: MainTab = 'datos';
   currentLang: AppLang = 'es';
   isDarkMode = false;
+  langOpen = false;
   private routerSub?: Subscription;
+  private unlistenDoc?: () => void;
 
   tabs = [
     { id: 'datos' as MainTab, labelKey: 'nav.data', icon: 'person' },
@@ -22,7 +24,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     { id: 'personalizar' as MainTab, labelKey: 'nav.customize', icon: 'settings' }
   ];
 
-  languages = this.i18n.supported;
+  languages = this.i18n.supported.map(l => ({
+    ...l,
+    flagSrc: l.code === 'es' ? 'assets/flags/ec.svg' : 'assets/flags/us.svg'
+  }));
+
+  get currentLangMeta(): { code: AppLang; label: string; flagSrc: string } {
+    return this.languages.find(l => l.code === this.currentLang) || this.languages[0];
+  }
 
   constructor(
     private renderer: Renderer2,
@@ -34,6 +43,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.currentLang = this.i18n.current;
     this.i18n.lang$.subscribe(l => (this.currentLang = l));
+    this.unlistenDoc = this.renderer.listen('document', 'click', (ev: Event) => {
+      if (!this.langOpen) return;
+      const target = ev.target as HTMLElement | null;
+      if (!target) return;
+      if (!target.closest('.lang-dropdown')) {
+        this.langOpen = false;
+      }
+    });
     // Cargar preferencia guardada
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
@@ -53,6 +70,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routerSub?.unsubscribe();
+    this.unlistenDoc?.();
   }
 
   selectTab(tab: MainTab): void {
@@ -90,6 +108,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   setLanguage(lang: AppLang): void {
     this.i18n.use(lang);
+    this.langOpen = false;
+  }
+
+  toggleLangMenu(): void {
+    this.langOpen = !this.langOpen;
   }
 
   downloadPdf(): void {

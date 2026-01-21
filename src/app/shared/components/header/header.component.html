@@ -25,15 +25,36 @@
 
       <!-- Actions -->
       <div class="header-actions">
-        <select
-          class="form-select form-select-sm lang-select"
-          [ngModel]="currentLang"
-          (ngModelChange)="setLanguage($event)"
-          [attr.aria-label]="'header.language' | translate">
-          <option *ngFor="let l of languages" [ngValue]="l.code">
-            {{ l.label }}
-          </option>
-        </select>
+        <div class="lang-dropdown">
+          <button
+            type="button"
+            class="lang-btn"
+            (click)="toggleLangMenu()"
+            [attr.aria-label]="'header.language' | translate"
+            [attr.aria-expanded]="langOpen">
+            <img
+              class="flag"
+              [src]="currentLangMeta.flagSrc"
+              alt=""
+              aria-hidden="true">
+            <span class="lang-label">{{ currentLangMeta.label }}</span>
+            <i class="material-icons caret" aria-hidden="true">expand_more</i>
+          </button>
+
+          <div class="lang-menu" *ngIf="langOpen" role="menu">
+            <button
+              *ngFor="let l of languages"
+              type="button"
+              class="lang-item"
+              role="menuitemradio"
+              [attr.aria-checked]="currentLang === l.code"
+              (click)="setLanguage(l.code)">
+              <img class="flag" [src]="l.flagSrc" alt="" aria-hidden="true">
+              <span>{{ l.label }}</span>
+              <i class="material-icons check" *ngIf="currentLang === l.code" aria-hidden="true">check</i>
+            </button>
+          </div>
+        </div>
 
         <button
           class="icon-btn"

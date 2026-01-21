@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2">
+  <!-- Ecuador: misma tricolor que Colombia, pero con escudo. Aquí va un escudo simplificado para diferenciar. -->
+  <rect width="3" height="2" fill="#FFDD00"/>
+  <rect y="1" width="3" height="0.5" fill="#0033A0"/>
+  <rect y="1.5" width="3" height="0.5" fill="#CE1126"/>
+
+  <!-- Escudo (simplificado) -->
+  <g transform="translate(1.5 1) scale(0.38)">
+    <path d="M0,-1.05 C0.55,-1.05 0.95,-0.7 0.95,-0.15 C0.95,0.55 0.45,1.02 0,1.25 C-0.45,1.02 -0.95,0.55 -0.95,-0.15 C-0.95,-0.7 -0.55,-1.05 0,-1.05 Z"
+          fill="#F4C542" stroke="#1F2937" stroke-width="0.08"/>
+    <path d="M-0.62,-0.2 H0.62 V0.25 C0.35,0.65 0.15,0.85 0,0.95 C-0.15,0.85 -0.35,0.65 -0.62,0.25 Z"
+          fill="#60A5FA" opacity="0.9"/>
+    <path d="M-0.62,0.25 H0.62 V0.55 H-0.62 Z" fill="#10B981" opacity="0.9"/>
+    <circle cx="0" cy="-0.48" r="0.18" fill="#111827" opacity="0.9"/>
+  </g>
+</svg>
+
