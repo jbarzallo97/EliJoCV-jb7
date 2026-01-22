@@ -131,6 +131,8 @@ export class CvPreviewComponent implements OnInit {
         const pageEl = pageEls[i];
 
         const cleanups = await this.applyPhotoExportFix(pageEl);
+        const colorCleanups = this.applyPdfColorFallbacks(pageEl);
+        cleanups.push(...colorCleanups);
         try {
           const rect = pageEl.getBoundingClientRect();
           const capW = Math.round(rect.width);
@@ -158,11 +160,87 @@ export class CvPreviewComponent implements OnInit {
       const pi = this.cvData?.personalInfo;
       const name = [pi?.nombres, pi?.apellidos].filter(Boolean).join(' ').trim();
       pdf.save(name ? `CV - ${name}.pdf` : 'CV.pdf');
+    } catch (err) {
+      // No fallar silenciosamente: si html2canvas rompe por estilos de una plantilla, lo registramos.
+      // eslint-disable-next-line no-console
+      console.error('[PDF] Error al generar el PDF', err);
     } finally {
       body.classList.remove('pdf-export');
       this.isDownloading = false;
       this.pdfExport.setDownloading(false);
     }
+  }
+
+  private applyPdfColorFallbacks(root: HTMLElement): Array<() => void> {
+    const cleanups: Array<() => void> = [];
+
+    const primaryRaw = getComputedStyle(document.documentElement)
+      .getPropertyValue('--cv-primary')
+      .trim() || '#2563eb';
+
+    const rgb = this.parseCssColorToRgb(primaryRaw) || { r: 37, g: 99, b: 235 };
+    const bg = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.10)`;
+    const br = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.18)`;
+    const fg = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+
+    // Template 3: chips de tecnologías (evitar color-mix en export y que no salgan "blancos")
+    const chips = Array.from(root.querySelectorAll('.cv-t3-chip')) as HTMLElement[];
+    for (const el of chips) {
+      const prevBg = { v: el.style.getPropertyValue('background-color'), p: el.style.getPropertyPriority('background-color') };
+      const prevBorder = { v: el.style.getPropertyValue('border-color'), p: el.style.getPropertyPriority('border-color') };
+      const prevColor = { v: el.style.getPropertyValue('color'), p: el.style.getPropertyPriority('color') };
+
+      // IMPORTANT: en pdf-export tenemos overrides con !important; aquí forzamos prioridad para que el chip mantenga su estilo.
+      el.style.setProperty('background-color', bg, 'important');
+      el.style.setProperty('border-color', br, 'important');
+      el.style.setProperty('color', fg, 'important');
+      cleanups.push(() => {
+        if (prevBg.v) el.style.setProperty('background-color', prevBg.v, prevBg.p);
+        else el.style.removeProperty('background-color');
+
+        if (prevBorder.v) el.style.setProperty('border-color', prevBorder.v, prevBorder.p);
+        else el.style.removeProperty('border-color');
+
+        if (prevColor.v) el.style.setProperty('color', prevColor.v, prevColor.p);
+        else el.style.removeProperty('color');
+      });
+    }
+
+    return cleanups;
+  }
+
+  private parseCssColorToRgb(input: string): { r: number; g: number; b: number } | null {
+    const s = (input || '').trim();
+    if (!s) return null;
+
+    // #RGB / #RRGGBB
+    if (s.startsWith('#')) {
+      const hex = s.slice(1);
+      if (hex.length === 3) {
+        const r = parseInt(hex[0] + hex[0], 16);
+        const g = parseInt(hex[1] + hex[1], 16);
+        const b = parseInt(hex[2] + hex[2], 16);
+        return Number.isFinite(r) && Number.isFinite(g) && Number.isFinite(b) ? { r, g, b } : null;
+      }
+      if (hex.length === 6) {
+        const r = parseInt(hex.slice(0, 2), 16);
+        const g = parseInt(hex.slice(2, 4), 16);
+        const b = parseInt(hex.slice(4, 6), 16);
+        return Number.isFinite(r) && Number.isFinite(g) && Number.isFinite(b) ? { r, g, b } : null;
+      }
+      return null;
+    }
+
+    // rgb(...) / rgba(...)
+    const m = s.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
+    if (m) {
+      const r = Math.max(0, Math.min(255, parseInt(m[1], 10)));
+      const g = Math.max(0, Math.min(255, parseInt(m[2], 10)));
+      const b = Math.max(0, Math.min(255, parseInt(m[3], 10)));
+      return { r, g, b };
+    }
+
+    return null;
   }
 
   /**

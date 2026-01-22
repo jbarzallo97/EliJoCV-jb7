@@ -54,6 +54,114 @@
   box-shadow: none;
 }
 
+/* Export PDF (html2canvas): evita fallos con gradients/color-mix en backgrounds/pseudo-elements
+   (solo afecta export, no el preview). */
+:host-context(body.pdf-export) .a4-page * {
+  background-image: none !important;
+}
+
+:host-context(body.pdf-export) .a4-page *::before,
+:host-context(body.pdf-export) .a4-page *::after {
+  background-image: none !important;
+}
+
+/* Export PDF: html2canvas suele distorsionar flex-wrap + gap (pills) en Template 2 (Habilidades).
+   Simplificamos SOLO durante exportación para que no se desborde el texto. */
+:host-context(body.pdf-export) .cv-layout-template-2 .cv-t2-skill-tags {
+  display: block !important;
+}
+
+:host-context(body.pdf-export) .cv-layout-template-2 .cv-t2-skill-pill {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 0 0.45rem 0 !important;
+}
+
+:host-context(body.pdf-export) .cv-layout-template-2 .cv-t2-skill-meta {
+  display: block !important;
+  margin-top: 0.15rem !important;
+}
+
+:host-context(body.pdf-export) .cv-layout-template-2 .cv-t2-skill-meta > span {
+  display: inline !important;
+  margin-right: 0.25rem;
+}
+
+/* Export PDF: Template 3 (Habilidades) - html2canvas distorsiona inline-flex + gap.
+   Forzamos layout simple para que no se "salgan" niveles/categorías. */
+:host-context(body.pdf-export) .cv-layout-template-3 .cv-t3-skill-row {
+  display: block !important;
+}
+
+:host-context(body.pdf-export) .cv-layout-template-3 .cv-t3-skill-meta {
+  display: block !important;
+  margin-top: 0.12rem !important;
+}
+
+:host-context(body.pdf-export) .cv-layout-template-3 .cv-t3-skill-meta > span {
+  display: inline !important;
+  margin-right: 0.25rem;
+}
+
+/* Export PDF (html2canvas): html2canvas no soporta `color-mix(...)` (lo interpreta como función "color").
+   Para plantillas 3-6, forzamos colores "safe" (hex/rgba) SOLO durante exportación. */
+:host-context(body.pdf-export) .cv-layout-template-3,
+:host-context(body.pdf-export) .cv-layout-template-4,
+:host-context(body.pdf-export) .cv-layout-template-5,
+:host-context(body.pdf-export) .cv-layout-template-6 {
+  color: #0f172a;
+}
+
+:host-context(body.pdf-export) .cv-layout-template-3 *,
+:host-context(body.pdf-export) .cv-layout-template-4 *,
+:host-context(body.pdf-export) .cv-layout-template-5 *,
+:host-context(body.pdf-export) .cv-layout-template-6 * {
+  /* Quita color-mix de reglas internas reemplazándolas por valores simples */
+  background-color: transparent !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: inherit;
+}
+
+/* Re-aplicar fondos esenciales (sin color-mix) */
+:host-context(body.pdf-export) .cv-layout-template-3 .cv-header--t3 {
+  background: var(--cv-primary, #2563eb) !important;
+  color: #fff !important;
+}
+
+:host-context(body.pdf-export) .cv-layout-template-3 .cv-header--t3 * {
+  color: #fff !important;
+}
+
+:host-context(body.pdf-export) .cv-layout-template-5 .cv-header--t5 {
+  background: var(--cv-primary, #111827) !important;
+  color: #fff !important;
+}
+
+:host-context(body.pdf-export) .cv-layout-template-5 .cv-header--t5 * {
+  color: #fff !important;
+}
+
+/* Acentos (títulos/íconos) en todas las plantillas */
+:host-context(body.pdf-export) .cv-layout-template-3 .cv-section-title,
+:host-context(body.pdf-export) .cv-layout-template-3 .cv-sidebar-title,
+:host-context(body.pdf-export) .cv-layout-template-4 .cv-section-title,
+:host-context(body.pdf-export) .cv-layout-template-4 .cv-sidebar-title,
+:host-context(body.pdf-export) .cv-layout-template-5 .cv-section-title,
+:host-context(body.pdf-export) .cv-layout-template-5 .cv-sidebar-title,
+:host-context(body.pdf-export) .cv-layout-template-6 .cv-section-title,
+:host-context(body.pdf-export) .cv-layout-template-6 .cv-sidebar-title {
+  color: var(--cv-primary, #2563eb) !important;
+}
+
+/* Template 6: sidebar/edge sin color-mix */
+:host-context(body.pdf-export) .cv-layout-template-6::before {
+  background: var(--cv-primary, #4f46e5) !important;
+}
+
+:host-context(body.pdf-export) .cv-layout-template-6::after {
+  background: #f3f4f6 !important;
+}
+
 .a4-inner {
   height: 100%;
   padding: 16mm;
