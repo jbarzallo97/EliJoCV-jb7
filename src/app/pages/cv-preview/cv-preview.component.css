@@ -132,6 +132,40 @@
   color: #fff !important;
 }
 
+:host-context(body.pdf-export) .cv-layout-template-4 .cv-header--t4 {
+  background-color: rgba(var(--cv-primary-rgb, 15, 118, 110), 0.10) !important;
+  border-color: rgba(15, 23, 42, 0.10) !important;
+}
+
+:host-context(body.pdf-export) .cv-layout-template-4 .cv-photo-circle--t4-header {
+  border-color: rgba(var(--cv-primary-rgb, 15, 118, 110), 0.25) !important;
+}
+
+:host-context(body.pdf-export) .cv-layout-template-4 .cv-t4-kicker,
+:host-context(body.pdf-export) .cv-layout-template-4 .cv-t4-contact-label {
+  color: rgb(var(--cv-primary-rgb, 15, 118, 110)) !important;
+}
+
+:host-context(body.pdf-export) .cv-layout-template-4 .cv-sidebar-section::before {
+  background: rgba(var(--cv-primary-rgb, 15, 118, 110), 0.65) !important;
+}
+
+:host-context(body.pdf-export) .cv-layout-template-4 .cv-sidebar-title {
+  border-bottom-color: rgba(var(--cv-primary-rgb, 15, 118, 110), 0.18) !important;
+}
+
+/* Template 4: pills/acentos del sidebar (idiomas/skills levels) */
+:host-context(body.pdf-export) .cv-layout-template-4 .cv-sidebar-item.d-flex .text-muted,
+:host-context(body.pdf-export) .cv-layout-template-4 .cv-sidebar-item > .d-flex .text-muted {
+  /* En PDF no queremos “badges” con sombreado: solo texto limpio como en el preview */
+  color: #64748b !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
 :host-context(body.pdf-export) .cv-layout-template-5 .cv-header--t5 {
   background: var(--cv-primary, #111827) !important;
   color: #fff !important;

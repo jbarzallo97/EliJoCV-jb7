@@ -106,6 +106,13 @@ export class CvPreviewComponent implements OnInit {
     const body = document.body;
     body.classList.add('pdf-export');
 
+      // Export: variable RGB para reemplazar color-mix por rgba(var(--cv-primary-rgb), a)
+      const docEl = document.documentElement;
+      const prevPrimaryRgb = docEl.style.getPropertyValue('--cv-primary-rgb');
+      const primaryRawForRgb = getComputedStyle(docEl).getPropertyValue('--cv-primary').trim() || '#2563eb';
+      const rgbForVar = this.parseCssColorToRgb(primaryRawForRgb) || { r: 37, g: 99, b: 235 };
+      docEl.style.setProperty('--cv-primary-rgb', `${rgbForVar.r}, ${rgbForVar.g}, ${rgbForVar.b}`);
+
     try {
       // Esperar a que el CSS de pdf-export aplique antes de medir/capturar (evita diferencias vs preview)
       await new Promise(resolve => requestAnimationFrame(() => resolve(true)));
@@ -166,6 +173,10 @@ export class CvPreviewComponent implements OnInit {
       console.error('[PDF] Error al generar el PDF', err);
     } finally {
       body.classList.remove('pdf-export');
+      // restore export-only var
+      const docEl = document.documentElement;
+      if (prevPrimaryRgb) docEl.style.setProperty('--cv-primary-rgb', prevPrimaryRgb);
+      else docEl.style.removeProperty('--cv-primary-rgb');
       this.isDownloading = false;
       this.pdfExport.setDownloading(false);
     }
