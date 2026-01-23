@@ -51,7 +51,14 @@
 
 .input-group-text .material-icons {
   font-size: 18px;
-  color: #1976d2;
+  color: var(--ui-primary);
+}
+
+/* Íconos SVG (app-icon) en Customize: usan currentColor */
+.input-group-text app-icon,
+.section-dnd-icon app-icon,
+.section-dnd-icon {
+  color: var(--ui-primary);
 }
 
 .badge.text-bg-light {
@@ -94,7 +101,13 @@
 :host-context(body.dark-mode) .input-group-text .material-icons,
 :host-context(body.dark-mode) .customize-card-header .material-icons,
 :host-context(body.dark-mode) .form-section-title .material-icons {
-  color: #64b5f6;
+  color: var(--ui-primary);
+}
+
+:host-context(body.dark-mode) .input-group-text app-icon,
+:host-context(body.dark-mode) .section-dnd-icon app-icon,
+:host-context(body.dark-mode) .section-dnd-icon {
+  color: var(--ui-primary);
 }
 
 .layout-col-title {
@@ -128,7 +141,7 @@
 }
 
 .section-dnd-icon {
-  color: #1976d2;
+  color: var(--ui-primary);
   font-size: 20px;
 }
 
@@ -174,7 +187,7 @@
 }
 
 ::host-context(body.dark-mode) .section-dnd-icon {
-  color: #64b5f6;
+  color: var(--ui-primary);
 }
 
 ::host-context(body.dark-mode) .drag-handle {

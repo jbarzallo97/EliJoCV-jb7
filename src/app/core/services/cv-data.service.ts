@@ -96,14 +96,136 @@ export class CvDataService {
 
   private getDefaultIcons(): CvIcons {
     return {
-      profile: 'person',
-      workExperience: 'work',
-      education: 'school',
-      references: 'groups',
-      languages: 'translate',
-      skills: 'psychology',
-      courses: 'menu_book',
+      profile: 'user',
+      workExperience: 'briefcase',
+      education: 'graduation',
+      references: 'users',
+      languages: 'language',
+      skills: 'sparkles',
+      courses: 'book',
       projects: 'folder'
+    };
+  }
+
+  private normalizeIconValue(v: unknown): string {
+    const s = typeof v === 'string' ? v.trim() : '';
+    if (!s) return '';
+
+    // Ya es un id SVG nuevo
+    const svgIds = new Set([
+      'user',
+      'user-circle',
+      'id-card',
+      'shield',
+      'briefcase',
+      'building',
+      'clock',
+      'case-file',
+      'graduation',
+      'book',
+      'certificate',
+      'folder',
+      'code',
+      'users',
+      'handshake',
+      'language',
+      'globe',
+      'mic',
+      'sparkles',
+      'checklist',
+      'wrench'
+    ]);
+    if (svgIds.has(s)) return s;
+
+    // Compatibilidad con valores antiguos (Material Icons)
+    switch (s) {
+      // Perfil
+      case 'person':
+      case 'account_circle':
+      case 'contact_page':
+      case 'assignment_ind':
+      case 'verified_user':
+        return 'user';
+      case 'badge':
+        return 'id-card';
+
+      // Experiencia
+      case 'work':
+      case 'work_outline':
+      case 'business_center':
+      case 'work_history':
+      case 'cases':
+        return 'briefcase';
+      case 'domain':
+        return 'building';
+
+      // Educación
+      case 'school':
+      case 'workspace_premium':
+      case 'history_edu':
+        return 'graduation';
+      case 'local_library':
+      case 'auto_stories':
+        return 'book';
+
+      // Referencias
+      case 'groups':
+      case 'supervisor_account':
+      case 'recommend':
+      case 'handshake':
+        return 'users';
+      case 'contact_mail':
+        return 'id-card';
+
+      // Idiomas
+      case 'translate':
+      case 'language':
+      case 'record_voice_over':
+        return 'language';
+      case 'public':
+        return 'users';
+
+      // Habilidades
+      case 'psychology':
+      case 'star':
+      case 'checklist':
+      case 'auto_fix_high':
+        return 'sparkles';
+      case 'build':
+      case 'engineering':
+        return 'wrench';
+
+      // Cursos
+      case 'menu_book':
+      case 'library_books':
+      case 'import_contacts':
+        return 'book';
+
+      // Proyectos
+      case 'folder':
+      case 'folder_open':
+        return 'folder';
+      case 'code':
+      case 'terminal':
+      case 'laptop_mac':
+      case 'construction':
+        return 'code';
+
+      default:
+        return 'folder';
+    }
+  }
+
+  private normalizeIcons(icons: CvIcons): CvIcons {
+    return {
+      profile: this.normalizeIconValue(icons.profile) || this.getDefaultIcons().profile,
+      workExperience: this.normalizeIconValue(icons.workExperience) || this.getDefaultIcons().workExperience,
+      education: this.normalizeIconValue(icons.education) || this.getDefaultIcons().education,
+      references: this.normalizeIconValue(icons.references) || this.getDefaultIcons().references,
+      languages: this.normalizeIconValue(icons.languages) || this.getDefaultIcons().languages,
+      skills: this.normalizeIconValue(icons.skills) || this.getDefaultIcons().skills,
+      courses: this.normalizeIconValue(icons.courses) || this.getDefaultIcons().courses,
+      projects: this.normalizeIconValue(icons.projects) || this.getDefaultIcons().projects
     };
   }
 
@@ -432,7 +554,7 @@ export class CvDataService {
     const current = this.cvDataSubject.value;
     this.cvDataSubject.next({
       ...current,
-      icons: { ...icons }
+      icons: this.normalizeIcons({ ...icons })
     });
     this.saveToStorage();
   }
@@ -529,8 +651,10 @@ export class CvDataService {
           },
           labelsMode: (data?.labelsMode === 'custom' ? 'custom' : 'auto'),
           icons: {
-            ...initial.icons,
-            ...(data?.icons || {})
+            ...this.normalizeIcons({
+              ...initial.icons,
+              ...(data?.icons || {})
+            })
           },
           sectionLayout: this.sanitizeSectionLayout(data?.sectionLayout)
         };

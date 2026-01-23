@@ -32,77 +32,60 @@ export class CustomizeComponent implements OnInit, OnDestroy {
   > = {
     // Perfil
     profile: [
-      { labelKey: 'customize.iconOptions.profile.person', value: 'person' },
-      { labelKey: 'customize.iconOptions.profile.account_circle', value: 'account_circle' },
-      { labelKey: 'customize.iconOptions.profile.badge', value: 'badge' },
-      { labelKey: 'customize.iconOptions.profile.contact_page', value: 'contact_page' },
-      { labelKey: 'customize.iconOptions.profile.assignment_ind', value: 'assignment_ind' },
-      { labelKey: 'customize.iconOptions.profile.verified_user', value: 'verified_user' }
+      { labelKey: 'customize.iconOptions.profile.person', value: 'user' },
+      { labelKey: 'customize.iconOptions.profile.badge', value: 'id-card' },
+      { labelKey: 'customize.iconOptions.profile.verified_user', value: 'shield' }
     ],
 
     // Experiencia
     workExperience: [
-      { labelKey: 'customize.iconOptions.workExperience.work', value: 'work' },
-      { labelKey: 'customize.iconOptions.workExperience.work_outline', value: 'work_outline' },
-      { labelKey: 'customize.iconOptions.workExperience.business_center', value: 'business_center' },
-      { labelKey: 'customize.iconOptions.workExperience.domain', value: 'domain' },
-      { labelKey: 'customize.iconOptions.workExperience.work_history', value: 'work_history' },
-      { labelKey: 'customize.iconOptions.workExperience.cases', value: 'cases' }
+      { labelKey: 'customize.iconOptions.workExperience.work', value: 'briefcase' },
+      { labelKey: 'customize.iconOptions.workExperience.domain', value: 'building' },
+      { labelKey: 'customize.iconOptions.workExperience.cases', value: 'case-file' }
     ],
 
     // Educación
     education: [
-      { labelKey: 'customize.iconOptions.education.school', value: 'school' },
-      { labelKey: 'customize.iconOptions.education.local_library', value: 'local_library' },
-      { labelKey: 'customize.iconOptions.education.workspace_premium', value: 'workspace_premium' },
-      { labelKey: 'customize.iconOptions.education.history_edu', value: 'history_edu' },
-      { labelKey: 'customize.iconOptions.education.auto_stories', value: 'auto_stories' }
+      { labelKey: 'customize.iconOptions.education.school', value: 'graduation' },
+      { labelKey: 'customize.iconOptions.education.local_library', value: 'book' },
+      { labelKey: 'customize.iconOptions.education.workspace_premium', value: 'certificate' }
     ],
 
     // Referencias
     references: [
-      { labelKey: 'customize.iconOptions.references.groups', value: 'groups' },
-      { labelKey: 'customize.iconOptions.references.supervisor_account', value: 'supervisor_account' },
-      { labelKey: 'customize.iconOptions.references.recommend', value: 'recommend' },
+      { labelKey: 'customize.iconOptions.references.groups', value: 'users' },
       { labelKey: 'customize.iconOptions.references.handshake', value: 'handshake' },
-      { labelKey: 'customize.iconOptions.references.contact_mail', value: 'contact_mail' }
+      { labelKey: 'customize.iconOptions.references.recommend', value: 'sparkles' },
+      { labelKey: 'customize.iconOptions.references.contact_mail', value: 'id-card' }
     ],
 
     // Idiomas
     languages: [
-      { labelKey: 'customize.iconOptions.languages.translate', value: 'translate' },
       { labelKey: 'customize.iconOptions.languages.language', value: 'language' },
-      { labelKey: 'customize.iconOptions.languages.public', value: 'public' },
-      { labelKey: 'customize.iconOptions.languages.record_voice_over', value: 'record_voice_over' }
+      { labelKey: 'customize.iconOptions.languages.public', value: 'globe' },
+      { labelKey: 'customize.iconOptions.languages.record_voice_over', value: 'mic' }
     ],
 
     // Habilidades
     skills: [
-      { labelKey: 'customize.iconOptions.skills.psychology', value: 'psychology' },
-      { labelKey: 'customize.iconOptions.skills.build', value: 'build' },
-      { labelKey: 'customize.iconOptions.skills.engineering', value: 'engineering' },
-      { labelKey: 'customize.iconOptions.skills.star', value: 'star' },
-      { labelKey: 'customize.iconOptions.skills.checklist', value: 'checklist' },
-      { labelKey: 'customize.iconOptions.skills.auto_fix_high', value: 'auto_fix_high' }
+      { labelKey: 'customize.iconOptions.skills.psychology', value: 'sparkles' },
+      { labelKey: 'customize.iconOptions.skills.build', value: 'wrench' },
+      { labelKey: 'customize.iconOptions.skills.checklist', value: 'checklist' }
     ],
 
     // Cursos
     courses: [
-      { labelKey: 'customize.iconOptions.courses.menu_book', value: 'menu_book' },
-      { labelKey: 'customize.iconOptions.courses.library_books', value: 'library_books' },
-      { labelKey: 'customize.iconOptions.courses.local_library', value: 'local_library' },
-      { labelKey: 'customize.iconOptions.courses.auto_stories', value: 'auto_stories' },
-      { labelKey: 'customize.iconOptions.courses.import_contacts', value: 'import_contacts' }
+      { labelKey: 'customize.iconOptions.courses.menu_book', value: 'book' },
+      { labelKey: 'customize.iconOptions.courses.import_contacts', value: 'certificate' },
+      { labelKey: 'customize.iconOptions.courses.auto_stories', value: 'graduation' }
     ],
 
     // Proyectos
     projects: [
       { labelKey: 'customize.iconOptions.projects.folder', value: 'folder' },
-      { labelKey: 'customize.iconOptions.projects.folder_open', value: 'folder_open' },
       { labelKey: 'customize.iconOptions.projects.code', value: 'code' },
       { labelKey: 'customize.iconOptions.projects.terminal', value: 'terminal' },
-      { labelKey: 'customize.iconOptions.projects.laptop_mac', value: 'laptop_mac' },
-      { labelKey: 'customize.iconOptions.projects.construction', value: 'construction' }
+      { labelKey: 'customize.iconOptions.projects.laptop_mac', value: 'laptop' }
     ]
   };
 

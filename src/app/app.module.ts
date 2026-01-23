@@ -22,6 +22,7 @@ import { CoursesComponent } from './pages/components/courses/courses.component';
 import { ReferencesComponent } from './pages/components/references/references.component';
 import { TemplatesComponent } from './pages/templates/templates.component';
 import { CustomizeComponent } from './pages/customize/customize.component';
+import { AppIconComponent } from './shared/components/app-icon/app-icon.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -33,6 +34,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CvPreviewComponent,
     SectionTabsComponent,
     HeaderComponent,
+    AppIconComponent,
     PersonalInfoComponent,
     WorkExperienceComponent,
     SkillsComponent,

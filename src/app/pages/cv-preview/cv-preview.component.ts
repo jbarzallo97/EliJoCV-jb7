@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, NgZone, OnDest
 import { CvDataService } from '../../core/services/cv-data.service';
 import { CvData, CvSectionId } from '../../core/models/cv-data.model';
 import { TemplateService } from '../../core/services/template.service';
+import * as htmlToImage from 'html-to-image';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { Subscription } from 'rxjs';
@@ -19,6 +20,7 @@ export class CvPreviewComponent implements OnInit {
   previewReady = true;
   isDownloading = false;
   private hasCvData = false;
+  private materialIconsEmbedCss: string | null = null;
 
   @ViewChild('flowTop') flowTopRef?: ElementRef<HTMLElement>;
   @ViewChild('flowLeft') flowLeftRef!: ElementRef<HTMLElement>;
@@ -133,6 +135,8 @@ export class CvPreviewComponent implements OnInit {
       const pageWidthMm = 210;
       const pageHeightMm = 297;
 
+      const materialIconsCss = await this.getMaterialIconsEmbedCss();
+
       // Calidad alta por defecto: scale 3 + PNG
       for (let i = 0; i < pageEls.length; i++) {
         const pageEl = pageEls[i];
@@ -145,16 +149,47 @@ export class CvPreviewComponent implements OnInit {
           const capW = Math.round(rect.width);
           const capH = Math.round(rect.height);
           const bg = getComputedStyle(pageEl).backgroundColor || '#ffffff';
-          const canvas = await html2canvas(pageEl, {
-            scale: 3,
-            backgroundColor: bg,
-            useCORS: true,
-            width: capW,
-            height: capH
-          });
 
-          // PNG evita artefactos de compresión (JPEG suele verse "pixelado" en texto)
-          const imgData = canvas.toDataURL('image/png');
+          // Intento 1 (principal): html-to-image (suele tolerar mejor CSS moderno como color-mix())
+          // Intento 2 (fallback): html2canvas
+          let imgData: string | null = null;
+          try {
+            imgData = await htmlToImage.toPng(pageEl, {
+              backgroundColor: bg,
+              width: capW,
+              height: capH,
+              pixelRatio: 3,
+              cacheBust: true,
+              // Evita intentar "inline" webfonts remotas (Google Fonts / Material Icons),
+              // lo cual dispara SecurityError por CORS al leer cssRules.
+              // Las fuentes ya están cargadas (await document.fonts.ready), así que el render se mantiene.
+              // PERO sí embebemos Material Icons en el SVG para que no salga el texto "person/work/..."
+              // (ligatures) durante el export.
+              skipFonts: true,
+              fontEmbedCSS: materialIconsCss || undefined,
+              style: {
+                // Evitar que se capture algún transform temporal (ej. mobile scale)
+                transform: 'none',
+                transformOrigin: 'top left'
+              }
+            });
+          } catch (e) {
+            // eslint-disable-next-line no-console
+            console.warn('[PDF] html-to-image falló, usando html2canvas como fallback', e);
+            const canvas = await html2canvas(pageEl, {
+              scale: 3,
+              backgroundColor: bg,
+              useCORS: true,
+              width: capW,
+              height: capH
+            });
+            // PNG evita artefactos de compresión (JPEG suele verse "pixelado" en texto)
+            imgData = canvas.toDataURL('image/png');
+          }
+
+          if (!imgData) {
+            throw new Error('No se pudo renderizar la página para el PDF');
+          }
 
           if (i > 0) pdf.addPage();
           // Forzar a ocupar toda el área A4 para que márgenes/ancho coincidan 1:1 con el preview
@@ -252,6 +287,62 @@ export class CvPreviewComponent implements OnInit {
     }
 
     return null;
+  }
+
+  private async getMaterialIconsEmbedCss(): Promise<string | null> {
+    // Cache: no volver a descargar/convertir por cada página
+    if (this.materialIconsEmbedCss) return this.materialIconsEmbedCss;
+
+    // Material Icons (ligatures) necesita que la fuente esté embebida en el SVG generado por html-to-image;
+    // si no, se renderiza como texto ("person", "work", etc.) en el PDF.
+    try {
+      const cssUrl = 'https://fonts.googleapis.com/icon?family=Material+Icons';
+      const cssRes = await fetch(cssUrl, { cache: 'force-cache' });
+      const cssText = await cssRes.text();
+
+      // Buscar una URL .woff2 dentro del CSS (tomamos la primera; suficiente para los ligatures comunes)
+      const woff2Url = (cssText.match(/https:\/\/fonts\.gstatic\.com[^)'"\\s]+\\.woff2/g) || [])[0];
+      if (!woff2Url) return null;
+
+      const fontRes = await fetch(woff2Url, { cache: 'force-cache' });
+      const buf = await fontRes.arrayBuffer();
+      const b64 = this.arrayBufferToBase64(buf);
+
+      // IMPORTANTE: Material Icons funciona por ligatures ("person" => glifo).
+      // Para que en el SVG exportado no aparezca el texto, forzamos 'liga' y la familia.
+      const embedded = `@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(data:font/woff2;base64,${b64}) format('woff2');
+}
+.material-icons {
+  font-family: 'Material Icons' !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  font-feature-settings: 'liga' 1 !important;
+  -webkit-font-feature-settings: 'liga' 1 !important;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}`;
+
+      this.materialIconsEmbedCss = embedded;
+      return embedded;
+    } catch {
+      return null;
+    }
+  }
+
+  private arrayBufferToBase64(buffer: ArrayBuffer): string {
+    const bytes = new Uint8Array(buffer);
+    const chunkSize = 0x8000;
+    let binary = '';
+    for (let i = 0; i < bytes.length; i += chunkSize) {
+      const chunk = bytes.subarray(i, i + chunkSize);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      binary += String.fromCharCode.apply(null, chunk as any);
+    }
+    return btoa(binary);
   }
 
   /**
