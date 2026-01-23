@@ -126,6 +126,8 @@ export class CvDataService {
       'certificate',
       'folder',
       'code',
+      'terminal',
+      'laptop',
       'users',
       'handshake',
       'language',
@@ -206,10 +208,13 @@ export class CvDataService {
       case 'folder_open':
         return 'folder';
       case 'code':
-      case 'terminal':
-      case 'laptop_mac':
-      case 'construction':
         return 'code';
+      case 'terminal':
+        return 'terminal';
+      case 'laptop_mac':
+        return 'laptop';
+      case 'construction':
+        return 'wrench';
 
       default:
         return 'folder';

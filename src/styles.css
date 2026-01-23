@@ -384,6 +384,55 @@ body.dark-mode ::-webkit-scrollbar-thumb:hover {
   background: #777;
 }
 
+/* Customize: selects/inputs legibles en modo oscuro */
+body.dark-mode app-customize .form-select,
+body.dark-mode app-customize .form-control {
+  background-color: #1f1f1f !important;
+  border-color: #3a3a3a !important;
+  color: #e8e8e8 !important;
+  color-scheme: dark;
+}
+
+body.dark-mode app-customize .form-control::placeholder {
+  color: rgba(232, 232, 232, 0.55) !important;
+}
+
+body.dark-mode app-customize .form-select:focus,
+body.dark-mode app-customize .form-control:focus {
+  border-color: rgba(59, 130, 246, 0.7) !important;
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.22) !important;
+}
+
+body.dark-mode app-customize .input-group-text {
+  background-color: #1a1a1a !important;
+  border-color: #3a3a3a !important;
+  color: #e8e8e8 !important;
+}
+
+/* Data: Skills & Languages - selects/inputs legibles en modo oscuro */
+body.dark-mode app-skills .form-select,
+body.dark-mode app-skills .form-control,
+body.dark-mode app-languages .form-select,
+body.dark-mode app-languages .form-control {
+  background-color: #1f1f1f !important;
+  border-color: #3a3a3a !important;
+  color: #e8e8e8 !important;
+  color-scheme: dark;
+}
+
+body.dark-mode app-skills .form-control::placeholder,
+body.dark-mode app-languages .form-control::placeholder {
+  color: rgba(232, 232, 232, 0.55) !important;
+}
+
+body.dark-mode app-skills .form-select:focus,
+body.dark-mode app-skills .form-control:focus,
+body.dark-mode app-languages .form-select:focus,
+body.dark-mode app-languages .form-control:focus {
+  border-color: rgba(59, 130, 246, 0.7) !important;
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.22) !important;
+}
+
 /* Impresión: tamaño A4 real */
 @media print {
   @page {

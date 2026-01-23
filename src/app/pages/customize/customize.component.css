@@ -168,29 +168,29 @@
 }
 
 /* Dark mode */
-::host-context(body.dark-mode) .layout-col-title {
+:host-context(body.dark-mode) .layout-col-title {
   color: #e0e0e0;
 }
 
-::host-context(body.dark-mode) .section-dnd-list {
+:host-context(body.dark-mode) .section-dnd-list {
   background: #1e1e1e;
   border-color: #444;
 }
 
-::host-context(body.dark-mode) .section-dnd-item {
+:host-context(body.dark-mode) .section-dnd-item {
   background: #242424;
   border-color: #333;
 }
 
-::host-context(body.dark-mode) .section-dnd-label {
+:host-context(body.dark-mode) .section-dnd-label {
   color: #e0e0e0;
 }
 
-::host-context(body.dark-mode) .section-dnd-icon {
+:host-context(body.dark-mode) .section-dnd-icon {
   color: var(--ui-primary);
 }
 
-::host-context(body.dark-mode) .drag-handle {
+:host-context(body.dark-mode) .drag-handle {
   color: #64748b;
 }
 
